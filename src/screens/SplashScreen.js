@@ -20,7 +20,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 // import {color} from 'react-native-reanimated';
 // import Welcome from './welcome';
 
-const SpashScreen = ({navigation}) => {
+const SplashScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -67,7 +67,7 @@ const SpashScreen = ({navigation}) => {
 //   }
 // }
 
-export default SpashScreen;
+export default SplashScreen;
 
 const {height} = Dimensions.get('screen');
 const height_logo = height * 0.28;

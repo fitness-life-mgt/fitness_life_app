@@ -8,18 +8,19 @@ import HomeScreen from '../screens/HomeScreen';
 import WorkoutScreen from '../screens/WorkoutScreen';
 import MusicScreen from '../screens/MusicScreen';
 import ProfileScreen from '../screens/ProfileScreen';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+// import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
   return (
-    <Tab.Navigator initialRouteName="Home" activeColor="#ffffff">
+    <Tab.Navigator initialRouteName="Home" activeColor="#000000">
       <Tab.Screen
         name="Home"
         component={HomeScreen}
         options={{
           tabBarLabel: 'Home',
+          tabBarColor: 'yellow',
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons name="home" color={color} size={26} />
           ),

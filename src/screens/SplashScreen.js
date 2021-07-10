@@ -8,17 +8,9 @@ import {
   StatusBar,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-// import {Colors} from 'react-native/Libraries/NewAppScreen';
-// import {NavigationContainer} from '@react-navigation/native';
-// import {createStackNavigator} from '@react-navigation/stack';
-// import {useTheme} from '@react-navigation/native';
-
 import colors from '../config/colors';
 import LinearGradient from 'react-native-linear-gradient';
-// import SignInScreen from './SignInScreen';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-// import {color} from 'react-native-reanimated';
-// import Welcome from './welcome';
 
 const SplashScreen = ({navigation}) => {
   return (
@@ -100,10 +92,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'roboto',
   },
-  //   text: {
-  //     color: 'grey',
-  //     marginTop: 5,
-  //   },
+
   button: {
     alignItems: 'flex-end',
     marginTop: 30,

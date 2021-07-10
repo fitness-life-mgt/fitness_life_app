@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-const Page02 = () => {
+const ProfileScreen = () => {
   return (
     <View style={styles.view}>
-      <Text style={styles.bodyText}>Welcome to Page 02!</Text>
+      <Text style={styles.bodyText}>Welcome to Profile</Text>
     </View>
   );
 };
@@ -21,4 +21,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Page02;
+export default ProfileScreen;

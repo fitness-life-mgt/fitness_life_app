@@ -1,30 +1,30 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  Button,
   Dimensions,
-  Image,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 // import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+// import {NavigationContainer} from '@react-navigation/native';
+// import {createStackNavigator} from '@react-navigation/stack';
 // import {useTheme} from '@react-navigation/native';
 
 import colors from '../config/colors';
 import LinearGradient from 'react-native-linear-gradient';
-import SignInScreen from './SignInScreen';
-// import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+// import SignInScreen from './SignInScreen';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 // import {color} from 'react-native-reanimated';
 // import Welcome from './welcome';
 
-const SpashScreen = ({navigation}) => {
+const SplashScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
         <Animatable.Image
           animation="bounceIn"
           duraton="2000"
@@ -36,12 +36,14 @@ const SpashScreen = ({navigation}) => {
       <Animatable.View style={styles.footer} animation="fadeInUpBig">
         <Text style={styles.title}>Your Gym is Waiting for You..!</Text>
         <View style={styles.button}>
-          <TouchableOpacity onPress={() => navigation.navigate('SignInScreen')}>
+          <TouchableOpacity
+          // onPress={() => navigation.navigate('SignInScreen')}
+          >
             <LinearGradient
               colors={[colors.color3, colors.color4]}
               style={styles.signIn}>
               <Text style={styles.textSign}>Get Started</Text>
-              {/* <MaterialIcons name="navigate-next" color="#fff" size={20} /> */}
+              <MaterialIcons name="navigate-next" color="#fff" size={20} />
             </LinearGradient>
           </TouchableOpacity>
         </View>
@@ -65,7 +67,7 @@ const SpashScreen = ({navigation}) => {
 //   }
 // }
 
-export default SpashScreen;
+export default SplashScreen;
 
 const {height} = Dimensions.get('screen');
 const height_logo = height * 0.28;

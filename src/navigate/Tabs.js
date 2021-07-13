@@ -1,6 +1,7 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import colors from '../config/colors';
 
@@ -8,6 +9,7 @@ import HomeScreen from '../screens/HomeScreen';
 import WorkoutScreen from '../screens/WorkoutScreen';
 import MusicScreen from '../screens/MusicScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import ContactUsScreen from '../screens/ContactUsScreen';
 // import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 const Tab = createBottomTabNavigator();
@@ -36,6 +38,16 @@ const Tabs = () => {
           ),
         }}
       />
+      {/* <Tab.Screen
+        name="Contact"
+        component={ContactUsScreen}
+        options={{
+          tabBarLabel: 'Contact Us',
+          tabBarIcon: ({color}) => (
+            <FontAwesome name="support" color={color} size={26} />
+          ),
+        }}
+      /> */}
       <Tab.Screen
         name="Music"
         component={MusicScreen}

@@ -86,7 +86,21 @@ const RegisterScreen = navigation => {
     });
   };
 
+  const handleConfirmPasswordChange = val => {
+    setData({
+      ...data,
+      password: val,
+    });
+  };
+
   const updateSecureTextEntry = () => {
+    setData({
+      ...data,
+      secureTextEntry: !data.secureTextEntry,
+    });
+  };
+
+  const updateConfirmSecureTextEntry = () => {
     setData({
       ...data,
       secureTextEntry: !data.secureTextEntry,
@@ -170,7 +184,7 @@ const RegisterScreen = navigation => {
             ) : null}
           </View>
 
-          {/* Have to add confirm password */}
+          {/* password */}
           <Text style={styles.text_footer}>Password</Text>
           <View style={styles.action}>
             <FontAwesome name="lock" color="grey" size={20} />
@@ -189,6 +203,26 @@ const RegisterScreen = navigation => {
               )}
             </TouchableOpacity>
           </View>
+          {/* confirm password */}
+          <Text style={styles.text_footer}>Confirm Password</Text>
+          <View style={styles.action}>
+            <FontAwesome name="lock" color="grey" size={20} />
+            <TextInput
+              placeholder="Re-enter Password"
+              secureTextEntry={data.secureTextEntry ? true : false}
+              style={styles.textInput}
+              autoCapitalize="none"
+              onChangeText={val => handleConfirmPasswordChange(val)}
+            />
+            <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
+              {data.secureTextEntry ? (
+                <Feather name="eye-off" color={colors.color2} size={20} />
+              ) : (
+                <Feather name="eye" color={colors.color2} size={20} />
+              )}
+            </TouchableOpacity>
+          </View>
+
           <View style={styles.button}>
             <LinearGradient
               colors={[colors.color3, colors.color4]}
@@ -196,11 +230,12 @@ const RegisterScreen = navigation => {
               <Text
                 style={[
                   styles.textSign,
+                  // eslint-disable-next-line react-native/no-inline-styles
                   {
                     color: '#ffffff',
                   },
                 ]}>
-                Log In
+                Register
               </Text>
             </LinearGradient>
 
@@ -208,6 +243,7 @@ const RegisterScreen = navigation => {
               // onPress={() => navigation.navigate('SplashScreen')}
               style={[
                 styles.signIn,
+                // eslint-disable-next-line react-native/no-inline-styles
                 {
                   borderColor: colors.color3,
                   borderWidth: 1,
@@ -221,8 +257,7 @@ const RegisterScreen = navigation => {
                     color: colors.color3,
                   },
                 ]}>
-                {' '}
-                Register{' '}
+                Log In
               </Text>
             </TouchableOpacity>
           </View>

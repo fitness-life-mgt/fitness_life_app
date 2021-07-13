@@ -12,6 +12,10 @@ import colors from '../config/colors';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import LogInScreen from './LogInScreen';
+
 const SplashScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
@@ -32,6 +36,7 @@ const SplashScreen = ({navigation}) => {
           // onPress={() => navigation.navigate('SignInScreen')}
           >
             <LinearGradient
+              // onPress={() => navigation.navigate('LoginScreen')}
               colors={[colors.color3, colors.color4]}
               style={styles.signIn}>
               <Text style={styles.textSign}>Get Started</Text>

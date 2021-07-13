@@ -14,6 +14,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 // import {Colors} from 'react-native/Libraries/NewAppScreen';
 import colors from '../config/colors';
+import {color} from 'react-native-reanimated';
 
 const LogInScreen = navigation => {
   const [data, setData] = React.useState({
@@ -104,7 +105,7 @@ const LogInScreen = navigation => {
               style={[
                 styles.textSign,
                 {
-                  color: '#ffffff',
+                  color: colors.color5,
                 },
               ]}>
               Log In
@@ -115,6 +116,7 @@ const LogInScreen = navigation => {
             // onPress={() => navigation.navigate('SplashScreen')}
             style={[
               styles.signIn,
+              // eslint-disable-next-line react-native/no-inline-styles
               {
                 borderColor: colors.color3,
                 borderWidth: 1,

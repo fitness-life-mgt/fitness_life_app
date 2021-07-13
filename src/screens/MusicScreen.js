@@ -11,7 +11,7 @@ const MusicScreen = () => {
         </View>
       </View>
       <View style={styles.body}>
-        <Text style={styles.bodyText}>Welcome to Music</Text>
+        <Text style={styles.bodyText}>Welcome to Music!</Text>
       </View>
     </View>
   );

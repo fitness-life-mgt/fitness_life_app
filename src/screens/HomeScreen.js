@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Image,
+  ScrollView,
+} from 'react-native';
 import colors from '../config/colors';
 // import {WeekCalendar} from 'react-native-calendars';
 
@@ -8,11 +15,35 @@ const HomeScreen = () => {
     <View style={styles.view}>
       <View style={styles.header}>
         <View>
-          <Text style={styles.headerText}>For Today</Text>
+          <Text style={styles.headerText}>Hi John!</Text>
         </View>
       </View>
       <View style={styles.body}>
-        <Text style={styles.bodyText}>Welcome to HomePage!</Text>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View>
+            <Image
+              source={require('../assests/images/home.png')}
+              style={styles.image_home}
+              resizeMode="stretch"
+            />
+          </View>
+          <View>
+            <Image
+              source={require('../assests/images/homeImage.png')}
+              style={styles.image_home}
+              resizeMode="stretch"
+            />
+          </View>
+          <Text style={styles.text_home}>Appointments                     Diet Plans</Text>
+          <View>
+            <Image
+              source={require('../assests/images/homeImage2.png')}
+              style={styles.image_home2}
+              resizeMode="stretch"
+            />
+          </View>
+          <Text style={styles.text_home2}>Schedules                    Self Progress</Text>
+        </ScrollView>
       </View>
     </View>
   );
@@ -39,8 +70,6 @@ const styles = StyleSheet.create({
     flex: 8,
     width: windowWidth,
     backgroundColor: colors.color5,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   headerText: {
     fontSize: 24,
@@ -50,6 +79,31 @@ const styles = StyleSheet.create({
   },
   bodyText: {
     fontSize: 24,
+  },
+  image_home: {
+    height: 200,
+    width: windowWidth,
+  },
+  image_home2: {
+    top: -25,
+    height: 150,
+    width: windowWidth,
+  },
+  text_home: {
+    fontSize: 16,
+    fontFamily: 'roboto',
+    color: colors.color5,
+    left: 40,
+    top: -163,
+    fontWeight: 'bold',
+  },
+  text_home2: {
+    fontSize: 16,
+    fontFamily: 'roboto',
+    color: colors.color5,
+    left: 60,
+    top: -168,
+    fontWeight: 'bold',
   },
 });
 

@@ -118,11 +118,11 @@ const RegisterScreen = navigation => {
           </Text>
         </View>
         <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-          <Text style={styles.text_footer}>First Name</Text>
+          <Text style={styles.text_footer}>Username</Text>
           <View style={styles.action}>
             <FontAwesome name="user" color="grey" size={20} />
             <TextInput
-              placeholder="Your First Name"
+              placeholder="Your Username"
               style={styles.textInput}
               autoCapitalize="none"
               onChangeText={val => textInputChangeFirstName(val)}
@@ -135,11 +135,11 @@ const RegisterScreen = navigation => {
           </View>
 
           {/* To get the last name */}
-          <Text style={styles.text_footer}>Last Name</Text>
+          <Text style={styles.text_footer}>Full Name</Text>
           <View style={styles.action}>
-            <FontAwesome name="user" color="grey" size={20} />
+            <FontAwesome name="user-o" color="grey" size={20} />
             <TextInput
-              placeholder="Your Last Name"
+              placeholder="Your Full Name"
               style={styles.textInput}
               autoCapitalize="none"
               onChangeText={val => textInputChangeLastName(val)}
@@ -153,7 +153,7 @@ const RegisterScreen = navigation => {
           {/* To get the email */}
           <Text style={styles.text_footer}>Email</Text>
           <View style={styles.action}>
-            <FontAwesome name="user-o" color="grey" size={20} />
+            <FontAwesome name="envelope" color="grey" size={20} />
             <TextInput
               placeholder="Your Email"
               style={styles.textInput}
@@ -167,7 +167,7 @@ const RegisterScreen = navigation => {
             ) : null}
           </View>
           {/* To get the phone number */}
-          <Text style={styles.text_footer}>Contact No.</Text>
+          {/* <Text style={styles.text_footer}>Contact No.</Text>
           <View style={styles.action}>
             <FontAwesome name="phone" color="grey" size={20} />
 
@@ -182,7 +182,7 @@ const RegisterScreen = navigation => {
                 <Feather name="check-circle" color={colors.color2} size={20} />
               </Animatable.View>
             ) : null}
-          </View>
+          </View> */}
 
           {/* password */}
           <Text style={styles.text_footer}>Password</Text>
@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 10,
   },
   signIn: {
     width: '100%',

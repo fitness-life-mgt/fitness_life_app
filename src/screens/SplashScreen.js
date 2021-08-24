@@ -6,17 +6,24 @@ import {
   Dimensions,
   TouchableOpacity,
   StatusBar,
+  Button,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import colors from '../config/colors';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import LogInScreen from './LogInScreen';
+// import {NavigationContainer} from '@react-navigation/native';
+// import {createStackNavigator} from '@react-navigation/stack';
+// import LogInScreen from './LogInScreen';
 
-const SplashScreen = ({navigation}) => {
+// import Navigator from '../navigate/SplashScreenStack';
+
+export default function SplashScreen({navigation}) {
+  const pressHandler = () => {
+    navigation.navigate('LogInScreen');
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -39,6 +46,11 @@ const SplashScreen = ({navigation}) => {
               // onPress={() => navigation.navigate('LoginScreen')}
               colors={[colors.color3, colors.color4]}
               style={styles.signIn}>
+              <Button
+                title="Next"
+                style={styles.textSign}
+                onPress={pressHandler}
+              />
               <Text style={styles.textSign}>Get Started</Text>
               <MaterialIcons name="navigate-next" color="#fff" size={20} />
             </LinearGradient>
@@ -47,7 +59,7 @@ const SplashScreen = ({navigation}) => {
       </Animatable.View>
     </View>
   );
-};
+}
 
 // const Stack = createStackNavigator();
 
@@ -64,7 +76,7 @@ const SplashScreen = ({navigation}) => {
 //   }
 // }
 
-export default SplashScreen;
+// export default SplashScreen;
 
 const {height} = Dimensions.get('screen');
 const height_logo = height * 0.28;

@@ -22,7 +22,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 export default function SplashScreen({navigation}) {
   const pressHandler = () => {
     navigation.navigate('LogInScreen');
-  }
+  };
 
   return (
     <View style={styles.container}>

@@ -7,6 +7,7 @@ import {
   View,
   Text,
   StatusBar,
+  ScrollView,
 } from 'react-native';
 import colors from '../config/colors';
 import * as Animatable from 'react-native-animatable';
@@ -18,65 +19,68 @@ export default function MakeAppointment() {
         <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
         <Text style={styles.text_header}>Request Your Appointment</Text>
       </View>
+
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <Formik
-          initialValues={{name: '', date: '', time: '', duration: ''}}
-          onSubmit={(values, actions) => {
-            actions.resetForm();
-            console.log(values);
-          }}>
-          {props => (
-            <View>
-              <Text style={styles.text_footer}>Name</Text>
-              <View style={styles.action}>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="Name"
-                  onChangeText={props.handleChange('name')}
-                  value={props.values.name}
-                />
-              </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Formik
+            initialValues={{name: '', date: '', time: '', duration: ''}}
+            onSubmit={(values, actions) => {
+              actions.resetForm();
+              console.log(values);
+            }}>
+            {props => (
+              <View>
+                <Text style={styles.text_footer}>Name</Text>
+                <View style={styles.action}>
+                  <TextInput
+                    style={styles.textInput}
+                    placeholder="Name"
+                    onChangeText={props.handleChange('name')}
+                    value={props.values.name}
+                  />
+                </View>
 
-              <Text style={styles.text_footer}>Date of Appointment</Text>
-              <View style={styles.action}>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="DD/MM/YYYY"
-                  onChangeText={props.handleChange('date')}
-                  value={props.values.date}
-                />
-              </View>
+                <Text style={styles.text_footer}>Date of Appointment</Text>
+                <View style={styles.action}>
+                  <TextInput
+                    style={styles.textInput}
+                    placeholder="DD/MM/YYYY"
+                    onChangeText={props.handleChange('date')}
+                    value={props.values.date}
+                  />
+                </View>
 
-              <Text style={styles.text_footer}>Time of Appointment</Text>
-              <View style={styles.action}>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="HH:MM"
-                  onChangeText={props.handleChange('time')}
-                  value={props.values.time}
-                />
-              </View>
+                <Text style={styles.text_footer}>Time of Appointment</Text>
+                <View style={styles.action}>
+                  <TextInput
+                    style={styles.textInput}
+                    placeholder="HH:MM"
+                    onChangeText={props.handleChange('time')}
+                    value={props.values.time}
+                  />
+                </View>
 
-              <Text style={styles.text_footer}>Number of Hours</Text>
-              <View style={styles.action}>
-                <TextInput
-                  style={styles.textInput}
-                  placeholder="1"
-                  onChangeText={props.handleChange('duration')}
-                  value={props.values.duration}
-                />
-              </View>
+                <Text style={styles.text_footer}>Number of Hours</Text>
+                <View style={styles.action}>
+                  <TextInput
+                    style={styles.textInput}
+                    placeholder="1"
+                    onChangeText={props.handleChange('duration')}
+                    value={props.values.duration}
+                  />
+                </View>
 
-              <View style={styles.button}>
-                <Button
-                  title="Request Appointment"
-                  color={colors.color3}
-                  onPress={props.handleSubmit}
-                />
+                <View style={styles.button}>
+                  <Button
+                    title="Request Appointment"
+                    color={colors.color3}
+                    onPress={props.handleSubmit}
+                  />
+                </View>
               </View>
-            </View>
-          )}
-        </Formik>
+            )}
+          </Formik>
+        </ScrollView>
       </Animatable.View>
     </View>
   );
@@ -143,12 +147,10 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    marginTop: 25,
+    marginTop: 20,
     fontFamily: 'roboto',
-    width: '100%',
-    height: 50,
     justifyContent: 'center',
-    borderRadius: 10,
+    // borderRadius: 100,
   },
   textSign: {
     fontSize: 18,

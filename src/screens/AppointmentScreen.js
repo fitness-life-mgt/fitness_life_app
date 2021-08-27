@@ -10,13 +10,13 @@ import {
 import colors from '../config/colors';
 import LinearGradient from 'react-native-linear-gradient';
 
-const WorkoutScreen = () => {
+const AppointmentScreen = () => {
   return (
     <View style={styles.view}>
       <View style={styles.header}>
         <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
         <View>
-          <Text style={styles.headerText}>Workouts</Text>
+          <Text style={styles.headerText}>Appointments</Text>
         </View>
       </View>
       <View style={styles.body}>
@@ -38,7 +38,7 @@ const WorkoutScreen = () => {
                   color: colors.color5,
                 },
               ]}>
-              ARM Workouts
+              Make an Appointment
             </Text>
           </LinearGradient>
 
@@ -52,7 +52,7 @@ const WorkoutScreen = () => {
                   color: colors.color5,
                 },
               ]}>
-              ABS Workouts
+              Approved Appointments
             </Text>
           </LinearGradient>
 
@@ -66,7 +66,7 @@ const WorkoutScreen = () => {
                   color: colors.color5,
                 },
               ]}>
-              Legs Workouts
+              Past Appointments
             </Text>
           </LinearGradient>
         </View>
@@ -138,4 +138,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default WorkoutScreen;
+export default AppointmentScreen;

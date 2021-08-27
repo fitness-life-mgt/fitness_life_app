@@ -6,7 +6,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import colors from '../config/colors';
 
 import HomeScreen from '../screens/HomeScreen';
-import WorkoutScreen from '../screens/WorkoutScreen';
+import AppointmentScreen from '../screens/AppointmentScreen';
 import MusicScreen from '../screens/MusicScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ContactUsScreen from '../screens/ContactUsScreen';
@@ -29,12 +29,12 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="Workouts"
-        component={WorkoutScreen}
+        name="Appointments"
+        component={AppointmentScreen}
         options={{
-          tabBarLabel: 'Workouts',
+          tabBarLabel: 'Appointments',
           tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="dumbbell" color={color} size={26} />
+            <MaterialCommunityIcons name="calendar" color={color} size={26} />
           ),
         }}
       />

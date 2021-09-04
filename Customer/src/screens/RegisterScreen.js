@@ -82,18 +82,18 @@ const RegisterScreen = ({navigation}) => {
     }
   };
 
-  const textInputChangeLastName = val => {
-    if (val.length !== 0) {
+  const textInputChangeLastName = vals => {
+    if (vals.length !== 0) {
       setData({
         ...data,
-        first_name: val,
+        first_name: vals,
         check_textInputChangeLastName: true,
         // isValidUser: true,
       });
     } else {
       setData({
         ...data,
-        first_name: val,
+        first_name: vals,
         check_textInputChangeLastName: false,
         // isValidUser: false,
       });
@@ -185,7 +185,10 @@ const RegisterScreen = ({navigation}) => {
               autoCapitalize="none"
               name="lnametext"
               value={lnametext}
-              onChangeText={val => setlnametext(val)}
+              onChangeText={
+                val => setlnametext(val)
+                // vals => textInputChangeLastName(vals))
+              }
               // onChangeText={val => textInputChangeLastName(val)}
             />
             {data.check_textInputChangeLastName ? (
@@ -399,6 +402,7 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     marginTop: 10,
+    width: '100%',
   },
   signIn: {
     width: '100%',
@@ -410,5 +414,7 @@ const styles = StyleSheet.create({
   textSign: {
     fontSize: 18,
     fontWeight: 'bold',
+    marginRight: 125,
+    marginLeft: 125,
   },
 });

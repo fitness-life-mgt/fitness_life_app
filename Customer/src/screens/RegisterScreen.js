@@ -1,4 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
+
 import {
   View,
   Text,
@@ -17,12 +19,49 @@ import Feather from 'react-native-vector-icons/Feather';
 import colors from '../config/colors';
 import PhoneInput from 'react-native-phone-number-input';
 
-const RegisterScreen = navigation => {
+// const RegisterScreen = navigation => {
+//   const [data, setData] = React.useState({
+//     username: '',
+//     password: '',
+//     check_textInputChange: false,
+//     secureTextEntry: true,
+//   });
+
+const RegisterScreen = ({navigation}) => {
+  const [fnametext, setfnametext] = useState('');
+  const [lnametext, setlnametext] = useState('');
+  const [emailtext, setemailtext] = useState('');
+  const [passwordtext, setpasswordtext] = useState('');
+  const [cpasswordtext, setcpasswordtext] = useState('');
+
+  const SignUp = (fname, lname, email, password, cpassword) => {
+    const x = {
+      fname: fname,
+      lname: lname,
+      email: email,
+      password: password,
+      cpassword: cpassword,
+    };
+
+    axios
+      .post('http://localhost:8088/register', x)
+      .then(res => {
+        if (res.data == 'SUCCESS') {
+          navigation.navigate('MainTabScreen');
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   const [data, setData] = React.useState({
-    username: '',
+    email: '',
     password: '',
+    confirm_password: '',
     check_textInputChange: false,
     secureTextEntry: true,
+    confirm_secureTextEntry: true,
   });
 
   const textInputChangeFirstName = val => {
@@ -125,7 +164,9 @@ const RegisterScreen = navigation => {
               placeholder="Your Username"
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={val => textInputChangeFirstName(val)}
+              name="fnametext"
+              value={fnametext}
+              onChangeText={val => setfnametext(val)}
             />
             {data.check_textInputChangeFirstName ? (
               <Animatable.View animation="bounceIn">
@@ -142,7 +183,10 @@ const RegisterScreen = navigation => {
               placeholder="Your Full Name"
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={val => textInputChangeLastName(val)}
+              name="lnametext"
+              value={lnametext}
+              onChangeText={val => setlnametext(val)}
+              // onChangeText={val => textInputChangeLastName(val)}
             />
             {data.check_textInputChangeLastName ? (
               <Animatable.View animation="bounceIn">
@@ -158,7 +202,10 @@ const RegisterScreen = navigation => {
               placeholder="Your Email"
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={val => textInputChangeEmail(val)}
+              name="emailtext"
+              value={emailtext}
+              onChangeText={val => setemailtext(val)}
+              // onChangeText={val => textInputChangeEmail(val)}
             />
             {data.check_textInputChangeEmail ? (
               <Animatable.View animation="bounceIn">
@@ -193,7 +240,10 @@ const RegisterScreen = navigation => {
               secureTextEntry={data.secureTextEntry ? true : false}
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={val => handlePasswordChange(val)}
+              name="passwordtext"
+              value={passwordtext}
+              onChangeText={val => setpasswordtext(val)}
+              // onChangeText={val => handlePasswordChange(val)}
             />
             <TouchableOpacity onPress={updateSecureTextEntry}>
               {data.secureTextEntry ? (
@@ -212,7 +262,10 @@ const RegisterScreen = navigation => {
               secureTextEntry={data.secureTextEntry ? true : false}
               style={styles.textInput}
               autoCapitalize="none"
-              onChangeText={val => handleConfirmPasswordChange(val)}
+              name="cpasswordtext"
+              value={cpasswordtext}
+              onChangeText={val => setcpasswordtext(val)}
+              // onChangeText={val => handleConfirmPasswordChange(val)}
             />
             <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
               {data.secureTextEntry ? (
@@ -224,20 +277,31 @@ const RegisterScreen = navigation => {
           </View>
 
           <View style={styles.button}>
-            <LinearGradient
-              colors={[colors.color3, colors.color4]}
-              style={styles.signIn}>
-              <Text
-                style={[
-                  styles.textSign,
-                  // eslint-disable-next-line react-native/no-inline-styles
-                  {
-                    color: '#ffffff',
-                  },
-                ]}>
-                Register
-              </Text>
-            </LinearGradient>
+            <TouchableOpacity
+              onPress={() =>
+                SignUp(
+                  fnametext,
+                  lnametext,
+                  emailtext,
+                  passwordtext,
+                  cpasswordtext,
+                )
+              }>
+              <LinearGradient
+                colors={[colors.color3, colors.color4]}
+                style={styles.signIn}>
+                <Text
+                  style={[
+                    styles.textSign,
+                    // eslint-disable-next-line react-native/no-inline-styles
+                    {
+                      color: '#ffffff',
+                    },
+                  ]}>
+                  Register
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
 
             <TouchableOpacity
               // onPress={() => navigation.navigate('SplashScreen')}

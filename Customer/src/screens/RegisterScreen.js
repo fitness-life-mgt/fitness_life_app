@@ -307,7 +307,7 @@ const RegisterScreen = ({navigation}) => {
             </TouchableOpacity>
 
             <TouchableOpacity
-              // onPress={() => navigation.navigate('SplashScreen')}
+              onPress={() => navigation.navigate('LogInScreen')}
               style={[
                 styles.signIn,
                 // eslint-disable-next-line react-native/no-inline-styles

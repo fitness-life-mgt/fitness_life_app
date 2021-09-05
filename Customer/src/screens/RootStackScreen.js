@@ -6,6 +6,7 @@ import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 
 import SplashScreen from './SplashScreen';
 import LogInScreen from './LogInScreen';
+import RegisterScreen from './RegisterScreen';
 
 const RootStack = createStackNavigator();
 
@@ -31,14 +32,23 @@ const RootStackScreen = ({navigation}) => {
             headerTitleStyle: {
               fontWeight: 'bold',
             },
-            // navigationOptions: {
-            //   header: null,
-            // },
           }}
         />
         <RootStack.Screen
           name="LogInScreen"
           component={LogInScreen}
+          options={{
+            title: '',
+            headerShown: false,
+
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
+        <RootStack.Screen
+          name="RegisterScreen"
+          component={RegisterScreen}
           options={{
             title: '',
             headerShown: false,

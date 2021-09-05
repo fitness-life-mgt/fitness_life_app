@@ -1,29 +1,27 @@
+// import React from 'react';
+// import {
+//   View,
+//   Text,
+//   StyleSheet,
+//   Dimensions,
+//   TouchableOpacity,
+//   StatusBar,
+//   Button,
+// } from 'react-native';
+// import * as Animatable from 'react-native-animatable';
+// import colors from '../config/colors';
+// import LinearGradient from 'react-native-linear-gradient';
+// import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-  StatusBar,
-  Button,
-} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {View, Text, StyleSheet, Dimensions, StatusBar} from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import colors from '../config/colors';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-// import {NavigationContainer} from '@react-navigation/native';
-// import {createStackNavigator} from '@react-navigation/stack';
-// import LogInScreen from './LogInScreen';
-
-// import Navigator from '../navigate/SplashScreenStack';
-
-export default function SplashScreen({navigation}) {
-  const pressHandler = () => {
-    navigation.navigate('LogInScreen');
-  };
-
+const SplashScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -38,19 +36,12 @@ export default function SplashScreen({navigation}) {
       </View>
       <Animatable.View style={styles.footer} animation="fadeInUpBig">
         <Text style={styles.title}>Your Gym is Waiting for You..!</Text>
+
         <View style={styles.button}>
-          <TouchableOpacity
-          // onPress={() => navigation.navigate('SignInScreen')}
-          >
+          <TouchableOpacity onPress={() => navigation.navigate('LogInScreen')}>
             <LinearGradient
-              // onPress={() => navigation.navigate('LoginScreen')}
               colors={[colors.color3, colors.color4]}
               style={styles.signIn}>
-              <Button
-                title="Next"
-                style={styles.textSign}
-                onPress={pressHandler}
-              />
               <Text style={styles.textSign}>Get Started</Text>
               <MaterialIcons name="navigate-next" color="#fff" size={20} />
             </LinearGradient>
@@ -59,7 +50,57 @@ export default function SplashScreen({navigation}) {
       </Animatable.View>
     </View>
   );
-}
+};
+
+export default SplashScreen;
+
+// import {NavigationContainer} from '@react-navigation/native';
+// import {createStackNavigator} from '@react-navigation/stack';
+// import LogInScreen from './LogInScreen';
+
+// import Navigator from '../navigate/SplashScreenStack';
+
+// export default function SplashScreen({navigation}) {
+//   const pressHandler = () => {
+//     navigation.navigate('LogInScreen');
+//   };
+
+//   return (
+//     <View style={styles.container}>
+//       <View style={styles.header}>
+//         <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
+//         <Animatable.Image
+//           animation="bounceIn"
+//           duraton="2000"
+//           source={require('../assests/images/logo.png')}
+//           style={styles.logo}
+//           resizeMode="stretch"
+//         />
+//       </View>
+//       <Animatable.View style={styles.footer} animation="fadeInUpBig">
+//         <Text style={styles.title}>Your Gym is Waiting for You..!</Text>
+//         <View style={styles.button}>
+//           <TouchableOpacity
+//           // onPress={() => navigation.navigate('SignInScreen')}
+//           >
+//             <LinearGradient
+//               // onPress={() => navigation.navigate('LoginScreen')}
+//               colors={[colors.color3, colors.color4]}
+//               style={styles.signIn}>
+//               <Button
+//                 title="Next"
+//                 style={styles.textSign}
+//                 onPress={pressHandler}
+//               />
+//               <Text style={styles.textSign}>Get Started</Text>
+//               <MaterialIcons name="navigate-next" color="#fff" size={20} />
+//             </LinearGradient>
+//           </TouchableOpacity>
+//         </View>
+//       </Animatable.View>
+//     </View>
+//   );
+// }
 
 // const Stack = createStackNavigator();
 

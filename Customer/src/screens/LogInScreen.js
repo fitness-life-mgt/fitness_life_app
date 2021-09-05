@@ -15,8 +15,9 @@ import Feather from 'react-native-vector-icons/Feather';
 // import {Colors} from 'react-native/Libraries/NewAppScreen';
 import colors from '../config/colors';
 import {color} from 'react-native-reanimated';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-const LogInScreen = navigation => {
+const LogInScreen = ({navigation}) => {
   const [data, setData] = React.useState({
     username: '',
     password: '',
@@ -113,7 +114,7 @@ const LogInScreen = navigation => {
           </LinearGradient>
 
           <TouchableOpacity
-            // onPress={() => navigation.navigate('SplashScreen')}
+            onPress={() => navigation.navigate('RegisterScreen')}
             style={[
               styles.signIn,
               // eslint-disable-next-line react-native/no-inline-styles

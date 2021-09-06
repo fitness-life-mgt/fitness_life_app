@@ -7,6 +7,7 @@ import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import SplashScreen from './SplashScreen';
 import LogInScreen from './LogInScreen';
 import RegisterScreen from './RegisterScreen';
+import Tabs from '../navigate/Tabs'; //added new
 
 const RootStack = createStackNavigator();
 
@@ -52,6 +53,18 @@ const RootStackScreen = ({navigation}) => {
           options={{
             title: '',
             headerShown: false,
+
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
+        {/* added new */}
+        <RootStack.Screen
+          name="Tabs"
+          component={Tabs}
+          options={{
+            title: '',
 
             headerTitleStyle: {
               fontWeight: 'bold',

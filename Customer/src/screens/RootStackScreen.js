@@ -7,7 +7,8 @@ import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import SplashScreen from './SplashScreen';
 import LogInScreen from './LogInScreen';
 import RegisterScreen from './RegisterScreen';
-import Tabs from '../navigate/Tabs'; //added new
+import Tabs from '../navigate/Tabs';
+import MakeAppointment from './MakeAppointment';
 
 const RootStack = createStackNavigator();
 
@@ -64,6 +65,19 @@ const RootStackScreen = ({navigation}) => {
           name="Tabs"
           component={Tabs}
           options={{
+            headerShown: false,
+            title: '',
+
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
+        <RootStack.Screen
+          name="MakeAppointment"
+          component={MakeAppointment}
+          options={{
+            headerShown: false,
             title: '',
 
             headerTitleStyle: {

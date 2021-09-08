@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 import {
   View,
   Text,
@@ -12,33 +13,177 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-// import {Colors} from 'react-native/Libraries/NewAppScreen';
+
 import colors from '../config/colors';
 import {color} from 'react-native-reanimated';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+
+// const LogInScreen = ({navigation}) => {
+//   const [data, setData] = React.useState({
+//     username: '',
+//     password: '',
+//     check_textInputChange: false,
+//     secureTextEntry: true,
+//   });
+
+//   const textInputChange = val => {
+//     if (val.length !== 0) {
+//       setData({
+//         ...data,
+//         email: val,
+//         check_textInputChange: true,
+//         // isValidUser: true,
+//       });
+//     } else {
+//       setData({
+//         ...data,
+//         username: val,
+//         check_textInputChange: false,
+//         // isValidUser: false,
+//       });
+//     }
+//   };
+
+//   const handlePasswordChange = val => {
+//     setData({
+//       ...data,
+//       password: val,
+//     });
+//   };
+
+//   const updateSecureTextEntry = () => {
+//     setData({
+//       ...data,
+//       secureTextEntry: !data.secureTextEntry,
+//     });
+//   };
+
+//   return (
+//     <View style={styles.container}>
+//       <View style={styles.header}>
+//         <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
+//         <Text style={styles.text_header}>Welcome to Fitness Life!</Text>
+//       </View>
+//       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
+//         <Text style={styles.text_footer}>Email</Text>
+//         <View style={styles.action}>
+//           <FontAwesome name="user-o" color="grey" size={20} />
+//           <TextInput
+//             placeholder="Your Email"
+//             style={styles.textInput}
+//             autoCapitalize="none"
+//             onChangeText={val => textInputChange(val)}
+//           />
+//           {data.check_textInputChange ? (
+//             <Animatable.View animation="bounceIn">
+//               <Feather name="check-circle" color={colors.color2} size={20} />
+//             </Animatable.View>
+//           ) : null}
+//         </View>
+
+//         <Text style={styles.text_footer}>Password</Text>
+//         <View style={styles.action}>
+//           <FontAwesome name="lock" color="grey" size={20} />
+//           <TextInput
+//             placeholder="Your Password"
+//             secureTextEntry={data.secureTextEntry ? true : false}
+//             style={styles.textInput}
+//             autoCapitalize="none"
+//             onChangeText={val => handlePasswordChange(val)}
+//           />
+//           <TouchableOpacity onPress={updateSecureTextEntry}>
+//             {data.secureTextEntry ? (
+//               <Feather name="eye-off" color={colors.color2} size={20} />
+//             ) : (
+//               <Feather name="eye" color={colors.color2} size={20} />
+//             )}
+//           </TouchableOpacity>
+//         </View>
+//         <View style={styles.button}>
+//           <LinearGradient
+//             colors={[colors.color3, colors.color4]}
+//             style={styles.signIn}>
+//             <Text
+//               style={[
+//                 styles.textSign,
+//                 {
+//                   color: colors.color5,
+//                 },
+//               ]}>
+//               Log In
+//             </Text>
+//           </LinearGradient>
+
+//           <TouchableOpacity
+//             onPress={() => navigation.navigate('RegisterScreen')}
+//             style={[
+//               styles.signIn,
+//               // eslint-disable-next-line react-native/no-inline-styles
+//               {
+//                 borderColor: colors.color3,
+//                 borderWidth: 1,
+//                 marginTop: 15,
+//               },
+//             ]}>
+//             <Text
+//               style={[
+//                 styles.textSign,
+//                 {
+//                   color: colors.color3,
+//                 },
+//               ]}>
+//               {' '}
+//               Register{' '}
+//             </Text>
+//           </TouchableOpacity>
+//         </View>
+//       </Animatable.View>
+//     </View>
+//   );
+// };
+
+// export default LogInScreen;
 
 const LogInScreen = ({navigation}) => {
+  const [emailtext, setemailtext] = useState('');
+  const [passwordtext, setpasswordtext] = useState('');
+
+  const login = (email, password) => {
+    const x = {
+      email: email,
+      password: password,
+    };
+    axios
+      .post('http://localhost:8088/login', x)
+      .then(res => {
+        if (res.data === 'SUCCESS') {
+          navigation.navigate('RegisterScreen');
+        }
+      })
+      .catch(error => {
+        // console.log(error);
+        console.log('Error in Login Screen');
+      });
+  };
+
   const [data, setData] = React.useState({
-    username: '',
+    email: '',
     password: '',
     check_textInputChange: false,
     secureTextEntry: true,
   });
 
   const textInputChange = val => {
-    if (val.length !== 0) {
+    if (val.lenght != 0) {
       setData({
         ...data,
         email: val,
         check_textInputChange: true,
-        // isValidUser: true,
       });
     } else {
       setData({
         ...data,
-        username: val,
+        email: val,
         check_textInputChange: false,
-        // isValidUser: false,
       });
     }
   };
@@ -71,7 +216,9 @@ const LogInScreen = ({navigation}) => {
             placeholder="Your Email"
             style={styles.textInput}
             autoCapitalize="none"
-            onChangeText={val => textInputChange(val)}
+            name="emailtext"
+            value={emailtext}
+            onChangeText={val => setemailtext(val)}
           />
           {data.check_textInputChange ? (
             <Animatable.View animation="bounceIn">
@@ -88,7 +235,9 @@ const LogInScreen = ({navigation}) => {
             secureTextEntry={data.secureTextEntry ? true : false}
             style={styles.textInput}
             autoCapitalize="none"
-            onChangeText={val => handlePasswordChange(val)}
+            name="passwordtext"
+            value={passwordtext}
+            onChangeText={val => setpasswordtext(val)}
           />
           <TouchableOpacity onPress={updateSecureTextEntry}>
             {data.secureTextEntry ? (
@@ -99,20 +248,21 @@ const LogInScreen = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <View style={styles.button}>
-          <LinearGradient
-            colors={[colors.color3, colors.color4]}
-            style={styles.signIn}>
-            <Text
-              style={[
-                styles.textSign,
-                {
-                  color: colors.color5,
-                },
-              ]}>
-              Log In
-            </Text>
-          </LinearGradient>
-
+          <TouchableOpacity onPress={() => login(emailtext, passwordtext)}>
+            <LinearGradient
+              colors={[colors.color3, colors.color4]}
+              style={styles.signIn}>
+              <Text
+                style={[
+                  styles.textSign,
+                  {
+                    color: colors.color5,
+                  },
+                ]}>
+                Log In
+              </Text>
+            </LinearGradient>
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate('RegisterScreen')}
             style={[
@@ -131,8 +281,7 @@ const LogInScreen = ({navigation}) => {
                   color: colors.color3,
                 },
               ]}>
-              {' '}
-              Register{' '}
+              Register
             </Text>
           </TouchableOpacity>
         </View>
@@ -202,6 +351,7 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     marginTop: 50,
+    width: '100%',
   },
   signIn: {
     width: '100%',
@@ -209,9 +359,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
+    marginRight: 100,
+    marginLeft: 100,
   },
   textSign: {
     fontSize: 18,
     fontWeight: 'bold',
+    marginRight: 125,
+    marginLeft: 125,
   },
 });

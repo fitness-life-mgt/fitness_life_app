@@ -47,7 +47,7 @@ const RegisterScreen = ({navigation}) => {
       .post('http://localhost:8088/register', x)
       .then(res => {
         if (res.data == 'SUCCESS') {
-          navigation.navigate('MainTabScreen');
+          navigation.navigate('LogInScreen');
         }
       })
       .catch(error => {

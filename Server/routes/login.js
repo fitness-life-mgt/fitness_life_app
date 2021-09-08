@@ -6,14 +6,16 @@ const bcrypt=require('bcrypt');
 
 const  saltRounds=10;
 
-
+console.log('Outside Router');
 
 // login
 router.post("/",(req,res)=>{
+    console.log('Inside router');
     const email =req.body.email;
     const password =req.body.password;
     //validation
     if (!email || !password) {
+        console.log('Feilds Empty');
         return res.status(400).json({ msg: "Please enter all fields" });
       }
 
@@ -25,6 +27,7 @@ router.post("/",(req,res)=>{
     //check for existing user
     db.query(sqlCheckEmail,email,(err,user)=>{
         if(user.length<1){
+          console.log('No User');
             return res.status(400).json({msg:"user does not exists"});
         }else{
             let currentUser = user[0];
@@ -32,8 +35,10 @@ router.post("/",(req,res)=>{
             // Validate password
             bcrypt.compare(password, user[0].password).then(isMatch => {
               if (!isMatch){
+                console.log('Wrong credentials');
                 return res.status(400).json({ msg: "Invalid credentials" });
               }else{
+                console.log('Success');
                 res.json("SUCCESS");
               }
               const test={

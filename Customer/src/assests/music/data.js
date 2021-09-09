@@ -1,9 +1,11 @@
 const songs = [
   {
     title: 'Hello',
-    artist: 'Adeh',
+    artist: 'Adele',
     image: require('../images/song.jpeg'),
     id: '1',
+    url: require('../music/songs/Adele-Hello.mp3'),
+    duration: 366,
   },
 
   {
@@ -11,6 +13,8 @@ const songs = [
     artist: 'zee',
     image: require('../images/song.jpeg'),
     id: '2',
+    url: require('../music/songs/Adele-Hello.mp3'),
+    duration: 366,
   },
 
   {
@@ -18,6 +22,8 @@ const songs = [
     artist: 'Selena',
     image: require('../images/song.jpeg'),
     id: '3',
+    url: require('../music/songs/Adele-Hello.mp3'),
+    duration: 366,
   },
 ];
 

@@ -2,6 +2,8 @@ import React from 'react';
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import colors from '../config/colors';
 
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 const MusicScreen = () => {
   return (
     <View style={styles.view}>
@@ -12,6 +14,7 @@ const MusicScreen = () => {
       </View>
       <View style={styles.body}>
         <Text style={styles.bodyText}>Welcome to Music!</Text>
+        <Ionicons name="heart-outline" size={30} />
       </View>
     </View>
   );

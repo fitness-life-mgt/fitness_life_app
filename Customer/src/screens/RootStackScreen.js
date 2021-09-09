@@ -11,6 +11,7 @@ import Tabs from '../navigate/Tabs';
 import MakeAppointment from './MakeAppointment';
 import ApprovedAppointmentsScreen from './ApprovedAppointmentsScreen';
 import colors from '../config/colors';
+import AppointmentScreen from './AppointmentScreen';
 
 const RootStack = createStackNavigator();
 
@@ -91,6 +92,7 @@ const RootStackScreen = ({navigation}) => {
           name="ApprovedAppointmentsScreen"
           component={ApprovedAppointmentsScreen}
           options={{
+            headerShown: false,
             title: 'Approved Appointments',
             // headerBackground: colors.color2,
             headerTitleStyle: {
@@ -101,6 +103,19 @@ const RootStackScreen = ({navigation}) => {
               backgroundColor: colors.color2,
             },
             headerTintColor: colors.color5,
+          }}
+        />
+        {/* to add the appointment screen, in the homescreen image */}
+        <RootStack.Screen
+          name="AppointmentScreen"
+          component={AppointmentScreen}
+          options={{
+            title: '',
+            headerShown: false,
+
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
           }}
         />
       </RootStack.Navigator>

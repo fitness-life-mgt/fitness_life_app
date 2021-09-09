@@ -45,14 +45,14 @@ const MakeAppointment = ({navigation}) => {
       });
   };
 
-  const [data, setData] = React.useState({
-    email: '',
-    password: '',
-    confirm_password: '',
-    check_textInputChange: false,
-    secureTextEntry: true,
-    confirm_secureTextEntry: true,
-  });
+  // const [data, setData] = React.useState({
+  //   email: '',
+  //   password: '',
+  //   confirm_password: '',
+  //   check_textInputChange: false,
+  //   secureTextEntry: true,
+  //   confirm_secureTextEntry: true,
+  // });
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -104,11 +104,11 @@ const MakeAppointment = ({navigation}) => {
               }
               // onChangeText={val => textInputChangeLastName(val)}
             />
-            {data.check_textInputChangeLastName ? (
+            {/* {data.check_textInputChangeLastName ? (
               <Animatable.View animation="bounceIn">
                 <Feather name="check-circle" color={colors.color2} size={20} />
               </Animatable.View>
-            ) : null}
+            ) : null} */}
           </View>
           {/* To get the email */}
           <Text style={styles.text_footer}>No. of Hours</Text>
@@ -123,11 +123,11 @@ const MakeAppointment = ({navigation}) => {
               onChangeText={val => sethourstext(val)}
               // onChangeText={val => textInputChangeEmail(val)}
             />
-            {data.check_textInputChangeEmail ? (
+            {/* {data.check_textInputChangeEmail ? (
               <Animatable.View animation="bounceIn">
                 <Feather name="check-circle" color={colors.color2} size={20} />
               </Animatable.View>
-            ) : null}
+            ) : null} */}
           </View>
 
           <View style={styles.button}>

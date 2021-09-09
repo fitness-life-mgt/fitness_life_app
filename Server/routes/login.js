@@ -3,10 +3,7 @@ const router = express.Router();
 const db=require("../config/connection");
 const jwt =require("jsonwebtoken");
 const bcrypt=require('bcrypt');
-
 const  saltRounds=10;
-
-console.log('Outside Router');
 
 // login
 router.post("/",(req,res)=>{

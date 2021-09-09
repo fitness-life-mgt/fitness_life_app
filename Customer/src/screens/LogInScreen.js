@@ -155,8 +155,8 @@ const LogInScreen = ({navigation}) => {
     axios
       .post('http://localhost:8088/login', x)
       .then(res => {
-        if (res.data === 'SUCCESS') {
-          navigation.navigate('RegisterScreen');
+        if (res.data == 'SUCCESS') {
+          navigation.navigate('Tabs');
         }
       })
       .catch(error => {

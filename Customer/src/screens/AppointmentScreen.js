@@ -6,11 +6,12 @@ import {
   Dimensions,
   Image,
   StatusBar,
+  TouchableOpacity,
 } from 'react-native';
 import colors from '../config/colors';
 import LinearGradient from 'react-native-linear-gradient';
 
-const AppointmentScreen = () => {
+const AppointmentScreen = ({navigation}) => {
   return (
     <View style={styles.view}>
       <View style={styles.header}>
@@ -28,47 +29,59 @@ const AppointmentScreen = () => {
           />
         </View>
         <View style={styles.button_package}>
-          <LinearGradient
-            colors={[colors.color3, colors.color4]}
-            style={styles.package}>
-            <Text
-              style={[
-                styles.textPackage,
-                {
-                  color: colors.color5,
-                },
-              ]}>
-              Make an Appointment
-            </Text>
-          </LinearGradient>
+          <TouchableOpacity
+            style={styles.package}
+            onPress={() => navigation.navigate('MakeAppointment')}>
+            <LinearGradient
+              colors={[colors.color3, colors.color4]}
+              style={styles.package}>
+              <Text
+                style={[
+                  styles.textPackage,
+                  {
+                    color: colors.color5,
+                  },
+                ]}>
+                Make an Appointment
+              </Text>
+            </LinearGradient>
+          </TouchableOpacity>
 
-          <LinearGradient
-            colors={[colors.color3, colors.color4]}
-            style={styles.package}>
-            <Text
-              style={[
-                styles.textPackage,
-                {
-                  color: colors.color5,
-                },
-              ]}>
-              Approved Appointments
-            </Text>
-          </LinearGradient>
+          <TouchableOpacity
+            style={styles.package}
+            onPress={() => navigation.navigate('ApprovedAppointmentsScreen')}>
+            <LinearGradient
+              colors={[colors.color3, colors.color4]}
+              style={styles.package}>
+              <Text
+                style={[
+                  styles.textPackage,
+                  {
+                    color: colors.color5,
+                  },
+                ]}>
+                Approved Appointments
+              </Text>
+            </LinearGradient>
+          </TouchableOpacity>
 
-          <LinearGradient
-            colors={[colors.color3, colors.color4]}
-            style={styles.package}>
-            <Text
-              style={[
-                styles.textPackage,
-                {
-                  color: colors.color5,
-                },
-              ]}>
-              Past Appointments
-            </Text>
-          </LinearGradient>
+          <TouchableOpacity
+            style={styles.package}
+            onPress={() => navigation.navigate('MakeAppointment')}>
+            <LinearGradient
+              colors={[colors.color3, colors.color4]}
+              style={styles.package}>
+              <Text
+                style={[
+                  styles.textPackage,
+                  {
+                    color: colors.color5,
+                  },
+                ]}>
+                Past Appointments
+              </Text>
+            </LinearGradient>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -112,7 +125,7 @@ const styles = StyleSheet.create({
   button_package: {
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    marginTop: 30,
+    marginTop: 50,
     marginLeft: 10,
     marginRight: 10,
     width: windowWidth,

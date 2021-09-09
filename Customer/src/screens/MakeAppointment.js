@@ -1,5 +1,6 @@
-import React from 'react';
-import {Formik} from 'formik';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
+// import {Formik} from 'formik';
 import {
   StyleSheet,
   Button,
@@ -8,83 +9,154 @@ import {
   Text,
   StatusBar,
   ScrollView,
+  TouchableOpacity,
+  Platform,
+  ColorPropType,
 } from 'react-native';
 import colors from '../config/colors';
 import * as Animatable from 'react-native-animatable';
+import LinearGradient from 'react-native-linear-gradient';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Feather from 'react-native-vector-icons/Feather';
 
-export default function MakeAppointment() {
+const MakeAppointment = ({navigation}) => {
+  const [appdatetext, setappdatetext] = useState('');
+  const [apptimetext, setapptimetext] = useState('');
+  const [hourstext, sethourstext] = useState('');
+  const [emailtext, setemailtext] = useState('');
+
+  const SignUp = (appdate, apptime, hours, email) => {
+    const x = {
+      appdate: appdate,
+      apptime: apptime,
+      hours: hours,
+      email: email,
+    };
+
+    axios
+      .post('http://localhost:8088/makeAppointment', x)
+      .then(res => {
+        if (res.data == 'SUCCESS') {
+          navigation.navigate('Appointments');
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  // const [data, setData] = React.useState({
+  //   email: '',
+  //   password: '',
+  //   confirm_password: '',
+  //   check_textInputChange: false,
+  //   secureTextEntry: true,
+  //   confirm_secureTextEntry: true,
+  // });
+
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
-        <Text style={styles.text_header}>Request Your Appointment</Text>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
+          <Text style={styles.text_header}>Request Your Appointment</Text>
+        </View>
+        <Animatable.View animation="fadeInUpBig" style={styles.footer}>
+          <Text style={styles.text_footer}>Email</Text>
+          <View style={styles.action}>
+            <FontAwesome name="envelope" color="grey" size={20} />
+            <TextInput
+              placeholder="Email"
+              style={styles.textInput}
+              autoCapitalize="none"
+              name="emailtext"
+              value={emailtext}
+              onChangeText={val => setemailtext(val)}
+            />
+          </View>
+
+          <Text style={styles.text_footer}>Date</Text>
+          <View style={styles.action}>
+            <FontAwesome name="calendar" color="grey" size={20} />
+            <TextInput
+              placeholder="DD/MM/YYYY"
+              style={styles.textInput}
+              autoCapitalize="none"
+              name="appdatetext"
+              value={appdatetext}
+              onChangeText={val => setappdatetext(val)}
+            />
+          </View>
+
+          {/* To get the last name */}
+          <Text style={styles.text_footer}>Time</Text>
+          <View style={styles.action}>
+            <FontAwesome name="clock-o" color="grey" size={20} />
+            <TextInput
+              placeholder="HH:MM"
+              style={styles.textInput}
+              autoCapitalize="none"
+              name="apptimetext"
+              value={apptimetext}
+              onChangeText={
+                val => setapptimetext(val)
+                // vals => textInputChangeLastName(vals))
+              }
+              // onChangeText={val => textInputChangeLastName(val)}
+            />
+            {/* {data.check_textInputChangeLastName ? (
+              <Animatable.View animation="bounceIn">
+                <Feather name="check-circle" color={colors.color2} size={20} />
+              </Animatable.View>
+            ) : null} */}
+          </View>
+          {/* To get the email */}
+          <Text style={styles.text_footer}>No. of Hours</Text>
+          <View style={styles.action}>
+            <FontAwesome name="hourglass" color="grey" size={20} />
+            <TextInput
+              placeholder="1"
+              style={styles.textInput}
+              autoCapitalize="none"
+              name="hourstext"
+              value={hourstext}
+              onChangeText={val => sethourstext(val)}
+              // onChangeText={val => textInputChangeEmail(val)}
+            />
+            {/* {data.check_textInputChangeEmail ? (
+              <Animatable.View animation="bounceIn">
+                <Feather name="check-circle" color={colors.color2} size={20} />
+              </Animatable.View>
+            ) : null} */}
+          </View>
+
+          <View style={styles.button}>
+            <TouchableOpacity
+              style={styles.signIn}
+              onPress={() => SignUp(appdatetext, apptimetext, hourstext)}>
+              <LinearGradient
+                colors={[colors.color3, colors.color4]}
+                style={styles.signIn}>
+                <Text
+                  style={[
+                    styles.textSign,
+                    // eslint-disable-next-line react-native/no-inline-styles
+                    {
+                      color: '#ffffff',
+                    },
+                  ]}>
+                  Request Appointment
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
+        </Animatable.View>
       </View>
-
-      <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <Formik
-            initialValues={{name: '', date: '', time: '', duration: ''}}
-            onSubmit={(values, actions) => {
-              actions.resetForm();
-              console.log(values);
-            }}>
-            {props => (
-              <View>
-                <Text style={styles.text_footer}>Name</Text>
-                <View style={styles.action}>
-                  <TextInput
-                    style={styles.textInput}
-                    placeholder="Name"
-                    onChangeText={props.handleChange('name')}
-                    value={props.values.name}
-                  />
-                </View>
-
-                <Text style={styles.text_footer}>Date of Appointment</Text>
-                <View style={styles.action}>
-                  <TextInput
-                    style={styles.textInput}
-                    placeholder="DD/MM/YYYY"
-                    onChangeText={props.handleChange('date')}
-                    value={props.values.date}
-                  />
-                </View>
-
-                <Text style={styles.text_footer}>Time of Appointment</Text>
-                <View style={styles.action}>
-                  <TextInput
-                    style={styles.textInput}
-                    placeholder="HH:MM"
-                    onChangeText={props.handleChange('time')}
-                    value={props.values.time}
-                  />
-                </View>
-
-                <Text style={styles.text_footer}>Number of Hours</Text>
-                <View style={styles.action}>
-                  <TextInput
-                    style={styles.textInput}
-                    placeholder="1"
-                    onChangeText={props.handleChange('duration')}
-                    value={props.values.duration}
-                  />
-                </View>
-
-                <View style={styles.button}>
-                  <Button
-                    title="Request Appointment"
-                    color={colors.color3}
-                    onPress={props.handleSubmit}
-                  />
-                </View>
-              </View>
-            )}
-          </Formik>
-        </ScrollView>
-      </Animatable.View>
-    </View>
+    </ScrollView>
   );
-}
+};
+
+export default MakeAppointment;
 
 const styles = StyleSheet.create({
   container: {
@@ -95,11 +167,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     paddingHorizontal: 20,
-    paddingBottom: 50,
+    paddingBottom: 30,
     fontFamily: 'roboto',
+    paddingTop: 30,
   },
   footer: {
-    flex: 3,
+    flex: 4,
     backgroundColor: '#fff',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
@@ -107,7 +180,7 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
   },
   text_header: {
-    color: '#fff',
+    color: colors.color5,
     fontWeight: 'bold',
     fontSize: 30,
     fontFamily: 'roboto',
@@ -119,11 +192,11 @@ const styles = StyleSheet.create({
   },
   action: {
     flexDirection: 'row',
-    // marginTop: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#f2f2f2',
-    // paddingBottom: ,
     marginBottom: -5,
+    marginTop: 10,
+    paddingBottom: 5,
   },
   actionError: {
     flexDirection: 'row',
@@ -134,12 +207,12 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    marginTop: -5,
+    marginTop: Platform.OS === 'ios' ? 0 : -12,
     paddingLeft: 10,
-    // paddingBottom: 40,
     color: '#05375a',
-    // height: 20,
-    // width: 100,
+    paddingBottom: 5,
+    marginBottom: 5,
+    height: 40,
   },
   errorMsg: {
     color: '#FF0000',
@@ -147,13 +220,94 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    marginTop: 20,
-    fontFamily: 'roboto',
+    marginTop: 28,
+    width: '100%',
+  },
+  signIn: {
+    width: '100%',
+    height: 50,
     justifyContent: 'center',
-    // borderRadius: 100,
+    alignItems: 'center',
+    borderRadius: 10,
   },
   textSign: {
     fontSize: 18,
     fontWeight: 'bold',
+    // marginRight: 125,
+    // marginLeft: 125,
   },
 });
+
+// export default function MakeAppointment() {
+//   return (
+//     <View style={styles.container}>
+//       <View style={styles.header}>
+//         <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
+//         <Text style={styles.text_header}>Request Your Appointment</Text>
+//       </View>
+
+//       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
+//         <ScrollView showsVerticalScrollIndicator={false}>
+//           <Formik
+//             initialValues={{name: '', date: '', time: '', duration: ''}}
+//             onSubmit={(values, actions) => {
+//               actions.resetForm();
+//               console.log(values);
+//             }}>
+//             {props => (
+//               <View>
+//                 <Text style={styles.text_footer}>Name</Text>
+//                 <View style={styles.action}>
+//                   <TextInput
+//                     style={styles.textInput}
+//                     placeholder="Name"
+//                     onChangeText={props.handleChange('name')}
+//                     value={props.values.name}
+//                   />
+//                 </View>
+
+//                 <Text style={styles.text_footer}>Date of Appointment</Text>
+//                 <View style={styles.action}>
+//                   <TextInput
+//                     style={styles.textInput}
+//                     placeholder="DD/MM/YYYY"
+//                     onChangeText={props.handleChange('date')}
+//                     value={props.values.date}
+//                   />
+//                 </View>
+
+//                 <Text style={styles.text_footer}>Time of Appointment</Text>
+//                 <View style={styles.action}>
+//                   <TextInput
+//                     style={styles.textInput}
+//                     placeholder="HH:MM"
+//                     onChangeText={props.handleChange('time')}
+//                     value={props.values.time}
+//                   />
+//                 </View>
+
+//                 <Text style={styles.text_footer}>Number of Hours</Text>
+//                 <View style={styles.action}>
+//                   <TextInput
+//                     style={styles.textInput}
+//                     placeholder="1"
+//                     onChangeText={props.handleChange('duration')}
+//                     value={props.values.duration}
+//                   />
+//                 </View>
+
+//                 <View style={styles.button}>
+//                   <Button
+//                     title="Request Appointment"
+//                     color={colors.color3}
+//                     onPress={props.handleSubmit}
+//                   />
+//                 </View>
+//               </View>
+//             )}
+//           </Formik>
+//         </ScrollView>
+//       </Animatable.View>
+//     </View>
+//   );
+// }

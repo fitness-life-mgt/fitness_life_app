@@ -6,11 +6,12 @@ import {
   Dimensions,
   Image,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import colors from '../config/colors';
 // import {WeekCalendar} from 'react-native-calendars';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.view}>
       <View style={styles.header}>
@@ -27,13 +28,17 @@ const HomeScreen = () => {
               resizeMode="stretch"
             />
           </View>
-          <View>
-            <Image
-              source={require('../assests/images/homeImage.png')}
-              style={styles.image_home}
-              resizeMode="stretch"
-            />
-          </View>
+
+          <TouchableOpacity
+            onPress={() => navigation.navigate('AppointmentScreen')}>
+            <View>
+              <Image
+                source={require('../assests/images/homeImage.png')}
+                style={styles.image_home}
+                resizeMode="stretch"
+              />
+            </View>
+          </TouchableOpacity>
           <Text style={styles.text_home}>Appointments                     Diet Plans</Text>
           <View>
             <Image
@@ -42,7 +47,7 @@ const HomeScreen = () => {
               resizeMode="stretch"
             />
           </View>
-          <Text style={styles.text_home2}>Schedules                    Self Progress</Text>
+          <Text style={styles.text_home2}>Schedules                   Self Progress</Text>
         </ScrollView>
       </View>
     </View>

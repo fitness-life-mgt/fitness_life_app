@@ -49,7 +49,7 @@ const AppointmentScreen = ({navigation}) => {
 
           <TouchableOpacity
             style={styles.package}
-            onPress={() => navigation.navigate('MakeAppointment')}>
+            onPress={() => navigation.navigate('ApprovedAppointmentsScreen')}>
             <LinearGradient
               colors={[colors.color3, colors.color4]}
               style={styles.package}>

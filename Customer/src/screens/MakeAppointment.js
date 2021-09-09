@@ -10,6 +10,8 @@ import {
   StatusBar,
   ScrollView,
   TouchableOpacity,
+  Platform,
+  ColorPropType,
 } from 'react-native';
 import colors from '../config/colors';
 import * as Animatable from 'react-native-animatable';
@@ -62,7 +64,7 @@ const MakeAppointment = ({navigation}) => {
         <Animatable.View animation="fadeInUpBig" style={styles.footer}>
           <Text style={styles.text_footer}>Email</Text>
           <View style={styles.action}>
-            <FontAwesome name="user" color="grey" size={20} />
+            <FontAwesome name="envelope" color="grey" size={20} />
             <TextInput
               placeholder="Email"
               style={styles.textInput}
@@ -75,9 +77,9 @@ const MakeAppointment = ({navigation}) => {
 
           <Text style={styles.text_footer}>Date</Text>
           <View style={styles.action}>
-            <FontAwesome name="user" color="grey" size={20} />
+            <FontAwesome name="calendar" color="grey" size={20} />
             <TextInput
-              placeholder="Your Username"
+              placeholder="DD/MM/YYYY"
               style={styles.textInput}
               autoCapitalize="none"
               name="appdatetext"
@@ -87,11 +89,11 @@ const MakeAppointment = ({navigation}) => {
           </View>
 
           {/* To get the last name */}
-          <Text style={styles.text_footer}>Full Name</Text>
+          <Text style={styles.text_footer}>Time</Text>
           <View style={styles.action}>
-            <FontAwesome name="user-o" color="grey" size={20} />
+            <FontAwesome name="clock-o" color="grey" size={20} />
             <TextInput
-              placeholder="Your Full Name"
+              placeholder="HH:MM"
               style={styles.textInput}
               autoCapitalize="none"
               name="apptimetext"
@@ -109,11 +111,11 @@ const MakeAppointment = ({navigation}) => {
             ) : null}
           </View>
           {/* To get the email */}
-          <Text style={styles.text_footer}>Email</Text>
+          <Text style={styles.text_footer}>No. of Hours</Text>
           <View style={styles.action}>
-            <FontAwesome name="envelope" color="grey" size={20} />
+            <FontAwesome name="hourglass" color="grey" size={20} />
             <TextInput
-              placeholder="Your Email"
+              placeholder="1"
               style={styles.textInput}
               autoCapitalize="none"
               name="hourstext"
@@ -130,6 +132,7 @@ const MakeAppointment = ({navigation}) => {
 
           <View style={styles.button}>
             <TouchableOpacity
+              style={styles.signIn}
               onPress={() => SignUp(appdatetext, apptimetext, hourstext)}>
               <LinearGradient
                 colors={[colors.color3, colors.color4]}
@@ -142,7 +145,7 @@ const MakeAppointment = ({navigation}) => {
                       color: '#ffffff',
                     },
                   ]}>
-                  Register
+                  Request Appointment
                 </Text>
               </LinearGradient>
             </TouchableOpacity>
@@ -164,11 +167,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     paddingHorizontal: 20,
-    paddingBottom: 50,
+    paddingBottom: 30,
     fontFamily: 'roboto',
+    paddingTop: 30,
   },
   footer: {
-    flex: 3,
+    flex: 4,
     backgroundColor: '#fff',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
@@ -176,7 +180,7 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
   },
   text_header: {
-    color: '#fff',
+    color: colors.color5,
     fontWeight: 'bold',
     fontSize: 30,
     fontFamily: 'roboto',
@@ -191,6 +195,8 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#f2f2f2',
     marginBottom: -5,
+    marginTop: 10,
+    paddingBottom: 5,
   },
   actionError: {
     flexDirection: 'row',
@@ -201,12 +207,12 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    marginTop: -5,
+    marginTop: Platform.OS === 'ios' ? 0 : -12,
     paddingLeft: 10,
-    // paddingBottom: 40,
     color: '#05375a',
-    // height: 20,
-    // width: 100,
+    paddingBottom: 5,
+    marginBottom: 5,
+    height: 40,
   },
   errorMsg: {
     color: '#FF0000',
@@ -214,17 +220,21 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    marginTop: 20,
-    fontFamily: 'roboto',
-    justifyContent: 'center',
+    marginTop: 28,
+    width: '100%',
+  },
+  signIn: {
     width: '100%',
     height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 10,
-    marginBottom: 20,
   },
   textSign: {
     fontSize: 18,
     fontWeight: 'bold',
+    // marginRight: 125,
+    // marginLeft: 125,
   },
 });
 

@@ -9,6 +9,8 @@ import LogInScreen from './LogInScreen';
 import RegisterScreen from './RegisterScreen';
 import Tabs from '../navigate/Tabs';
 import MakeAppointment from './MakeAppointment';
+import ApprovedAppointmentsScreen from './ApprovedAppointmentsScreen';
+import colors from '../config/colors';
 
 const RootStack = createStackNavigator();
 
@@ -83,6 +85,22 @@ const RootStackScreen = ({navigation}) => {
             headerTitleStyle: {
               fontWeight: 'bold',
             },
+          }}
+        />
+        <RootStack.Screen
+          name="ApprovedAppointmentsScreen"
+          component={ApprovedAppointmentsScreen}
+          options={{
+            title: 'Approved Appointments',
+            // headerBackground: colors.color2,
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              color: colors.color5,
+            },
+            headerStyle: {
+              backgroundColor: colors.color2,
+            },
+            headerTintColor: colors.color5,
           }}
         />
       </RootStack.Navigator>

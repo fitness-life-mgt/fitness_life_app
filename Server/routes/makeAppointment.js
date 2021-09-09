@@ -6,6 +6,7 @@ const bcrypt=require('bcrypt');
 const  saltRounds=10;
 
 router.post("/",(req,res)=>{
+   console.log('Inside router');
     const appdate=req.body.appdate;
     const apptime=req.body.apptime;
     const hours=req.body.hours;
@@ -16,15 +17,18 @@ router.post("/",(req,res)=>{
 
  // Simple validation
    if(!appdate||!apptime||!hours||!email){
+      console.log('Feilds Empty');
        return res.status(400).json({msg:"Please enter all fields"});
    }
 
 //check for existing user
 db.query(sqlCheckEmail,email,(err,user)=>{
-   if(user.length>0){
+   if(user.length<1){
+      console.log('No User');
         return res.status(400).json({msg:"this user already"});
    }else{
        let sql=`insert into appointment_requests(date,time,no_of_hours,email) values(?,?,?,?)`;
+       console.log('Success');
 bcrypt.hash(password,saltRounds,(err,hash)=>{  
    if(err){
       console.log(err)

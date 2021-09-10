@@ -12,24 +12,62 @@ import {
 } from 'react-native';
 import colors from '../config/colors';
 
+import TrackPlayer, {
+  Capability,
+  Event,
+  RepeatMode,
+  State,
+  usePlaybackState,
+  useProgress,
+  useTrackPlayerEvents,
+} from 'react-native-track-player';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 // import Slider from '@react-native-community/slider';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import songs from '../assests/music/data';
 // import Animated from 'react-native-reanimated';
 
+const setupPlayer = async () => {
+  await TrackPlayer.setupPlayer();
+  await TrackPlayer.add(songs);
+};
+
+const togglePlayback = async playbackState => {
+  const currentTrack = await TrackPlayer.getCurrentTrack();
+
+  if (currentTrack !== null) {
+    if ((playbackState = State.Paused)) {
+      await TrackPlayer.play();
+    } else {
+      await TrackPlayer.pause();
+    }
+  }
+};
+
 const MusicScreen = () => {
+  const playbackState = usePlaybackState();
+  const progress = useProgress();
+
   const scrollX = useRef(new Animated.Value(0)).current;
   const [songIndex, setSongIndex] = useState(0);
 
   const songSlider = useRef();
 
+  // eslint-disable-next-line prettier/prettier
+  const skipTo = async (trackId) => {
+    await TrackPlayer.skip(trackId);
+  };
+
   useEffect(() => {
+    setupPlayer();
+
     scrollX.addListener(({value}) => {
       // console.log('Scroll X ', scrollX);
       // console.log('Device Width ', windowWidth);
 
       const index = Math.round(value / windowWidth);
+      skipTo(index);
       setSongIndex(index);
 
       // console.log('Index', index);
@@ -106,19 +144,28 @@ const MusicScreen = () => {
         <View>
           <Slider
             style={styles.progressContainer}
-            value={10}
+            value={progress.position}
             minimumValue={0}
-            maximumValue={100}
+            maximumValue={progress.duration}
             thumbTintColor={colors.color3}
             minimumTrackTintColor={colors.color3}
             maximumTrackTintColor="black"
-            onSlidingComplete={() => {}}
+            // eslint-disable-next-line prettier/prettier
+            onSlidingComplete={async(value) => {
+              await TrackPlayer.seekTo(value);
+            }}
           />
         </View>
 
         <View style={styles.progressLabelContainer}>
-          <Text style={styles.progressLabelTxt}>0:00</Text>
-          <Text style={styles.progressLabelTxt}>3:50</Text>
+          <Text style={styles.progressLabelTxt}>
+            {new Date(progress.position * 1000).toISOString().substr(14, 5)}
+          </Text>
+          <Text style={styles.progressLabelTxt}>
+            {new Date((progress.duration - progress.position) * 1000)
+              .toISOString()
+              .substr(14, 5)}
+          </Text>
         </View>
 
         <View style={styles.musicControls}>
@@ -130,8 +177,18 @@ const MusicScreen = () => {
               style={{marginTop: 15}}
             />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => {}}>
-            <Ionicons name="ios-pause-circle" size={55} color={colors.color3} />
+          {/* <TouchableOpacity onPress={() => {}}> */}
+          <TouchableOpacity onPress={() => togglePlayback(playbackState)}>
+            <Ionicons
+              name={
+                playbackState === State.Playing
+                  ? 'ios-pause-circle'
+                  : 'ios-play-circle'
+              }
+              size={55}
+              color={colors.color3}
+            />
+            {/* <Ionicons name="ios-pause-circle" size={55} color={colors.color3} /> */}
           </TouchableOpacity>
           <TouchableOpacity onPress={skipToNext}>
             <Ionicons

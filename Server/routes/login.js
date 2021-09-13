@@ -18,19 +18,19 @@ router.post("/",(req,res)=>{
 
       
     //sql for user
-    let sqlCheckEmail=`SELECT *FROM user WHERE email=?`;
+    let sqlCheckEmail=`SELECT *FROM member WHERE email=?`;
 
    
     //check for existing user
-    db.query(sqlCheckEmail,email,(err,user)=>{
-        if(user.length<1){
+    db.query(sqlCheckEmail,email,(err,member)=>{
+        if(member.length<1){
           console.log('No User');
             return res.status(400).json({msg:"user does not exists"});
         }else{
-            let currentUser = user[0];
+            let currentUser = member[0];
 
             // Validate password
-            bcrypt.compare(password, user[0].password).then(isMatch => {
+            bcrypt.compare(password, member[0].password).then(isMatch => {
               if (!isMatch){
                 console.log('Wrong credentials');
                 return res.status(400).json({ msg: "Invalid credentials" });
@@ -42,7 +42,7 @@ router.post("/",(req,res)=>{
                   username:"rashan",
                   id:1
               }
-              jwt.sign({user:user},"mysecretkey",(err,token)=>{
+              jwt.sign({member:member},"mysecretkey",(err,token)=>{
                           res.json({token:token})
               })
 

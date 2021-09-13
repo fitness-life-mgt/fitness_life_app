@@ -248,7 +248,9 @@ const LogInScreen = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <View style={styles.button}>
-          <TouchableOpacity onPress={() => login(emailtext, passwordtext)}>
+          <TouchableOpacity
+            style={styles.signIn}
+            onPress={() => login(emailtext, passwordtext)}>
             <LinearGradient
               colors={[colors.color3, colors.color4]}
               style={styles.signIn}>

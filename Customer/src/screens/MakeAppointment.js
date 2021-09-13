@@ -18,6 +18,18 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import DatePicker from 'react-native-date-picker';
+
+// const getCurrentDate = () => {
+//   var date = new Date().getDate();
+//   var month = new Date().getMonth() + 1;
+//   var year = new Date().getFullYear();
+
+//   //Alert.alert(date + '-' + month + '-' + year);
+//   // You can turn it in to your desired format
+//   return year + '-' + month + '-' + date; //format: yyyy-mm-dd;
+// };
+// var currentDate = getCurrentDate().toString();
 
 const MakeAppointment = ({navigation}) => {
   const [appdatetext, setappdatetext] = useState('');
@@ -44,6 +56,9 @@ const MakeAppointment = ({navigation}) => {
         console.log(error);
       });
   };
+
+  const [date, setDate] = useState(new Date());
+  const [open, setOpen] = useState(false);
 
   // const [data, setData] = React.useState({
   //   email: '',
@@ -76,24 +91,43 @@ const MakeAppointment = ({navigation}) => {
           </View>
 
           <Text style={styles.text_footer}>Date</Text>
-          <View style={styles.action}>
+          {/* <View style={styles.action}>
             <FontAwesome name="calendar" color="grey" size={20} />
             <TextInput
-              placeholder="DD/MM/YYYY"
+              placeholder="YYYY-MM-DD"
               style={styles.textInput}
               autoCapitalize="none"
               name="appdatetext"
               value={appdatetext}
               onChangeText={val => setappdatetext(val)}
             />
-          </View>
+          </View> */}
+
+          <Button title="Open" onPress={() => setOpen(true)} />
+          <DatePicker
+            name="appdatetext"
+            value={appdatetext}
+            mode="date"
+            // minimumDate={currentDate} --> Method in top of the file
+            modal
+            open={open}
+            date={date}
+            onConfirm={date => {
+              setOpen(false);
+              setDate(date);
+              setappdatetext(date);
+            }}
+            onCancel={() => {
+              setOpen(false);
+            }}
+          />
 
           {/* To get the last name */}
           <Text style={styles.text_footer}>Time</Text>
           <View style={styles.action}>
             <FontAwesome name="clock-o" color="grey" size={20} />
             <TextInput
-              placeholder="HH:MM"
+              placeholder="HH:MM:SS"
               style={styles.textInput}
               autoCapitalize="none"
               name="apptimetext"

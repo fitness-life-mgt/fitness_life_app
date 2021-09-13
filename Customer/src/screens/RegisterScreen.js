@@ -157,11 +157,11 @@ const RegisterScreen = ({navigation}) => {
           </Text>
         </View>
         <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-          <Text style={styles.text_footer}>Username</Text>
+          <Text style={styles.text_footer}>First Name</Text>
           <View style={styles.action}>
             <FontAwesome name="user" color="grey" size={20} />
             <TextInput
-              placeholder="Your Username"
+              placeholder="Your First Name"
               style={styles.textInput}
               autoCapitalize="none"
               name="fnametext"
@@ -176,11 +176,11 @@ const RegisterScreen = ({navigation}) => {
           </View>
 
           {/* To get the last name */}
-          <Text style={styles.text_footer}>Full Name</Text>
+          <Text style={styles.text_footer}>Last Name</Text>
           <View style={styles.action}>
             <FontAwesome name="user-o" color="grey" size={20} />
             <TextInput
-              placeholder="Your Full Name"
+              placeholder="Your Last Name"
               style={styles.textInput}
               autoCapitalize="none"
               name="lnametext"

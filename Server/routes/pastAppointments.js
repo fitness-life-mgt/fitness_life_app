@@ -9,7 +9,7 @@ const db=require("../config/connection");
 
 router.get("/",(req,res)=>{
 
-    let sql= `SELECT * FROM member `;
+    let sql= `SELECT * FROM appointment `;
    db.query(sql,(err,result)=>{
         if(err) throw err;
         console.log(result);

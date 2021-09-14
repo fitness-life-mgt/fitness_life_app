@@ -12,6 +12,8 @@ import MakeAppointment from './MakeAppointment';
 import ApprovedAppointmentsScreen from './ApprovedAppointmentsScreen';
 import colors from '../config/colors';
 import AppointmentScreen from './AppointmentScreen';
+import EditProfile from './EditProfileScreen';
+import AddProfileScreen from './AddProfileDetails';
 
 const RootStack = createStackNavigator();
 
@@ -109,6 +111,31 @@ const RootStackScreen = ({navigation}) => {
         <RootStack.Screen
           name="AppointmentScreen"
           component={AppointmentScreen}
+          options={{
+            title: '',
+            headerShown: false,
+
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
+        <RootStack.Screen
+          name="EditProfile"
+          component={EditProfile}
+          options={{
+            title: '',
+            headerShown: false,
+
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
+        {/* add profile screen for the first time users */}
+        <RootStack.Screen
+          name="AddProfileScreen"
+          component={AddProfileScreen}
           options={{
             title: '',
             headerShown: false,

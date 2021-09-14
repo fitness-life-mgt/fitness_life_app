@@ -13,7 +13,7 @@ router.post("/",(req,res)=>{
     const email='abc';
 
  // query for users
- let sqlCheckEmail = `SELECT * FROM user WHERE email = ?`;
+ let sqlCheckEmail = `SELECT * FROM member WHERE email = ?`;
 
  // Simple validation
    if(!appdate||!apptime||!hours||!email){
@@ -28,13 +28,13 @@ db.query(sqlCheckEmail,email,(err,user)=>{
       console.log('No User');
         return res.status(400).json({msg:"this user already"});
    }else{
-       let sql=`insert into appointment_requests(date,time,no_of_hours,email) values(?,?,?,?)`;
+       let sql=`insert into appointment(email,date,time,trainerID,apprved) values(?,?,?,'3','0')`;
        console.log('Success record');
    {  
    if(err){
       console.log(err)
    }
-   db.query(sql,[appdate,apptime,hours,email],(err,result)=>{
+   db.query(sql,[email,appdate,apptime],(err,result)=>{
       console.log('Success Querry');
        console.log(err);
    });

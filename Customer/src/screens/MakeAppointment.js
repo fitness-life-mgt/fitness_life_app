@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-// import {Formik} from 'formik';
 import {
   StyleSheet,
   Button,
@@ -18,6 +17,7 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import DatePicker from 'react-native-date-picker';
 
 const MakeAppointment = ({navigation}) => {
   const [appdatetext, setappdatetext] = useState('');
@@ -45,14 +45,9 @@ const MakeAppointment = ({navigation}) => {
       });
   };
 
-  // const [data, setData] = React.useState({
-  //   email: '',
-  //   password: '',
-  //   confirm_password: '',
-  //   check_textInputChange: false,
-  //   secureTextEntry: true,
-  //   confirm_secureTextEntry: true,
-  // });
+  // const [date, setDate] = useState(new Date());
+  // const [time, setTime] = useState(new Time());
+  // const [open, setOpen] = useState(false);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -76,24 +71,74 @@ const MakeAppointment = ({navigation}) => {
           </View>
 
           <Text style={styles.text_footer}>Date</Text>
-          <View style={styles.action}>
+          {/* <View style={styles.action}>
             <FontAwesome name="calendar" color="grey" size={20} />
             <TextInput
-              placeholder="DD/MM/YYYY"
+              placeholder="YYYY-MM-DD"
               style={styles.textInput}
               autoCapitalize="none"
               name="appdatetext"
               value={appdatetext}
               onChangeText={val => setappdatetext(val)}
             />
-          </View>
+          </View> */}
+
+          {/* button for date picker */}
+
+          {/* <Button
+            style={styles.btnDate}
+            color={colors.color1}
+            title="Select Date"
+            onPress={() => setOpen(true)}
+          />
+          <DatePicker
+            name="appdatetext"
+            value={appdatetext}
+            mode="date"
+            // minimumDate={currentDate} --> Method in top of the file
+            modal
+            open={open}
+            date={date}
+            onConfirm={date => {
+              setOpen(false);
+              setDate(date);
+              setappdatetext(date);
+            }}
+            onCancel={() => {
+              setOpen(false);
+            }}
+          /> */}
 
           {/* To get the last name */}
           <Text style={styles.text_footer}>Time</Text>
+
+          {/* <Button
+            style={styles.btnDate}
+            color={colors.color1}
+            title="Select Date"
+            onPress={() => setOpen(true)}
+          />
+          <DatePicker
+            name="apptimetext"
+            value={apptimetext}
+            mode="time"
+            // minimumDate={currentDate} --> Method in top of the file
+            modal
+            open={open}
+            time={time}
+            onConfirm={time => {
+              setOpen(false);
+              setTime(time);
+              setapptimetext(time);
+            }}
+            onCancel={() => {
+              setOpen(false);
+            }}
+          /> */}
           <View style={styles.action}>
             <FontAwesome name="clock-o" color="grey" size={20} />
             <TextInput
-              placeholder="HH:MM"
+              placeholder="HH:MM:SS"
               style={styles.textInput}
               autoCapitalize="none"
               name="apptimetext"
@@ -109,6 +154,7 @@ const MakeAppointment = ({navigation}) => {
                 <Feather name="check-circle" color={colors.color2} size={20} />
               </Animatable.View>
             ) : null} */}
+            {/* have to add that star, slash and bracket here */}
           </View>
           {/* To get the email */}
           <Text style={styles.text_footer}>No. of Hours</Text>
@@ -222,6 +268,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 28,
     width: '100%',
+  },
+  btnDate: {
+    alignItems: 'center',
+    marginTop: 50,
+    width: '100%',
+    color: colors.color3,
   },
   signIn: {
     width: '100%',

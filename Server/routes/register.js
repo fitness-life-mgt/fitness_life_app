@@ -5,6 +5,19 @@ const jwt =require("jsonwebtoken");
 const bcrypt=require('bcrypt');
 const  saltRounds=10;
 
+const getCurrentDate=()=>{
+
+    var date = new Date().getDate();
+    var month = new Date().getMonth() + 1;
+    var year = new Date().getFullYear();
+
+    //Alert.alert(date + '-' + month + '-' + year);
+    // You can turn it in to your desired format
+    return year + '-' + month + '-' + date;//format: yyyy-mm-dd;
+}
+var currentDate = getCurrentDate();
+// console.log(currentDate);
+
 router.post("/",(req,res)=>{
     const fname=req.body.fname;
     const lname=req.body.lname;
@@ -13,7 +26,7 @@ router.post("/",(req,res)=>{
     const cpassword=req.body.cpassword;
   
   // query for users
-  let sqlCheckEmail = `SELECT * FROM user WHERE email = ?`;
+  let sqlCheckEmail = `SELECT * FROM member WHERE email = ?`;
 
   // Simple validation
     if(!fname||!lname||!email||!password||!cpassword){
@@ -27,12 +40,12 @@ db.query(sqlCheckEmail,email,(err,user)=>{
     if(user.length>0){
          return res.status(400).json({msg:"this user already"});
     }else{
-        let sql=`insert into user(fname,lname,email,password) values(?,?,?,?)`;
+        let sql=`insert into member(firstName,lastName,email,password,createdAt,memberType) values(?,?,?,?,?,'0')`;
  bcrypt.hash(password,saltRounds,(err,hash)=>{  
     if(err){
        console.log(err)
     }
-    db.query(sql,[fname,lname,email,hash],(err,result)=>{
+    db.query(sql,[fname,lname,email,hash,currentDate],(err,result)=>{
         console.log(err);
     });
 })

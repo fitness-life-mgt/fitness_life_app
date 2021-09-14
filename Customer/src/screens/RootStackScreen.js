@@ -14,6 +14,7 @@ import colors from '../config/colors';
 import AppointmentScreen from './AppointmentScreen';
 import EditProfile from './EditProfileScreen';
 import AddProfileScreen from './AddProfileDetails';
+import PastAppointmentScreen from './PastAppointmentsScreen';
 
 const RootStack = createStackNavigator();
 
@@ -136,6 +137,19 @@ const RootStackScreen = ({navigation}) => {
         <RootStack.Screen
           name="AddProfileScreen"
           component={AddProfileScreen}
+          options={{
+            title: '',
+            headerShown: false,
+
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
+        {/* past appointment screen */}
+        <RootStack.Screen
+          name="PastAppointmentScreen"
+          component={PastAppointmentScreen}
           options={{
             title: '',
             headerShown: false,

@@ -12,10 +12,8 @@ router.post("/",(req,res)=>{
     const telephone=req.body.telephone;
     const address=req.body.address;
     const height=req.body.height;
-    const weight=req.body.Weight;
+    const weight=req.body.weight;
     const age=req.body.age;
-
-    console.log({age});
 
     console.log("Inside Router!");
   // Simple validation

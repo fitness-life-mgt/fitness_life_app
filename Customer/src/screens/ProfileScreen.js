@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -10,84 +10,132 @@ import {
 import colors from '../config/colors';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
+import axios from 'axios';
+// import {withNavigation} from 'react-navigation';
+// const ProfileScreen = ({navigation}) => {
 
-const ProfileScreen = () => {
-  return (
-    <View style={styles.view}>
-      <View style={styles.header}>
-        <View>
-          <Text style={styles.headerText}>Profile</Text>
+export default class App extends Component {
+  state = {
+    data: [],
+  };
+
+  componentDidMount() {
+    axios.get('http://localhost:8088/getProfileDetails').then(res => {
+      console.log(res);
+      this.setState({
+        data: res.data,
+      });
+    });
+  }
+
+  render() {
+    return (
+      <View style={styles.view}>
+        <View style={styles.header}>
+          <View>
+            <Text style={styles.headerText}>Profile</Text>
+          </View>
+        </View>
+        <View style={styles.body}>
+          <Animatable.View style={styles.topBody} animation="fadeInDownBig">
+            <View style={styles.image_container}>
+              <Image
+                source={require('../assests/images/user.png')}
+                style={styles.image_user}
+                resizeMode="stretch"
+              />
+            </View>
+            <View style={styles.body_details}>
+              {/* <Text style={styles.textDetails}>Name :</Text> */}
+              {this.state.data.map(item => (
+                <View>
+                  <Text style={styles.textDetailsLarge}>
+                    {item.firstName} {item.lastName}
+                  </Text>
+                  <Text style={styles.textDetailsMedium}>{item.email}</Text>
+                  {/* <Text style={styles.textDetailsSmall}>(0771231234)</Text> */}
+                </View>
+              ))}
+            </View>
+          </Animatable.View>
+          <View style={styles.button_package}>
+            <TouchableOpacity
+              style={styles.package}
+              onPress={() => this.props.navigation.navigate('EditProfile')}>
+              <LinearGradient
+                colors={[colors.color3, colors.color4]}
+                style={styles.package}>
+                <Text
+                  style={[
+                    styles.textPackage,
+                    {
+                      color: colors.color5,
+                    },
+                  ]}>
+                  Edit Profile
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.package}
+              onPress={() =>
+                this.props.navigation.navigate('AddProfileScreen')
+              }>
+              <LinearGradient
+                colors={[colors.color3, colors.color4]}
+                style={styles.package}>
+                <Text
+                  style={[
+                    styles.textPackage,
+                    {
+                      color: colors.color5,
+                    },
+                  ]}>
+                  Add Profile Details
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
+
+            <LinearGradient
+              colors={[colors.color3, colors.color4]}
+              style={styles.package}>
+              <Text
+                style={[
+                  styles.textPackage,
+                  {
+                    color: colors.color5,
+                  },
+                ]}>
+                Settings
+              </Text>
+            </LinearGradient>
+
+            <TouchableOpacity
+              style={[
+                styles.package,
+                // eslint-disable-next-line react-native/no-inline-styles
+                {
+                  borderColor: colors.color3,
+                  borderWidth: 1,
+                },
+              ]}>
+              <Text
+                style={[
+                  styles.textPackage,
+                  {
+                    color: colors.color3,
+                  },
+                ]}>
+                Logout
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-      <View style={styles.body}>
-        <Animatable.View style={styles.topBody} animation="fadeInDownBig">
-          <View style={styles.image_container}>
-            <Image
-              source={require('../assests/images/user.png')}
-              style={styles.image_user}
-              resizeMode="stretch"
-            />
-          </View>
-          <View style={styles.body_details}>
-            {/* <Text style={styles.textDetails}>Name :</Text> */}
-            <Text style={styles.textDetailsLarge}>John Fernando</Text>
-            <Text style={styles.textDetailsMedium}>John@example.com</Text>
-            <Text style={styles.textDetailsSmall}>(0771231234)</Text>
-          </View>
-        </Animatable.View>
-        <View style={styles.button_package}>
-          <LinearGradient
-            colors={[colors.color3, colors.color4]}
-            style={styles.package}>
-            <Text
-              style={[
-                styles.textPackage,
-                {
-                  color: colors.color5,
-                },
-              ]}>
-              Edit Profile
-            </Text>
-          </LinearGradient>
-
-          <LinearGradient
-            colors={[colors.color3, colors.color4]}
-            style={styles.package}>
-            <Text
-              style={[
-                styles.textPackage,
-                {
-                  color: colors.color5,
-                },
-              ]}>
-              Settings
-            </Text>
-          </LinearGradient>
-
-          <TouchableOpacity
-            style={[
-              styles.package,
-              // eslint-disable-next-line react-native/no-inline-styles
-              {
-                borderColor: colors.color3,
-                borderWidth: 1,
-              },
-            ]}>
-            <Text
-              style={[
-                styles.textPackage,
-                {
-                  color: colors.color3,
-                },
-              ]}>
-              Logout
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
-  );
-};
+    );
+  }
+}
 
 const windowWidth = Dimensions.get('window').width;
 const {height} = Dimensions.get('screen');
@@ -190,4 +238,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileScreen;
+// export default ProfileScreen;

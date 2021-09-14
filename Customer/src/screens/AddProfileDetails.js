@@ -19,20 +19,26 @@ import Feather from 'react-native-vector-icons/Feather';
 import colors from '../config/colors';
 import PhoneInput from 'react-native-phone-number-input';
 
-const EditProfile = ({navigation}) => {
+const AddProfileScreen = ({navigation}) => {
   const [phonetext, setphonetext] = useState('');
-  const [passwordtext, setpasswordtext] = useState('');
-  const [cpasswordtext, setcpasswordtext] = useState('');
+  //   const [passwordtext, setpasswordtext] = useState('');
+  //   const [cpasswordtext, setcpasswordtext] = useState('');
+  const [addresstext, setaddresstext] = useState('');
+  const [heighttext, setheighttext] = useState('');
+  const [weighttext, setweighttext] = useState('');
+  const [agetext, setagetext] = useState('');
 
-  const Edit = (telephone, password, cpassword) => {
+  const Edit = (telephone, address, height, weight, age) => {
     const x = {
       telephone: telephone,
-      password: password,
-      cpassword: cpassword,
+      address: address,
+      height: height,
+      weight: weight,
+      age: age,
     };
 
     axios
-      .post('http://localhost:8088/editprofile', x)
+      .post('http://localhost:8088/addProfileDetails', x)
       .then(res => {
         if (res.data === 'SUCCESS') navigation.navigate('Tabs');
       })
@@ -49,40 +55,13 @@ const EditProfile = ({navigation}) => {
     confirm_secureTextEntry: true,
   });
 
-  const handlePasswordChange = val => {
-    setData({
-      ...data,
-      password: val,
-    });
-  };
-  const handleConfirmPasswordChange = val => {
-    setData({
-      ...data,
-      confirm_password: val,
-    });
-  };
-
-  const updateSecureTextEntry = () => {
-    setData({
-      ...data,
-      secureTextEntry: !data.secureTextEntry,
-    });
-  };
-
-  const updateConfirmSecureTextEntry = () => {
-    setData({
-      ...data,
-      confirm_secureTextEntry: !data.confirm_secureTextEntry,
-    });
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
-        <Text style={styles.text_header}>Edit Your Profile</Text>
+        <Text style={styles.text_header}>Add Your Details</Text>
         <Text style={styles.textDetailsMedium}>
-          You can change your contact number and password only.
+          Add details to complete your profile
         </Text>
       </View>
 
@@ -111,50 +90,95 @@ const EditProfile = ({navigation}) => {
               ) : null}
             </View>
 
-            {/* password */}
-            <Text style={styles.text_footer}>Password</Text>
+            <Text style={styles.text_footer}>Address</Text>
             <View style={styles.action}>
               <TextInput
-                placeholder="Your Password"
-                secureTextEntry={data.secureTextEntry ? true : false}
+                placeholder="Your Address"
                 style={styles.textInput}
                 autoCapitalize="none"
-                name="passwordtext"
-                value={passwordtext}
-                onChangeText={val => setpasswordtext(val)}
+                name="addresstext"
+                value={addresstext}
+                onChangeText={val => setaddresstext(val)}
               />
-              <TouchableOpacity onPress={updateSecureTextEntry}>
-                {data.secureTextEntry ? (
-                  <Feather name="eye-off" color={colors.color2} size={20} />
-                ) : (
-                  <Feather name="eye" color={colors.color2} size={20} />
-                )}
-              </TouchableOpacity>
+              {data.check_textInputChange ? (
+                <Animatable.View animation="bounceIn">
+                  <Feather
+                    name="check-circle"
+                    color={colors.color2}
+                    size={20}
+                  />
+                </Animatable.View>
+              ) : null}
             </View>
-            {/* confirm password */}
-            <Text style={styles.text_footer}>Confirm Password</Text>
+
+            <Text style={styles.text_footer}>Height</Text>
             <View style={styles.action}>
               <TextInput
-                placeholder="Re-enter Password"
-                secureTextEntry={data.secureTextEntry ? true : false}
+                placeholder="Your Height"
                 style={styles.textInput}
                 autoCapitalize="none"
-                name="cpasswordtext"
-                value={cpasswordtext}
-                onChangeText={val => setcpasswordtext(val)}
+                name="heighttext"
+                value={heighttext}
+                onChangeText={val => setheighttext(val)}
               />
-              <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
-                {data.secureTextEntry ? (
-                  <Feather name="eye-off" color={colors.color2} size={20} />
-                ) : (
-                  <Feather name="eye" color={colors.color2} size={20} />
-                )}
-              </TouchableOpacity>
+              {data.check_textInputChange ? (
+                <Animatable.View animation="bounceIn">
+                  <Feather
+                    name="check-circle"
+                    color={colors.color2}
+                    size={20}
+                  />
+                </Animatable.View>
+              ) : null}
+            </View>
+
+            <Text style={styles.text_footer}>Weight</Text>
+            <View style={styles.action}>
+              <TextInput
+                placeholder="Your Weight"
+                style={styles.textInput}
+                autoCapitalize="none"
+                name="weighttext"
+                value={weighttext}
+                onChangeText={val => setweighttext(val)}
+              />
+              {data.check_textInputChange ? (
+                <Animatable.View animation="bounceIn">
+                  <Feather
+                    name="check-circle"
+                    color={colors.color2}
+                    size={20}
+                  />
+                </Animatable.View>
+              ) : null}
+            </View>
+
+            <Text style={styles.text_footer}>Age</Text>
+            <View style={styles.action}>
+              <TextInput
+                placeholder="Your Age"
+                style={styles.textInput}
+                autoCapitalize="none"
+                name="agetext"
+                value={agetext}
+                onChangeText={val => setagetext(val)}
+              />
+              {data.check_textInputChange ? (
+                <Animatable.View animation="bounceIn">
+                  <Feather
+                    name="check-circle"
+                    color={colors.color2}
+                    size={20}
+                  />
+                </Animatable.View>
+              ) : null}
             </View>
 
             <View style={styles.button}>
               <TouchableOpacity
-                onPress={() => Edit(phonetext, passwordtext, cpasswordtext)}>
+                onPress={() =>
+                  Edit(phonetext, addresstext, heighttext, weighttext, agetext)
+                }>
                 <LinearGradient
                   colors={[colors.color3, colors.color4]}
                   //style={styles.signIn}
@@ -167,7 +191,7 @@ const EditProfile = ({navigation}) => {
                         color: '#ffffff',
                       },
                     ]}>
-                    Update
+                    Add Details
                   </Text>
                 </LinearGradient>
               </TouchableOpacity>
@@ -179,7 +203,7 @@ const EditProfile = ({navigation}) => {
   );
 };
 
-export default EditProfile;
+export default AddProfileScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -195,7 +219,7 @@ const styles = StyleSheet.create({
     paddingTop: 30,
   },
   footer: {
-    flex: 3,
+    flex: 5,
     backgroundColor: '#fff',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,

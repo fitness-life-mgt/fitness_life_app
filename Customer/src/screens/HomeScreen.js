@@ -29,17 +29,27 @@ const HomeScreen = ({navigation}) => {
             />
           </View>
 
-          <TouchableOpacity
-            onPress={() => navigation.navigate('AppointmentScreen')}>
-            <View>
+          <View style={styles.image_container}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('AppointmentScreen')}>
               <Image
-                source={require('../assests/images/homeImage.png')}
-                style={styles.image_home}
+                source={require('../assests/images/Appointment.png')}
+                style={styles.image_click}
                 resizeMode="stretch"
               />
-            </View>
-          </TouchableOpacity>
-          <Text style={styles.text_home}>Appointments                     Diet Plans</Text>
+              <Text style={styles.text_appointment}>Appointments</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('AppointmentScreen')}>
+              <Image
+                source={require('../assests/images/Dietplan.png')}
+                style={styles.image_click}
+                resizeMode="stretch"
+              />
+              <Text style={styles.text_dietplan}>Diet Plans</Text>
+            </TouchableOpacity>
+          </View>
+
           <View>
             <Image
               source={require('../assests/images/homeImage2.png')}
@@ -47,7 +57,7 @@ const HomeScreen = ({navigation}) => {
               resizeMode="stretch"
             />
           </View>
-          <Text style={styles.text_home2}>Schedules                   Self Progress</Text>
+          <Text style={styles.text_home2}>Schedules                    Self Progress</Text>
         </ScrollView>
       </View>
     </View>
@@ -85,6 +95,16 @@ const styles = StyleSheet.create({
   bodyText: {
     fontSize: 24,
   },
+  image_container: {
+    width: 320,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  image_click: {
+    height: 200,
+    width: 182,
+    marginBottom: 10,
+  },
   image_home: {
     height: 200,
     width: windowWidth,
@@ -94,12 +114,22 @@ const styles = StyleSheet.create({
     height: 150,
     width: windowWidth,
   },
-  text_home: {
+  text_appointment: {
+    position: 'absolute',
     fontSize: 16,
     fontFamily: 'roboto',
     color: colors.color5,
-    left: 40,
-    top: -163,
+    left: 48,
+    top: 35,
+    fontWeight: 'bold',
+  },
+  text_dietplan: {
+    position: 'absolute',
+    fontSize: 16,
+    fontFamily: 'roboto',
+    color: colors.color5,
+    left: 48,
+    top: 35,
     fontWeight: 'bold',
   },
   text_home2: {

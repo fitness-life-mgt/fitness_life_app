@@ -45,9 +45,9 @@ const MakeAppointment = ({navigation}) => {
       });
   };
 
-  // const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date());
   // const [time, setTime] = useState(new Time());
-  // const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -85,7 +85,7 @@ const MakeAppointment = ({navigation}) => {
 
           {/* button for date picker */}
 
-          {/* <Button
+          <Button
             style={styles.btnDate}
             color={colors.color1}
             title="Select Date"
@@ -107,7 +107,7 @@ const MakeAppointment = ({navigation}) => {
             onCancel={() => {
               setOpen(false);
             }}
-          /> */}
+          />
 
           {/* To get the last name */}
           <Text style={styles.text_footer}>Time</Text>

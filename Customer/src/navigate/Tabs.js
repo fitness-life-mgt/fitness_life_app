@@ -29,7 +29,7 @@ const Tabs = () => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Appointments"
         component={AppointmentScreen}
         options={{
@@ -38,7 +38,7 @@ const Tabs = () => {
             <MaterialCommunityIcons name="calendar" color={color} size={26} />
           ),
         }}
-      />
+      /> */}
       {/* <Tab.Screen
         name="Contact"
         component={ContactUsScreen}

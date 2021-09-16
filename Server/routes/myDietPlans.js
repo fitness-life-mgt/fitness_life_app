@@ -9,7 +9,7 @@ const db=require("../config/connection");
 
 router.get("/",(req,res)=>{
 
-    let sql= `SELECT * FROM appointment `;
+    let sql= `SELECT * FROM dietplan WHERE email = 'cmwick@gmail.com' AND type = '1'`;
    db.query(sql,(err,result)=>{
         if(err) throw err;
         console.log(result);

@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 import {
   StyleSheet,
-  Button,
   TextInput,
   View,
   Text,
@@ -10,32 +9,24 @@ import {
   ScrollView,
   TouchableOpacity,
   Platform,
-  ColorPropType,
 } from 'react-native';
 import colors from '../config/colors';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import DatePicker from 'react-native-date-picker';
 
 const RequestDietPlan = ({navigation}) => {
-  const [appdatetext, setappdatetext] = useState('');
-  const [apptimetext, setapptimetext] = useState('');
-  const [trainertext, settrainertext] = useState('');
+  const [desc, setdesc] = useState('');
 
-  const SignUp = (appdate, apptime, trainer) => {
+  const SignUp = desc => {
     const x = {
-      appdate: appdate,
-      apptime: apptime,
-      trainer: trainer,
+      desc: desc,
     };
 
     axios
       .post('http://localhost:8088/requestDietPlan', x)
       .then(res => {
         if (res.data == 'SUCCESS') {
-          navigation.navigate('AppointmentScreen');
+          navigation.navigate('DietPlanScreen');
         }
       })
       .catch(error => {
@@ -52,93 +43,30 @@ const RequestDietPlan = ({navigation}) => {
       <View style={styles.container}>
         <View style={styles.header}>
           <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
-          <Text style={styles.text_header}>Request Your Appointment</Text>
+          <Text style={styles.text_header}>Request Your Diet Plan</Text>
           <Text style={styles.textDetailsMedium}>
-            Your Trainer will accept your request and confirm the appointment
+            Add the description Stating your requirement of a diet plan. Please
+            clearly mention, any allergies you have to avoid any trouble.
           </Text>
         </View>
         <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-          <Text style={styles.text_footer}>Trainer</Text>
+          <Text style={styles.text_footer}>Description</Text>
           <View style={styles.action}>
-            <FontAwesome name="envelope" color="grey" size={20} />
             <TextInput
-              placeholder="Email"
+              multiline={true}
+              numberOfLines={10}
+              placeholder="Add Your Description here..."
               style={styles.textInput}
               autoCapitalize="none"
-              name="trainertext"
-              value={trainertext}
-              onChangeText={val => settrainertext(val)}
+              name="desc"
+              value={desc}
+              onChangeText={val => setdesc(val)}
             />
           </View>
-
-          <Text style={styles.text_footer}>Date</Text>
-          {/* <View style={styles.action}>
-            <FontAwesome name="calendar" color="grey" size={20} />
-            <TextInput
-              placeholder="YYYY-MM-DD"
-              style={styles.textInput}
-              autoCapitalize="none"
-              name="appdatetext"
-              value={appdatetext}
-              onChangeText={val => setappdatetext(val)}
-            />
-          </View> */}
-
-          {/* button for date picker */}
-
-          <Button
-            style={styles.btnDate}
-            color={colors.color1}
-            title="Select Date"
-            onPress={() => setOpen(true)}
-          />
-          <DatePicker
-            name="appdatetext"
-            value={appdatetext}
-            mode="date"
-            // minimumDate={currentDate} --> Method in top of the file
-            modal
-            open={open}
-            date={date}
-            onConfirm={date => {
-              setOpen(false);
-              setDate(date);
-              setappdatetext(date);
-            }}
-            onCancel={() => {
-              setOpen(false);
-            }}
-          />
-
-          {/* To get the last name */}
-          <Text style={styles.text_footer}>Session</Text>
-          <View style={styles.action}>
-            <FontAwesome name="clock-o" color="grey" size={20} />
-            <TextInput
-              placeholder="HH:MM:SS"
-              style={styles.textInput}
-              autoCapitalize="none"
-              name="apptimetext"
-              value={apptimetext}
-              onChangeText={
-                val => setapptimetext(val)
-                // vals => textInputChangeLastName(vals))
-              }
-              // onChangeText={val => textInputChangeLastName(val)}
-            />
-            {/* {data.check_textInputChangeLastName ? (
-              <Animatable.View animation="bounceIn">
-                <Feather name="check-circle" color={colors.color2} size={20} />
-              </Animatable.View>
-            ) : null} */}
-            {/* have to add that star, slash and bracket here */}
-          </View>
-          {/* To get the email */}
-
           <View style={styles.button}>
             <TouchableOpacity
               style={styles.signIn}
-              onPress={() => SignUp(appdatetext, apptimetext, trainertext)}>
+              onPress={() => SignUp(desc)}>
               <LinearGradient
                 colors={[colors.color3, colors.color4]}
                 style={styles.signIn}>
@@ -150,7 +78,7 @@ const RequestDietPlan = ({navigation}) => {
                       color: '#ffffff',
                     },
                   ]}>
-                  Request Appointment
+                  Request Diet Plan
                 </Text>
               </LinearGradient>
             </TouchableOpacity>
@@ -212,12 +140,19 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    marginTop: Platform.OS === 'ios' ? 0 : -12,
-    paddingLeft: 10,
+    marginTop: Platform.OS === 'ios' ? 0 : 0,
+    padding: 20,
     color: '#05375a',
     paddingBottom: 5,
     marginBottom: 5,
-    height: 40,
+    height: 200,
+    textAlignVertical: 'top',
+    borderWidth: 1,
+    borderColor: colors.color2,
+    borderRadius: 10,
+    lineHeight: 24,
+    fontSize: 17,
+    fontFamily: 'roboto',
   },
   errorMsg: {
     color: '#FF0000',

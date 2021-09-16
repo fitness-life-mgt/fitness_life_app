@@ -7,16 +7,14 @@ const  saltRounds=10;
 
 router.post("/",(req,res)=>{
    console.log('Inside router');
-    const appdate=req.body.appdate;
-    const apptime=req.body.apptime;
-    const trainer=req.body.trainer;
+    const desc=req.body.desc;
     const email='cmwick@gmail.com';
 
  // query for users
  let sqlCheckEmail = `SELECT * FROM member WHERE email = ?`;
 
  // Simple validation
-   if(!appdate||!apptime||!trainer){
+   if(!desc){
       console.log('Feilds Empty');
        return res.status(400).json({msg:"Please enter all fields"});
    }
@@ -28,13 +26,13 @@ db.query(sqlCheckEmail,email,(err,user)=>{
       console.log('No User');
         return res.status(400).json({msg:"this user already"});
    }else{
-       let sql=`insert into appointment(email,date,time,trainerID) values(?,?,?,'3')`;
+       let sql=`insert into dietplan(email,description) values(?,?)`;
        console.log('Success record');
    {  
    if(err){
       console.log(err)
    }
-   db.query(sql,[email,appdate,apptime,trainer],(err,result)=>{
+   db.query(sql,[email,desc],(err,result)=>{
       console.log('Success Querry');
        console.log(err);
    });

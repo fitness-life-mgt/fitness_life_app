@@ -15,7 +15,7 @@ import AppointmentScreen from './AppointmentScreen';
 import EditProfile from './EditProfileScreen';
 import AddProfileScreen from './AddProfileDetails';
 import PastAppointmentScreen from './PastAppointmentsScreen';
-import DietPlanScreen from './DietPlansScreen';
+import DietPlanScreen from './DietPlanScreen';
 import MyDietPlansScreen from './MyDietPlansScreen';
 import RequestDietPlan from './RequestDietPlan';
 

@@ -46,7 +46,7 @@ export default class App extends Component {
                   Trainer Name - {item.trainerID}
                 </Text>
                 <Text style={styles.text_header_small}>
-                  Date - {item.date} Time - {item.time}
+                  Date - {item.date.substring(0, 10)} Time - {item.time}
                 </Text>
               </View>
             ))}

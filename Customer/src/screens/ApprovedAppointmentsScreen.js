@@ -44,15 +44,15 @@ export default class App extends Component {
             {this.state.data.map(item => (
               <View style={styles.item}>
                 <Text style={styles.text_header}>
-                  Trainer Name - {item.trainerID}
+                  Trainer Name - {item.fname} {item.lname}
                 </Text>
                 <Text style={styles.text_header_small}>
-                  Date - {item.date.substring(0, 10)} Time - {item.time}
+                  Date - {item.adate.substring(0, 10)} Time - {item.atime}
                 </Text>
                 <Text
                   onPress={() => Linking.openURL('http://zoom.com')}
                   style={styles.text_header_small}>
-                  Link - <Text style={styles.text_link}> {item.zoom}</Text>
+                  Link - <Text style={styles.text_link}> {item.azoom}</Text>
                 </Text>
               </View>
             ))}

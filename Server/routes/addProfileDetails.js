@@ -25,7 +25,7 @@ router.post("/",(req,res)=>{
     }
 
     let sql=`UPDATE member SET telephone = ?, address = ?, height = ?, weight = ?,
-    age = ?  WHERE email = '123' `;
+    age = ?  WHERE email = 'cmwick@gmail.com' `;
     {  
 
     db.query(sql,[telephone,address,height,weight,age],(err,result)=>{

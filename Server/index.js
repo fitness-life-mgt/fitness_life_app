@@ -13,6 +13,7 @@ app.use("/editprofile",require("./routes/editProfile"));
 app.use("/getProfileDetails",require("./routes/getProfileDetails"));
 app.use("/addProfileDetails",require("./routes/addProfileDetails"));
 app.use("/pastAppointments",require("./routes/pastAppointments"));
+app.use("/approvedAppointments",require("./routes/approvedAppointments"));
 
 app.listen(8088, () => {
     console.log("Server is running on port 8088");

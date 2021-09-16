@@ -97,7 +97,7 @@ export default class App extends Component {
               </LinearGradient>
             </TouchableOpacity>
 
-            <LinearGradient
+            {/* <LinearGradient
               colors={[colors.color3, colors.color4]}
               style={styles.package}>
               <Text
@@ -109,11 +109,12 @@ export default class App extends Component {
                 ]}>
                 Settings
               </Text>
-            </LinearGradient>
+            </LinearGradient> */}
 
             <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('LogInScreen')}
               style={[
-                styles.package,
+                styles.logout,
                 // eslint-disable-next-line react-native/no-inline-styles
                 {
                   borderColor: colors.color3,
@@ -122,12 +123,12 @@ export default class App extends Component {
               ]}>
               <Text
                 style={[
-                  styles.textPackage,
+                  styles.textSign,
                   {
                     color: colors.color3,
                   },
                 ]}>
-                Logout
+                Log In
               </Text>
             </TouchableOpacity>
           </View>
@@ -157,7 +158,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   body: {
-    flex: 8,
+    flex: 7,
     width: windowWidth,
     backgroundColor: colors.color5,
     // justifyContent: 'center',
@@ -235,6 +236,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     fontFamily: 'roboto',
+  },
+  logout: {
+    width: '100%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  textSign: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginRight: 10,
+    marginLeft: 10,
   },
 });
 

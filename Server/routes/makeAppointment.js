@@ -9,14 +9,14 @@ router.post("/",(req,res)=>{
    console.log('Inside router');
     const appdate=req.body.appdate;
     const apptime=req.body.apptime;
-    const hours=req.body.hours;
-    const email='abc';
+    const trainer=req.body.trainer;
+    const email='cmwick@gmail.com';
 
  // query for users
  let sqlCheckEmail = `SELECT * FROM member WHERE email = ?`;
 
  // Simple validation
-   if(!appdate||!apptime||!hours||!email){
+   if(!appdate||!apptime||!trainer){
       console.log('Feilds Empty');
        return res.status(400).json({msg:"Please enter all fields"});
    }
@@ -28,13 +28,13 @@ db.query(sqlCheckEmail,email,(err,user)=>{
       console.log('No User');
         return res.status(400).json({msg:"this user already"});
    }else{
-       let sql=`insert into appointment(email,date,time,trainerID,apprved) values(?,?,?,'3','0')`;
+       let sql=`insert into appointment(email,date,time,trainerID) values(?,?,?,'3')`;
        console.log('Success record');
    {  
    if(err){
       console.log(err)
    }
-   db.query(sql,[email,appdate,apptime],(err,result)=>{
+   db.query(sql,[email,appdate,apptime,trainer],(err,result)=>{
       console.log('Success Querry');
        console.log(err);
    });

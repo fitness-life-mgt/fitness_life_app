@@ -1,39 +1,130 @@
-import React, {useState} from 'react';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import React, {useState, useEffect, Component} from 'react';
+
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  SectionList,
+  StatusBar,
+  Dimensions,
+  Linking,
+} from 'react-native';
+
 import colors from '../config/colors';
-import LinearGradient from 'react-native-linear-gradient';
+import axios from 'axios';
 
-export default function ApprovedAppointmentsScreen({navigation}) {
-  const [people, setPeople] = useState([
-    {name: 'upadhi', key: '1'},
-    {name: 'upadhi', key: '2'},
-    {name: 'upadhi', key: '3'},
-    {name: 'upadhi', key: '4'},
-    {name: 'upadhi', key: '5'},
-    {name: 'upadhi', key: '6'},
-    {name: 'upadhi', key: '7'},
-  ]);
-
-  return (
-    <View style={StyleSheet.container}>
-      <ScrollView>
-        {people.map(item => {
-          return (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('MakeAppointment')}>
-              <View key={item.key}>
-                <Text style={styles.item}>{item.name}</Text>
+export default class App extends Component {
+  // constructor(props){
+  //   super(props)
+  // }
+  state = {
+    data: [],
+    // id,
+  };
+  componentDidMount() {
+    axios.get('http://localhost:8088/approvedAppointments').then(res => {
+      console.log(res);
+      this.setState({
+        data: res.data,
+      });
+    });
+  }
+  render() {
+    return (
+      <View style={styles.view}>
+        <View style={styles.header}>
+          <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
+          <View>
+            <Text style={styles.headerText}>Appointments</Text>
+          </View>
+        </View>
+        <View style={styles.body}>
+          <ScrollView showsVerticalScrollIndicator={false}>
+            {this.state.data.map(item => (
+              <View style={styles.item}>
+                <Text style={styles.text_header}>
+                  Trainer Name - {item.trainerID}
+                </Text>
+                <Text style={styles.text_header_small}>
+                  Date - {item.date} Time - {item.time}
+                </Text>
+                <Text
+                  onPress={() => Linking.openURL('http://zoom.com')}
+                  style={styles.text_header_small}>
+                  Link - <Text style={styles.text_link}> {item.zoom}</Text>
+                </Text>
               </View>
-            </TouchableOpacity>
-          );
-        })}
-      </ScrollView>
-    </View>
-  );
+            ))}
+          </ScrollView>
+        </View>
+      </View>
+    );
+  }
 }
 
+const windowWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
+  view: {
+    flex: 1,
+    width: windowWidth,
+    backgroundColor: colors.color5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  header: {
+    flex: 1,
+    width: windowWidth,
+    backgroundColor: colors.color2,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
+  body: {
+    flex: 8,
+    width: windowWidth,
+    backgroundColor: colors.color5,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+  },
+  headerText: {
+    fontSize: 24,
+    paddingLeft: 20,
+    fontWeight: 'bold',
+    color: colors.color5,
+    fontFamily: 'roboto',
+  },
+  bodyText: {
+    fontSize: 24,
+  },
+  button_package: {
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    marginTop: 50,
+    marginLeft: 10,
+    marginRight: 10,
+    width: windowWidth,
+    paddingLeft: 20,
+    paddingRight: 40,
+  },
+  package: {
+    width: '100%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    marginBottom: 20,
+  },
+  textPackage: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    fontFamily: 'roboto',
+  },
+  image: {
+    height: 200,
+    width: windowWidth,
+  },
+
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -42,8 +133,34 @@ const styles = StyleSheet.create({
   },
   item: {
     marginTop: 24,
-    padding: 30,
-    backgroundColor: '#B0E0E6',
+    padding: 20,
+    marginLeft: 5,
+    marginRight: 5,
+    // backgroundColor: colors.color4,
+    borderColor: colors.color1,
+    borderWidth: 2,
     fontSize: 24,
+    borderRadius: 20,
+  },
+
+  text_header_small: {
+    color: colors.color1,
+    // fontWeight: 'bold',
+    fontSize: 18,
+    fontFamily: 'roboto',
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
+  text_header: {
+    color: colors.color2,
+    fontWeight: 'bold',
+    fontSize: 22,
+    fontFamily: 'roboto',
+  },
+  text_link: {
+    textDecorationLine: 'underline',
+    color: '#0645AD',
   },
 });

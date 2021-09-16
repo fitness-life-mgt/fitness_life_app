@@ -22,22 +22,20 @@ import DatePicker from 'react-native-date-picker';
 const MakeAppointment = ({navigation}) => {
   const [appdatetext, setappdatetext] = useState('');
   const [apptimetext, setapptimetext] = useState('');
-  const [hourstext, sethourstext] = useState('');
-  const [emailtext, setemailtext] = useState('');
+  const [trainertext, settrainertext] = useState('');
 
-  const SignUp = (appdate, apptime, hours, email) => {
+  const SignUp = (appdate, apptime, trainer) => {
     const x = {
       appdate: appdate,
       apptime: apptime,
-      hours: hours,
-      email: email,
+      trainer: trainer,
     };
 
     axios
       .post('http://localhost:8088/makeAppointment', x)
       .then(res => {
         if (res.data == 'SUCCESS') {
-          navigation.navigate('Appointments');
+          navigation.navigate('AppointmentScreen');
         }
       })
       .catch(error => {
@@ -45,9 +43,9 @@ const MakeAppointment = ({navigation}) => {
       });
   };
 
-  // const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date());
   // const [time, setTime] = useState(new Time());
-  // const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -55,18 +53,21 @@ const MakeAppointment = ({navigation}) => {
         <View style={styles.header}>
           <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
           <Text style={styles.text_header}>Request Your Appointment</Text>
+          <Text style={styles.textDetailsMedium}>
+            Your Trainer will accept your request and confirm the appointment
+          </Text>
         </View>
         <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-          <Text style={styles.text_footer}>Email</Text>
+          <Text style={styles.text_footer}>Trainer</Text>
           <View style={styles.action}>
             <FontAwesome name="envelope" color="grey" size={20} />
             <TextInput
               placeholder="Email"
               style={styles.textInput}
               autoCapitalize="none"
-              name="emailtext"
-              value={emailtext}
-              onChangeText={val => setemailtext(val)}
+              name="trainertext"
+              value={trainertext}
+              onChangeText={val => settrainertext(val)}
             />
           </View>
 
@@ -85,7 +86,7 @@ const MakeAppointment = ({navigation}) => {
 
           {/* button for date picker */}
 
-          {/* <Button
+          <Button
             style={styles.btnDate}
             color={colors.color1}
             title="Select Date"
@@ -107,34 +108,10 @@ const MakeAppointment = ({navigation}) => {
             onCancel={() => {
               setOpen(false);
             }}
-          /> */}
+          />
 
           {/* To get the last name */}
-          <Text style={styles.text_footer}>Time</Text>
-
-          {/* <Button
-            style={styles.btnDate}
-            color={colors.color1}
-            title="Select Date"
-            onPress={() => setOpen(true)}
-          />
-          <DatePicker
-            name="apptimetext"
-            value={apptimetext}
-            mode="time"
-            // minimumDate={currentDate} --> Method in top of the file
-            modal
-            open={open}
-            time={time}
-            onConfirm={time => {
-              setOpen(false);
-              setTime(time);
-              setapptimetext(time);
-            }}
-            onCancel={() => {
-              setOpen(false);
-            }}
-          /> */}
+          <Text style={styles.text_footer}>Session</Text>
           <View style={styles.action}>
             <FontAwesome name="clock-o" color="grey" size={20} />
             <TextInput
@@ -157,29 +134,11 @@ const MakeAppointment = ({navigation}) => {
             {/* have to add that star, slash and bracket here */}
           </View>
           {/* To get the email */}
-          <Text style={styles.text_footer}>No. of Hours</Text>
-          <View style={styles.action}>
-            <FontAwesome name="hourglass" color="grey" size={20} />
-            <TextInput
-              placeholder="1"
-              style={styles.textInput}
-              autoCapitalize="none"
-              name="hourstext"
-              value={hourstext}
-              onChangeText={val => sethourstext(val)}
-              // onChangeText={val => textInputChangeEmail(val)}
-            />
-            {/* {data.check_textInputChangeEmail ? (
-              <Animatable.View animation="bounceIn">
-                <Feather name="check-circle" color={colors.color2} size={20} />
-              </Animatable.View>
-            ) : null} */}
-          </View>
 
           <View style={styles.button}>
             <TouchableOpacity
               style={styles.signIn}
-              onPress={() => SignUp(appdatetext, apptimetext, hourstext)}>
+              onPress={() => SignUp(appdatetext, apptimetext, trainertext)}>
               <LinearGradient
                 colors={[colors.color3, colors.color4]}
                 style={styles.signIn}>
@@ -288,78 +247,10 @@ const styles = StyleSheet.create({
     // marginRight: 125,
     // marginLeft: 125,
   },
+  textDetailsMedium: {
+    fontSize: 19,
+    fontFamily: 'roboto',
+    color: colors.color1,
+    textAlign: 'left',
+  },
 });
-
-// export default function MakeAppointment() {
-//   return (
-//     <View style={styles.container}>
-//       <View style={styles.header}>
-//         <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
-//         <Text style={styles.text_header}>Request Your Appointment</Text>
-//       </View>
-
-//       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-//         <ScrollView showsVerticalScrollIndicator={false}>
-//           <Formik
-//             initialValues={{name: '', date: '', time: '', duration: ''}}
-//             onSubmit={(values, actions) => {
-//               actions.resetForm();
-//               console.log(values);
-//             }}>
-//             {props => (
-//               <View>
-//                 <Text style={styles.text_footer}>Name</Text>
-//                 <View style={styles.action}>
-//                   <TextInput
-//                     style={styles.textInput}
-//                     placeholder="Name"
-//                     onChangeText={props.handleChange('name')}
-//                     value={props.values.name}
-//                   />
-//                 </View>
-
-//                 <Text style={styles.text_footer}>Date of Appointment</Text>
-//                 <View style={styles.action}>
-//                   <TextInput
-//                     style={styles.textInput}
-//                     placeholder="DD/MM/YYYY"
-//                     onChangeText={props.handleChange('date')}
-//                     value={props.values.date}
-//                   />
-//                 </View>
-
-//                 <Text style={styles.text_footer}>Time of Appointment</Text>
-//                 <View style={styles.action}>
-//                   <TextInput
-//                     style={styles.textInput}
-//                     placeholder="HH:MM"
-//                     onChangeText={props.handleChange('time')}
-//                     value={props.values.time}
-//                   />
-//                 </View>
-
-//                 <Text style={styles.text_footer}>Number of Hours</Text>
-//                 <View style={styles.action}>
-//                   <TextInput
-//                     style={styles.textInput}
-//                     placeholder="1"
-//                     onChangeText={props.handleChange('duration')}
-//                     value={props.values.duration}
-//                   />
-//                 </View>
-
-//                 <View style={styles.button}>
-//                   <Button
-//                     title="Request Appointment"
-//                     color={colors.color3}
-//                     onPress={props.handleSubmit}
-//                   />
-//                 </View>
-//               </View>
-//             )}
-//           </Formik>
-//         </ScrollView>
-//       </Animatable.View>
-//     </View>
-//   );
-// }

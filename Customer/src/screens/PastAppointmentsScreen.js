@@ -8,7 +8,6 @@ import {
   SectionList,
   StatusBar,
   Dimensions,
-  Linking,
 } from 'react-native';
 
 import colors from '../config/colors';
@@ -23,7 +22,7 @@ export default class App extends Component {
     // id,
   };
   componentDidMount() {
-    axios.get('http://localhost:8088/approvedAppointments').then(res => {
+    axios.get('http://localhost:8088/pastAppointments').then(res => {
       console.log(res);
       this.setState({
         data: res.data,
@@ -48,11 +47,6 @@ export default class App extends Component {
                 </Text>
                 <Text style={styles.text_header_small}>
                   Date - {item.date} Time - {item.time}
-                </Text>
-                <Text
-                  onPress={() => Linking.openURL('http://zoom.com')}
-                  style={styles.text_header_small}>
-                  Link - <Text style={styles.text_link}> {item.zoom}</Text>
                 </Text>
               </View>
             ))}
@@ -158,9 +152,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 22,
     fontFamily: 'roboto',
-  },
-  text_link: {
-    textDecorationLine: 'underline',
-    color: '#0645AD',
   },
 });

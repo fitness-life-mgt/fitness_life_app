@@ -10,6 +10,7 @@ import AppointmentScreen from '../screens/AppointmentScreen';
 import MusicScreen from '../screens/MusicScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ContactUsScreen from '../screens/ContactUsScreen';
+import ProgramScreen from '../screens/ProgramScreen';
 // import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 const Tab = createBottomTabNavigator();
@@ -28,7 +29,7 @@ const Tabs = () => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Appointments"
         component={AppointmentScreen}
         options={{
@@ -37,7 +38,7 @@ const Tabs = () => {
             <MaterialCommunityIcons name="calendar" color={color} size={26} />
           ),
         }}
-      />
+      /> */}
       {/* <Tab.Screen
         name="Contact"
         component={ContactUsScreen}
@@ -48,6 +49,16 @@ const Tabs = () => {
           ),
         }}
       /> */}
+      <Tab.Screen
+        name="Program"
+        component={ProgramScreen}
+        options={{
+          tabBarLabel: 'Workouts',
+          tabBarIcon: ({color}) => (
+            <MaterialCommunityIcons name="dumbbell" color={color} size={26} />
+          ),
+        }}
+      />
       <Tab.Screen
         name="Music"
         component={MusicScreen}

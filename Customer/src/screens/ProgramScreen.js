@@ -11,19 +11,19 @@ import {
 import colors from '../config/colors';
 import LinearGradient from 'react-native-linear-gradient';
 
-const AppointmentScreen = ({navigation}) => {
+const ProgramScreen = ({navigation}) => {
   return (
     <View style={styles.view}>
       <View style={styles.header}>
         <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
         <View>
-          <Text style={styles.headerText}>Appointments</Text>
+          <Text style={styles.headerText}>Workouts</Text>
         </View>
       </View>
       <View style={styles.body}>
         <View>
           <Image
-            source={require('../assests/images/exercise.jpg')}
+            source={require('../assests/images/workout.jpg')}
             style={styles.image}
             resizeMode="stretch"
           />
@@ -42,7 +42,7 @@ const AppointmentScreen = ({navigation}) => {
                     color: colors.color5,
                   },
                 ]}>
-                Make an Appointment
+                Arm Workouts
               </Text>
             </LinearGradient>
           </TouchableOpacity>
@@ -60,14 +60,14 @@ const AppointmentScreen = ({navigation}) => {
                     color: colors.color5,
                   },
                 ]}>
-                Approved Appointments
+                Leg Workouts
               </Text>
             </LinearGradient>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={styles.package}
-            onPress={() => navigation.navigate('PastAppointmentScreen')}>
+            onPress={() => navigation.navigate('MakeAppointment')}>
             <LinearGradient
               colors={[colors.color3, colors.color4]}
               style={styles.package}>
@@ -78,7 +78,7 @@ const AppointmentScreen = ({navigation}) => {
                     color: colors.color5,
                   },
                 ]}>
-                Past Appointments
+                Full Body Workouts
               </Text>
             </LinearGradient>
           </TouchableOpacity>
@@ -151,4 +151,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AppointmentScreen;
+export default ProgramScreen;

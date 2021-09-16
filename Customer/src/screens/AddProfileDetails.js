@@ -14,6 +14,8 @@ import {
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
 // import {Colors} from 'react-native/Libraries/NewAppScreen';
 import colors from '../config/colors';
@@ -71,8 +73,9 @@ const AddProfileScreen = ({navigation}) => {
           <View>
             <Text style={styles.text_footer}>Contact No.</Text>
             <View style={styles.action}>
+              <Entypo name="phone" color="grey" size={20} />
               <TextInput
-                placeholder="Your Contact Number"
+                placeholder="94XXXXXXXXX"
                 style={styles.textInput}
                 autoCapitalize="none"
                 name="phonetext"
@@ -92,6 +95,7 @@ const AddProfileScreen = ({navigation}) => {
 
             <Text style={styles.text_footer}>Address</Text>
             <View style={styles.action}>
+              <Entypo name="location" color="grey" size={20} />
               <TextInput
                 placeholder="Your Address"
                 style={styles.textInput}
@@ -113,8 +117,13 @@ const AddProfileScreen = ({navigation}) => {
 
             <Text style={styles.text_footer}>Height</Text>
             <View style={styles.action}>
+              <MaterialCommunity
+                name="human-male-height"
+                color="grey"
+                size={20}
+              />
               <TextInput
-                placeholder="Your Height"
+                placeholder="Your Height in cm"
                 style={styles.textInput}
                 autoCapitalize="none"
                 name="heighttext"
@@ -134,8 +143,13 @@ const AddProfileScreen = ({navigation}) => {
 
             <Text style={styles.text_footer}>Weight</Text>
             <View style={styles.action}>
+              <MaterialCommunity
+                name="weight-kilogram"
+                color="grey"
+                size={20}
+              />
               <TextInput
-                placeholder="Your Weight"
+                placeholder="Your Weight in Kg"
                 style={styles.textInput}
                 autoCapitalize="none"
                 name="weighttext"
@@ -155,6 +169,7 @@ const AddProfileScreen = ({navigation}) => {
 
             <Text style={styles.text_footer}>Age</Text>
             <View style={styles.action}>
+              <FontAwesome name="age" color="grey" size={20} />
               <TextInput
                 placeholder="Your Age"
                 style={styles.textInput}
@@ -174,28 +189,27 @@ const AddProfileScreen = ({navigation}) => {
               ) : null}
             </View>
 
-            <View style={styles.button}>
-              <TouchableOpacity
-                onPress={() =>
-                  Edit(phonetext, addresstext, heighttext, weighttext, agetext)
-                }>
-                <LinearGradient
-                  colors={[colors.color3, colors.color4]}
-                  //style={styles.signIn}
-                >
-                  <Text
-                    style={[
-                      styles.textSign,
-                      // eslint-disable-next-line react-native/no-inline-styles
-                      {
-                        color: '#ffffff',
-                      },
-                    ]}>
-                    Add Details
-                  </Text>
-                </LinearGradient>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() =>
+                Edit(phonetext, addresstext, heighttext, weighttext, agetext)
+              }>
+              <LinearGradient
+                colors={[colors.color3, colors.color4]}
+                //style={styles.signIn}
+              >
+                <Text
+                  style={[
+                    styles.textSign,
+                    // eslint-disable-next-line react-native/no-inline-styles
+                    {
+                      color: '#ffffff',
+                    },
+                  ]}>
+                  Add Details
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </Animatable.View>
@@ -251,10 +265,11 @@ const styles = StyleSheet.create({
   },
   action: {
     flexDirection: 'row',
-    //marginTop: 10,
+    marginTop: 5,
     borderBottomWidth: 1,
     borderBottomColor: '#f2f2f2',
     paddingBottom: -5,
+    marginBottom: -5,
   },
   actionError: {
     flexDirection: 'row',
@@ -267,7 +282,8 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: Platform.OS === 'ios' ? 0 : -12,
     paddingLeft: 10,
-    color: '#05375a',
+    // color: '#05375a',
+    fontSize: 15,
     // height: 20,
     // width: 100,
   },

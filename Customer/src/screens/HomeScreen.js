@@ -40,7 +40,7 @@ const HomeScreen = ({navigation}) => {
               <Text style={styles.text_appointment}>Appointments</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate('AppointmentScreen')}>
+              onPress={() => navigation.navigate('DietPlanScreen')}>
               <Image
                 source={require('../assests/images/Dietplan.png')}
                 style={styles.image_click}

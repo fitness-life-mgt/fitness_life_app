@@ -22,7 +22,7 @@ export default class App extends Component {
     // id,
   };
   componentDidMount() {
-    axios.get('http://localhost:8088/pastAppointments').then(res => {
+    axios.get('http://localhost:8088/myDietPlans').then(res => {
       console.log(res);
       this.setState({
         data: res.data,
@@ -35,7 +35,7 @@ export default class App extends Component {
         <View style={styles.header}>
           <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
           <View>
-            <Text style={styles.headerText}>Appointments</Text>
+            <Text style={styles.headerText}>My Diet Plans</Text>
           </View>
         </View>
         <View style={styles.body}>
@@ -43,10 +43,38 @@ export default class App extends Component {
             {this.state.data.map(item => (
               <View style={styles.item}>
                 <Text style={styles.text_header}>
-                  Trainer Name - {item.trainerID}
+                  Description -{' '}
+                  <Text style={styles.text_header_small}>
+                    {item.description}
+                  </Text>
                 </Text>
-                <Text style={styles.text_header_small}>
-                  Date - {item.date.substring(0, 10)} Time - {item.time}
+                <Text style={styles.text_header}>
+                  Requested On -{' '}
+                  <Text style={styles.text_header_small}>
+                    {item.date.substring(0, 10)}
+                  </Text>
+                </Text>
+                <Text style={styles.text_header}>
+                  Breakfast Meal -{' '}
+                  <Text style={styles.text_header_small}>{item.bmeal}</Text>
+                </Text>
+                <Text style={styles.text_header}>
+                  Lunch Meal -{' '}
+                  <Text style={styles.text_header_small}>{item.lmeal}</Text>
+                </Text>
+                <Text style={styles.text_header}>
+                  Dinner Meal -{' '}
+                  <Text style={styles.text_header_small}>{item.dmeal}</Text>
+                </Text>
+                <Text style={styles.text_header}>
+                  Extra Meals -{' '}
+                  <Text style={styles.text_header_small}>{item.exmeal}</Text>
+                </Text>
+                <Text style={styles.text_header}>
+                  Recommended Suppliments -{' '}
+                  <Text style={styles.text_header_small}>
+                    {item.supplement}
+                  </Text>
                 </Text>
               </View>
             ))}
@@ -134,7 +162,7 @@ const styles = StyleSheet.create({
     borderColor: colors.color1,
     borderWidth: 2,
     fontSize: 24,
-    borderRadius: 20,
+    borderRadius: 0,
   },
 
   text_header_small: {
@@ -150,7 +178,7 @@ const styles = StyleSheet.create({
   text_header: {
     color: colors.color2,
     fontWeight: 'bold',
-    fontSize: 22,
+    fontSize: 18,
     fontFamily: 'roboto',
   },
 });

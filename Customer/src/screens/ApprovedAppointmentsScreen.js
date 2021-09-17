@@ -36,7 +36,7 @@ export default class App extends Component {
         <View style={styles.header}>
           <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
           <View>
-            <Text style={styles.headerText}>Appointments</Text>
+            <Text style={styles.headerText}>Ongoing Appointments</Text>
           </View>
         </View>
         <View style={styles.body}>

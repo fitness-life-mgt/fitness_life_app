@@ -5,42 +5,56 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  SectionList,
   StatusBar,
   Dimensions,
+  Image,
 } from 'react-native';
 
 import colors from '../config/colors';
 import axios from 'axios';
 
 export default class App extends Component {
-  // constructor(props){
-  //   super(props)
-  // }
-  state = {
-    data: [],
-    // id,
-  };
-  componentDidMount() {
-    axios.get('http://localhost:8088/pastAppointments').then(res => {
-      console.log(res);
-      this.setState({
-        data: res.data,
-      });
-    });
-  }
+  //   state = {
+  //     data: [],
+  //     // id,
+  //   };
+  //   componentDidMount() {
+  //     axios.get('http://localhost:8088/pastAppointments').then(res => {
+  //       console.log(res);
+  //       this.setState({
+  //         data: res.data,
+  //       });
+  //     });
+  //   }
   render() {
     return (
       <View style={styles.view}>
         <View style={styles.header}>
           <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
           <View>
-            <Text style={styles.headerText}>Past Appointments</Text>
+            <Text style={styles.headerText}>Arm Workouts</Text>
           </View>
         </View>
+
         <View style={styles.body}>
           <ScrollView showsVerticalScrollIndicator={false}>
-            {this.state.data.map(item => (
+            <View style={styles.item}>
+              <View style={styles.toparea}>
+                <View style={styles.imagearea}>
+                  <Image
+                    style={styles.image}
+                    source={require('../assests/images/workout.jpg')}
+                  />
+                </View>
+                <View style={styles.titlearea}>
+                  <Text>Hello</Text>
+                </View>
+              </View>
+              <View style={styles.descarea}>
+                <Text>Description</Text>
+              </View>
+            </View>
+            {/* {this.state.data.map(item => (
               <View style={styles.item}>
                 <Text style={styles.text_header}>
                   Trainer Name - {item.fname} {item.lname}
@@ -49,7 +63,7 @@ export default class App extends Component {
                   Date - {item.adate.substring(0, 10)} Time - {item.atime}
                 </Text>
               </View>
-            ))}
+            ))} */}
           </ScrollView>
         </View>
       </View>
@@ -115,8 +129,8 @@ const styles = StyleSheet.create({
     fontFamily: 'roboto',
   },
   image: {
-    height: 200,
-    width: windowWidth,
+    height: 90,
+    width: 90,
   },
 
   container: {
@@ -125,18 +139,6 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     paddingHorizontal: 20,
   },
-  item: {
-    marginTop: 24,
-    padding: 20,
-    marginLeft: 5,
-    marginRight: 5,
-    // backgroundColor: colors.color4,
-    borderColor: colors.color1,
-    borderWidth: 2,
-    fontSize: 24,
-    borderRadius: 20,
-  },
-
   text_header_small: {
     color: colors.color1,
     // fontWeight: 'bold',
@@ -146,11 +148,41 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-
   text_header: {
     color: colors.color2,
     fontWeight: 'bold',
     fontSize: 22,
     fontFamily: 'roboto',
+  },
+  item: {
+    marginTop: 24,
+    marginLeft: 5,
+    marginRight: 5,
+  },
+  toparea: {
+    borderColor: colors.color1,
+    borderWidth: 1,
+    fontSize: 24,
+    flexDirection: 'row',
+  },
+  imagearea: {
+    flex: 1,
+    // backgroundColor: colors.color1,
+    borderWidth: 1,
+    // padding: 10,
+    height: 90,
+  },
+  titlearea: {
+    flex: 3,
+    // backgroundColor: colors.color2,
+    borderWidth: 1,
+    padding: 10,
+    height: 90,
+  },
+  descarea: {
+    // backgroundColor: colors.color2,
+    borderWidth: 2,
+    padding: 1,
+    height: 90,
   },
 });

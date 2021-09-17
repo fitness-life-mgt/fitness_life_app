@@ -14,18 +14,19 @@ import colors from '../config/colors';
 import axios from 'axios';
 
 export default class App extends Component {
-  //   state = {
-  //     data: [],
-  //     // id,
-  //   };
-  //   componentDidMount() {
-  //     axios.get('http://localhost:8088/pastAppointments').then(res => {
-  //       console.log(res);
-  //       this.setState({
-  //         data: res.data,
-  //       });
-  //     });
-  //   }
+  state = {
+    data: [],
+    // id,
+  };
+  componentDidMount() {
+    axios.get('http://localhost:8088/getArmWorkouts').then(res => {
+      console.log(res);
+      this.setState({
+        data: res.data,
+      });
+    });
+  }
+
   render() {
     return (
       <View style={styles.view}>
@@ -38,22 +39,30 @@ export default class App extends Component {
 
         <View style={styles.body}>
           <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={styles.item}>
-              <View style={styles.toparea}>
-                <View style={styles.imagearea}>
-                  <Image
-                    style={styles.image}
-                    source={require('../assests/images/workout.jpg')}
-                  />
+            {this.state.data.map(item => (
+              <View style={styles.item}>
+                <View style={styles.toparea}>
+                  <View style={styles.imagearea}>
+                    {/* const imageName = {item.image} */}
+                    <Image
+                      style={styles.image}
+                      source={require('../assests/images/workout.jpg')}
+                    />
+                  </View>
+                  <View style={styles.titlearea}>
+                    <Text style={styles.text_header}>{item.workoutName}</Text>
+                    <Text style={styles.text_header_duration}>
+                      Duration: {item.duration} seconds
+                    </Text>
+                  </View>
                 </View>
-                <View style={styles.titlearea}>
-                  <Text>Hello</Text>
+                <View style={styles.descarea}>
+                  <Text style={styles.text_header_small}>
+                    {item.description}
+                  </Text>
                 </View>
               </View>
-              <View style={styles.descarea}>
-                <Text>Description</Text>
-              </View>
-            </View>
+            ))}
             {/* {this.state.data.map(item => (
               <View style={styles.item}>
                 <Text style={styles.text_header}>
@@ -130,7 +139,7 @@ const styles = StyleSheet.create({
   },
   image: {
     height: 90,
-    width: 90,
+    width: (windowWidth * 2) / 6,
   },
 
   container: {
@@ -144,45 +153,54 @@ const styles = StyleSheet.create({
     // fontWeight: 'bold',
     fontSize: 18,
     fontFamily: 'roboto',
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    marginLeft: 8,
+    paddingTop: 5,
   },
   text_header: {
     color: colors.color2,
     fontWeight: 'bold',
     fontSize: 22,
+    marginLeft: 0,
     fontFamily: 'roboto',
+  },
+  text_header_duration: {
+    color: colors.color2,
+    // fontWeight: 'bold',
+    fontSize: 16,
+    fontFamily: 'roboto',
+    marginLeft: 3,
+    paddingTop: 5,
   },
   item: {
     marginTop: 24,
     marginLeft: 5,
     marginRight: 5,
+    borderBottomWidth: 2,
+    borderColor: colors.color1,
   },
   toparea: {
-    borderColor: colors.color1,
-    borderWidth: 1,
-    fontSize: 24,
+    // fontSize: 24,
     flexDirection: 'row',
   },
   imagearea: {
-    flex: 1,
+    flex: 2,
     // backgroundColor: colors.color1,
-    borderWidth: 1,
+    // borderWidth: 1,
     // padding: 10,
     height: 90,
   },
   titlearea: {
     flex: 3,
     // backgroundColor: colors.color2,
-    borderWidth: 1,
+    // borderWidth: 1,
     padding: 10,
     height: 90,
   },
   descarea: {
     // backgroundColor: colors.color2,
-    borderWidth: 2,
+    // borderWidth: 2,
     padding: 1,
-    height: 90,
+    marginBottom: 10,
+    // height: 105,
   },
 });

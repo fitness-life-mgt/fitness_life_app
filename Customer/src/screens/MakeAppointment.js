@@ -62,7 +62,7 @@ const MakeAppointment = ({navigation}) => {
           <View style={styles.action}>
             <FontAwesome name="envelope" color="grey" size={20} />
             <TextInput
-              placeholder="Email"
+              placeholder="Trainer Name"
               style={styles.textInput}
               autoCapitalize="none"
               name="trainertext"
@@ -115,7 +115,7 @@ const MakeAppointment = ({navigation}) => {
           <View style={styles.action}>
             <FontAwesome name="clock-o" color="grey" size={20} />
             <TextInput
-              placeholder="HH:MM:SS"
+              placeholder="Morning or Evening"
               style={styles.textInput}
               autoCapitalize="none"
               name="apptimetext"

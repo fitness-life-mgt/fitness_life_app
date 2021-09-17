@@ -18,6 +18,8 @@ import PastAppointmentScreen from './PastAppointmentsScreen';
 import DietPlanScreen from './DietPlanScreen';
 import MyDietPlansScreen from './MyDietPlansScreen';
 import RequestDietPlan from './RequestDietPlan';
+import WorkoutArmScreen from './WorkoutArmScreen';
+import WorkoutLegScreen from './WorkoutLegScreen';
 
 const RootStack = createStackNavigator();
 
@@ -189,6 +191,30 @@ const RootStackScreen = ({navigation}) => {
         <RootStack.Screen
           name="RequestDietPlan"
           component={RequestDietPlan}
+          options={{
+            title: '',
+            headerShown: false,
+
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
+        <RootStack.Screen
+          name="WorkoutArmScreen"
+          component={WorkoutArmScreen}
+          options={{
+            title: '',
+            headerShown: false,
+
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
+        <RootStack.Screen
+          name="WorkoutLegScreen"
+          component={WorkoutLegScreen}
           options={{
             title: '',
             headerShown: false,

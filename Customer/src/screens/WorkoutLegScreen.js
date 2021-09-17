@@ -5,42 +5,50 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  SectionList,
   StatusBar,
   Dimensions,
+  Image,
 } from 'react-native';
 
 import colors from '../config/colors';
 import axios from 'axios';
 
 export default class App extends Component {
-  // constructor(props){
-  //   super(props)
-  // }
-  state = {
-    data: [],
-    // id,
-  };
-  componentDidMount() {
-    axios.get('http://localhost:8088/pastAppointments').then(res => {
-      console.log(res);
-      this.setState({
-        data: res.data,
-      });
-    });
-  }
+  //   state = {
+  //     data: [],
+  //     // id,
+  //   };
+  //   componentDidMount() {
+  //     axios.get('http://localhost:8088/pastAppointments').then(res => {
+  //       console.log(res);
+  //       this.setState({
+  //         data: res.data,
+  //       });
+  //     });
+  //   }
   render() {
     return (
       <View style={styles.view}>
         <View style={styles.header}>
           <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
           <View>
-            <Text style={styles.headerText}>Past Appointments</Text>
+            <Text style={styles.headerText}>Arm Workouts</Text>
           </View>
         </View>
+
         <View style={styles.body}>
           <ScrollView showsVerticalScrollIndicator={false}>
-            {this.state.data.map(item => (
+            <View style={styles.item}>
+              <View style={styles.imagearea}>
+                <Image
+                  style={styles.image}
+                  source={require('../assests/images/workout.jpg')}
+                />
+              </View>
+              <View style={styles.descarea}></View>
+            </View>
+
+            {/* {this.state.data.map(item => (
               <View style={styles.item}>
                 <Text style={styles.text_header}>
                   Trainer Name - {item.fname} {item.lname}
@@ -49,7 +57,7 @@ export default class App extends Component {
                   Date - {item.adate.substring(0, 10)} Time - {item.atime}
                 </Text>
               </View>
-            ))}
+            ))} */}
           </ScrollView>
         </View>
       </View>
@@ -115,8 +123,8 @@ const styles = StyleSheet.create({
     fontFamily: 'roboto',
   },
   image: {
-    height: 200,
-    width: windowWidth,
+    height: 90,
+    width: 90,
   },
 
   container: {
@@ -127,14 +135,14 @@ const styles = StyleSheet.create({
   },
   item: {
     marginTop: 24,
-    padding: 20,
     marginLeft: 5,
     marginRight: 5,
     // backgroundColor: colors.color4,
     borderColor: colors.color1,
     borderWidth: 2,
     fontSize: 24,
-    borderRadius: 20,
+    // borderRadius: 20,
+    flexDirection: 'row',
   },
 
   text_header_small: {
@@ -152,5 +160,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 22,
     fontFamily: 'roboto',
+  },
+  imagearea: {
+    flex: 1,
+    // backgroundColor: colors.color1,
+    borderWidth: 2,
+    // padding: 10,
+    height: 90,
+  },
+  descarea: {
+    flex: 3,
+    // backgroundColor: colors.color2,
+    borderWidth: 2,
+    padding: 10,
+    height: 90,
   },
 });

@@ -16,6 +16,7 @@ app.use("/pastAppointments",require("./routes/pastAppointments"));
 app.use("/approvedAppointments",require("./routes/approvedAppointments"));
 app.use("/requestDietPlan",require("./routes/requestDietPlan"));
 app.use("/myDietPlans",require("./routes/myDietPlans"));
+app.use("/getArmWorkouts",require("./routes/getArmWorkouts"));
 
 app.listen(8088, () => {
     console.log("Server is running on port 8088");

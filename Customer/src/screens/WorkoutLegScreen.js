@@ -52,16 +52,14 @@ export default class App extends Component {
                     />
                   </View>
                   <View style={styles.titlearea}>
-                    <Text style={styles.text_header}>{item.workoutName}</Text>
+                    <Text style={styles.text_header}>{item.wname}</Text>
                     <Text style={styles.text_header_duration}>
-                      Duration: {item.duration} seconds
+                      Duration: {item.wdur} seconds
                     </Text>
                   </View>
                 </View>
                 <View style={styles.descarea}>
-                  <Text style={styles.text_header_small}>
-                    {item.description}
-                  </Text>
+                  <Text style={styles.text_header_small}>{item.wdesc}</Text>
                 </View>
               </View>
             ))}

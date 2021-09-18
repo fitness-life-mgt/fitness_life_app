@@ -10,6 +10,7 @@ import {
   StyleSheet,
   StatusBar,
   ScrollView,
+  Alert,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -47,10 +48,15 @@ const RegisterScreen = ({navigation}) => {
       .post('http://localhost:8088/register', x)
       .then(res => {
         if (res.data == 'SUCCESS') {
-          navigation.navigate('LogInScreen');
+          Alert.alert('Registerd', 'Please Login to Continue', [
+            {text: 'Login', onPress: () => navigation.navigate('LogInScreen')},
+          ]);
         }
       })
       .catch(error => {
+        Alert.alert('Oops', 'Registration Failed', [
+          {text: 'Okay', onPress: () => console.log('alert closed')},
+        ]);
         console.log(error);
       });
   };

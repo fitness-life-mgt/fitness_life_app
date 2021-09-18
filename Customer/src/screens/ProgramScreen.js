@@ -67,7 +67,7 @@ const ProgramScreen = ({navigation}) => {
 
           <TouchableOpacity
             style={styles.package}
-            onPress={() => navigation.navigate('MakeAppointment')}>
+            onPress={() => navigation.navigate('WorkoutAbsScreen')}>
             <LinearGradient
               colors={[colors.color3, colors.color4]}
               style={styles.package}>
@@ -78,7 +78,7 @@ const ProgramScreen = ({navigation}) => {
                     color: colors.color5,
                   },
                 ]}>
-                Full Body Workouts
+                ABS Workouts
               </Text>
             </LinearGradient>
           </TouchableOpacity>

@@ -21,7 +21,7 @@ export default class App extends Component {
     // id,
   };
   componentDidMount() {
-    axios.get('http://localhost:8088/getArmWorkouts').then(res => {
+    axios.get('http://localhost:8088/getAbsWorkouts').then(res => {
       console.log(res);
       this.setState({
         data: res.data,
@@ -35,7 +35,7 @@ export default class App extends Component {
         <View style={styles.header}>
           <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
           <View>
-            <Text style={styles.headerText}>Arm Workouts</Text>
+            <Text style={styles.headerText}>ABS Workouts</Text>
           </View>
         </View>
 

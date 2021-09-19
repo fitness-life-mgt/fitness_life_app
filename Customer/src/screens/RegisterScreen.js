@@ -11,6 +11,8 @@ import {
   StatusBar,
   ScrollView,
   Alert,
+  Modal,
+  Pressable,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -34,6 +36,7 @@ const RegisterScreen = ({navigation}) => {
   const [emailtext, setemailtext] = useState('');
   const [passwordtext, setpasswordtext] = useState('');
   const [cpasswordtext, setcpasswordtext] = useState('');
+  const [showWarning, setshowWarning] = useState(false);
 
   const SignUp = (fname, lname, email, password, cpassword) => {
     const x = {
@@ -54,9 +57,11 @@ const RegisterScreen = ({navigation}) => {
         }
       })
       .catch(error => {
-        Alert.alert('Oops', 'Registration Failed', [
-          {text: 'Okay', onPress: () => console.log('alert closed')},
-        ]);
+        setshowWarning(true);
+
+        // Alert.alert('Oops', 'Registration Failed', [
+        //   {text: 'Okay', onPress: () => console.log('alert closed')},
+        // ]);
         console.log(error);
       });
   };
@@ -155,6 +160,30 @@ const RegisterScreen = ({navigation}) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
+        <Modal
+          transparent
+          visible={showWarning}
+          onRequestClose={() => setshowWarning(false)}>
+          <View style={styles.centered_modal}>
+            <View style={styles.error_modal}>
+              <View style={styles.header_modal}>
+                <Text style={styles.header_text_modal}>
+                  Registration Error!
+                </Text>
+              </View>
+              <View style={styles.body_modal}>
+                <Text style={styles.body_text_modal}>
+                  Hello this is a modal
+                </Text>
+              </View>
+              <Pressable
+                style={styles.pressable_modal}
+                onPress={() => setshowWarning(false)}>
+                <Text style={styles.pressable_text_modal}>Okay</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
         <View style={styles.header}>
           <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
           <Text style={styles.text_header}>Register Yourself!</Text>
@@ -422,5 +451,63 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginRight: 125,
     marginLeft: 125,
+  },
+  centered_modal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#00000070',
+  },
+  error_modal: {
+    width: 270,
+    height: 150,
+    backgroundColor: colors.color5,
+    // borderWidth: 1,
+    // borderColor: colors.color2,
+    borderRadius: 10,
+  },
+  header_modal: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: colors.color3,
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+  },
+  header_text_modal: {
+    fontFamily: 'roboto',
+    fontSize: 20,
+    color: colors.color2,
+    fontWeight: 'bold',
+  },
+  body_modal: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  body_text_modal: {
+    fontFamily: 'roboto',
+    fontSize: 17,
+    color: colors.color1,
+    marginTop: -20,
+  },
+  pressable_modal: {
+    // borderTopWidth: 1,
+    // borderColor: colors.color1,
+    backgroundColor: colors.color4,
+    height: 50,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  pressable_text_modal: {
+    fontFamily: 'roboto',
+    fontSize: 18,
+    color: colors.color5,
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    paddingTop: 10,
+    fontWeight: 'bold',
   },
 });

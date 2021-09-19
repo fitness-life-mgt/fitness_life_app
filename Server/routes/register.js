@@ -30,20 +30,22 @@ router.post("/",(req,res)=>{
 
   // Simple validation
     if(!fname||!lname||!email||!password||!cpassword){
-        return res.status(400).json({msg:"Please enter all fields"});
+        return res.json({msg:"Please fill all the Fields"});
+        // return res.status(400).json({msg:"Please enter all fields"});
     }
     if(password!==cpassword){
-      return res.status(400).json({msg:"Please Confim your password"});
+      return res.json({msg:"Passwords do not Match"});
     }
 //check for existing user
 db.query(sqlCheckEmail,email,(err,user)=>{
     if(user.length>0){
-         return res.status(400).json({msg:"this user already"});
+         return res.json({msg:"User Already Exists"});
     }else{
         let sql=`insert into member(firstName,lastName,email,password,createdAt,memberType) values(?,?,?,?,?,'0')`;
  bcrypt.hash(password,saltRounds,(err,hash)=>{  
     if(err){
        console.log(err)
+       return res.json({msg:"Error while Registering. Please Retry!"});
     }
     db.query(sql,[fname,lname,email,hash,currentDate],(err,result)=>{
         console.log(err);

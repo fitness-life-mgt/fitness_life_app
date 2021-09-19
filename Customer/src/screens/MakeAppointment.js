@@ -10,7 +10,9 @@ import {
   ScrollView,
   TouchableOpacity,
   Platform,
-  ColorPropType,
+  Alert,
+  Modal,
+  Pressable,
 } from 'react-native';
 import colors from '../config/colors';
 import * as Animatable from 'react-native-animatable';
@@ -23,6 +25,7 @@ const MakeAppointment = ({navigation}) => {
   const [appdatetext, setappdatetext] = useState('');
   const [apptimetext, setapptimetext] = useState('');
   const [trainertext, settrainertext] = useState('');
+  const [showWarning, setshowWarning] = useState(false);
 
   const SignUp = (appdate, apptime, trainer) => {
     const x = {
@@ -31,16 +34,19 @@ const MakeAppointment = ({navigation}) => {
       trainer: trainer,
     };
 
-    axios
-      .post('http://localhost:8088/makeAppointment', x)
-      .then(res => {
-        if (res.data == 'SUCCESS') {
-          navigation.navigate('AppointmentScreen');
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    axios.post('http://localhost:8088/makeAppointment', x).then(res => {
+      if (res.data == 'SUCCESS') {
+        setshowWarning(true);
+      } else {
+        console.log(res.data.msg);
+        Alert.alert('Failed!', res.data.msg.toString(), [
+          {text: 'Okay', onPress: () => console.log('alert closed')},
+        ]);
+      }
+    });
+    // .catch(error => {
+    //   console.log(error);
+    // });
   };
 
   const [date, setDate] = useState(new Date());
@@ -50,6 +56,31 @@ const MakeAppointment = ({navigation}) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
+        <Modal
+          transparent
+          visible={showWarning}
+          animationType="fade"
+          hardwareAccelerated
+          onRequestClose={() => setshowWarning(false)}>
+          <View style={styles.centered_modal}>
+            <View style={styles.error_modal}>
+              <View style={styles.header_modal}>
+                <Text style={styles.header_text_modal}>Success!</Text>
+              </View>
+              <View style={styles.body_modal}>
+                <Text style={styles.body_text_modal}>
+                  Appointment Request Sent!
+                </Text>
+              </View>
+              <Pressable
+                style={styles.pressable_modal}
+                onPress={() => navigation.navigate('AppointmentScreen')}
+                android_ripple={{color: '#fff'}}>
+                <Text style={styles.pressable_text_modal}>Okay</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
         <View style={styles.header}>
           <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
           <Text style={styles.text_header}>Request Your Appointment</Text>
@@ -252,5 +283,63 @@ const styles = StyleSheet.create({
     fontFamily: 'roboto',
     color: colors.color1,
     textAlign: 'left',
+  },
+  centered_modal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#00000070',
+  },
+  error_modal: {
+    width: 270,
+    height: 150,
+    backgroundColor: colors.color5,
+    // borderWidth: 1,
+    // borderColor: colors.color2,
+    borderRadius: 10,
+  },
+  header_modal: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: colors.color3,
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+  },
+  header_text_modal: {
+    fontFamily: 'roboto',
+    fontSize: 19,
+    color: colors.color2,
+    fontWeight: 'bold',
+  },
+  body_modal: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  body_text_modal: {
+    fontFamily: 'roboto',
+    fontSize: 17,
+    color: colors.color1,
+    marginTop: -20,
+  },
+  pressable_modal: {
+    // borderTopWidth: 1,
+    // borderColor: colors.color1,
+    backgroundColor: colors.color4,
+    height: 50,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  pressable_text_modal: {
+    fontFamily: 'roboto',
+    fontSize: 18,
+    color: colors.color5,
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    paddingTop: 10,
+    fontWeight: 'bold',
   },
 });

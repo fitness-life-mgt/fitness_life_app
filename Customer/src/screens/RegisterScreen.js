@@ -10,6 +10,9 @@ import {
   StyleSheet,
   StatusBar,
   ScrollView,
+  Alert,
+  Modal,
+  Pressable,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -33,6 +36,7 @@ const RegisterScreen = ({navigation}) => {
   const [emailtext, setemailtext] = useState('');
   const [passwordtext, setpasswordtext] = useState('');
   const [cpasswordtext, setcpasswordtext] = useState('');
+  const [showWarning, setshowWarning] = useState(false);
 
   const SignUp = (fname, lname, email, password, cpassword) => {
     const x = {
@@ -43,16 +47,26 @@ const RegisterScreen = ({navigation}) => {
       cpassword: cpassword,
     };
 
-    axios
-      .post('http://localhost:8088/register', x)
-      .then(res => {
-        if (res.data == 'SUCCESS') {
-          navigation.navigate('LogInScreen');
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    axios.post('http://localhost:8088/register', x).then(res => {
+      if (res.data == 'SUCCESS') {
+        // Alert.alert('Registerd', 'Please Login to Continue', [
+        //   {text: 'Login', onPress: () => navigation.navigate('LogInScreen')},
+        // ]);
+        setshowWarning(true);
+      } else {
+        console.log(res.data.msg);
+        Alert.alert('Registration Error!', res.data.msg.toString(), [
+          {text: 'Okay', onPress: () => console.log('alert closed')},
+        ]);
+      }
+    });
+    // .catch(error => {
+    //   // setshowWarning(true);
+    //   console.log(error.error);
+    //   Alert.alert('Oops', error.toString(), [
+    //     {text: 'Okay', onPress: () => console.log('alert closed')},
+    //   ]);
+    //console.log(error);
   };
 
   const [data, setData] = React.useState({
@@ -65,13 +79,16 @@ const RegisterScreen = ({navigation}) => {
   });
 
   const textInputChangeFirstName = val => {
-    if (val.length !== 0) {
-      setData({
-        ...data,
-        first_name: val,
-        check_textInputChangeFirstName: true,
-        // isValidUser: true,
-      });
+    if (val.length != 0) {
+      setData(
+        {
+          ...data,
+          first_name: val,
+          check_textInputChangeFirstName: true,
+          // isValidUser: true,
+        },
+        setfnametext(val),
+      );
     } else {
       setData({
         ...data,
@@ -83,13 +100,16 @@ const RegisterScreen = ({navigation}) => {
   };
 
   const textInputChangeLastName = vals => {
-    if (vals.length !== 0) {
-      setData({
-        ...data,
-        first_name: vals,
-        check_textInputChangeLastName: true,
-        // isValidUser: true,
-      });
+    if (vals.length != 0) {
+      setData(
+        {
+          ...data,
+          first_name: vals,
+          check_textInputChangeLastName: true,
+          // isValidUser: true,
+        },
+        setlnametext(vals),
+      );
     } else {
       setData({
         ...data,
@@ -102,12 +122,15 @@ const RegisterScreen = ({navigation}) => {
 
   const textInputChangeEmail = val => {
     if (val.length !== 0) {
-      setData({
-        ...data,
-        first_name: val,
-        check_textInputChangeEmail: true,
-        // isValidUser: true,
-      });
+      setData(
+        {
+          ...data,
+          first_name: val,
+          check_textInputChangeEmail: true,
+          // isValidUser: true,
+        },
+        setemailtext(val),
+      );
     } else {
       setData({
         ...data,
@@ -149,6 +172,33 @@ const RegisterScreen = ({navigation}) => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View style={styles.container}>
+        <Modal
+          transparent
+          visible={showWarning}
+          animationType="fade"
+          hardwareAccelerated
+          onRequestClose={() => setshowWarning(false)}>
+          <View style={styles.centered_modal}>
+            <View style={styles.error_modal}>
+              <View style={styles.header_modal}>
+                <Text style={styles.header_text_modal}>
+                  Successfully Registered!
+                </Text>
+              </View>
+              <View style={styles.body_modal}>
+                <Text style={styles.body_text_modal}>
+                  Please Login to Continue!
+                </Text>
+              </View>
+              <Pressable
+                style={styles.pressable_modal}
+                onPress={() => navigation.navigate('LogInScreen')}
+                android_ripple={{color: '#fff'}}>
+                <Text style={styles.pressable_text_modal}>Login</Text>
+              </Pressable>
+            </View>
+          </View>
+        </Modal>
         <View style={styles.header}>
           <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
           <Text style={styles.text_header}>Register Yourself!</Text>
@@ -166,7 +216,7 @@ const RegisterScreen = ({navigation}) => {
               autoCapitalize="none"
               name="fnametext"
               value={fnametext}
-              onChangeText={val => setfnametext(val)}
+              onChangeText={val => textInputChangeFirstName(val)}
             />
             {data.check_textInputChangeFirstName ? (
               <Animatable.View animation="bounceIn">
@@ -178,7 +228,7 @@ const RegisterScreen = ({navigation}) => {
           {/* To get the last name */}
           <Text style={styles.text_footer}>Last Name</Text>
           <View style={styles.action}>
-            <FontAwesome name="user-o" color="grey" size={20} />
+            <FontAwesome name="user" color="grey" size={20} />
             <TextInput
               placeholder="Your Last Name"
               style={styles.textInput}
@@ -186,7 +236,7 @@ const RegisterScreen = ({navigation}) => {
               name="lnametext"
               value={lnametext}
               onChangeText={
-                val => setlnametext(val)
+                val => textInputChangeLastName(val)
                 // vals => textInputChangeLastName(vals))
               }
               // onChangeText={val => textInputChangeLastName(val)}
@@ -207,8 +257,8 @@ const RegisterScreen = ({navigation}) => {
               autoCapitalize="none"
               name="emailtext"
               value={emailtext}
-              onChangeText={val => setemailtext(val)}
-              // onChangeText={val => textInputChangeEmail(val)}
+              // onChangeText={val => setemailtext(val)}
+              onChangeText={val => textInputChangeEmail(val)}
             />
             {data.check_textInputChangeEmail ? (
               <Animatable.View animation="bounceIn">
@@ -416,5 +466,63 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginRight: 125,
     marginLeft: 125,
+  },
+  centered_modal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#00000070',
+  },
+  error_modal: {
+    width: 270,
+    height: 150,
+    backgroundColor: colors.color5,
+    // borderWidth: 1,
+    // borderColor: colors.color2,
+    borderRadius: 10,
+  },
+  header_modal: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: colors.color3,
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+  },
+  header_text_modal: {
+    fontFamily: 'roboto',
+    fontSize: 19,
+    color: colors.color2,
+    fontWeight: 'bold',
+  },
+  body_modal: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  body_text_modal: {
+    fontFamily: 'roboto',
+    fontSize: 17,
+    color: colors.color1,
+    marginTop: -20,
+  },
+  pressable_modal: {
+    // borderTopWidth: 1,
+    // borderColor: colors.color1,
+    backgroundColor: colors.color4,
+    height: 50,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  pressable_text_modal: {
+    fontFamily: 'roboto',
+    fontSize: 18,
+    color: colors.color5,
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    paddingTop: 10,
+    fontWeight: 'bold',
   },
 });

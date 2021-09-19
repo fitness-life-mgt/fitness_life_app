@@ -10,6 +10,9 @@ import {
   StyleSheet,
   StatusBar,
   ScrollView,
+  Modal,
+  Alert,
+  Pressable,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -20,25 +23,33 @@ import colors from '../config/colors';
 import PhoneInput from 'react-native-phone-number-input';
 
 const EditProfile = ({navigation}) => {
-  const [phonetext, setphonetext] = useState('');
+  // const [phonetext, setphonetext] = useState('');
+  const [oldpasswordtext, setoldpasswordtext] = useState('');
   const [passwordtext, setpasswordtext] = useState('');
   const [cpasswordtext, setcpasswordtext] = useState('');
+  const [showWarning, setshowWarning] = useState(false);
 
-  const Edit = (telephone, password, cpassword) => {
+  const Edit = (oldpassword, password, cpassword) => {
     const x = {
-      telephone: telephone,
+      // telephone: telephone,
+      oldpassword: oldpassword,
       password: password,
       cpassword: cpassword,
     };
 
-    axios
-      .post('http://localhost:8088/editprofile', x)
-      .then(res => {
-        if (res.data === 'SUCCESS') navigation.navigate('Tabs');
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    axios.post('http://localhost:8088/editprofile', x).then(res => {
+      if (res.data == 'SUCCESS') {
+        setshowWarning(true);
+      } else {
+        console.log(res.data.msg);
+        Alert.alert('Failed!', res.data.msg.toString(), [
+          {text: 'Okay', onPress: () => console.log('alert closed')},
+        ]);
+      }
+    });
+    // .catch(error => {
+    //   console.log(error);
+    // });
   };
 
   const [data, setData] = React.useState({
@@ -47,6 +58,7 @@ const EditProfile = ({navigation}) => {
     check_textInputChange: false,
     secureTextEntry: true,
     confirm_secureTextEntry: true,
+    old_secureTextEntry: true,
   });
 
   const handlePasswordChange = val => {
@@ -59,6 +71,13 @@ const EditProfile = ({navigation}) => {
     setData({
       ...data,
       confirm_password: val,
+    });
+  };
+
+  const updateOldSecureTextEntry = () => {
+    setData({
+      ...data,
+      old_secureTextEntry: !data.old_secureTextEntry,
     });
   };
 
@@ -78,11 +97,36 @@ const EditProfile = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+      <Modal
+        transparent
+        visible={showWarning}
+        animationType="fade"
+        hardwareAccelerated
+        onRequestClose={() => setshowWarning(false)}>
+        <View style={styles.centered_modal}>
+          <View style={styles.error_modal}>
+            <View style={styles.header_modal}>
+              <Text style={styles.header_text_modal}>Success!</Text>
+            </View>
+            <View style={styles.body_modal}>
+              <Text style={styles.body_text_modal}>
+                Password Changed Successfully!
+              </Text>
+            </View>
+            <Pressable
+              style={styles.pressable_modal}
+              onPress={() => navigation.navigate('Tabs')}
+              android_ripple={{color: '#fff'}}>
+              <Text style={styles.pressable_text_modal}>Okay</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
       <View style={styles.header}>
         <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
         <Text style={styles.text_header}>Edit Your Profile</Text>
         <Text style={styles.textDetailsMedium}>
-          You can change your contact number and password only.
+          Please Enter your old password and new password to Change the password
         </Text>
       </View>
 
@@ -90,7 +134,7 @@ const EditProfile = ({navigation}) => {
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* To get the phone number */}
           <View>
-            <Text style={styles.text_footer}>Contact No.</Text>
+            {/* <Text style={styles.text_footer}>Contact No.</Text>
             <View style={styles.action}>
               <TextInput
                 placeholder="Your Contact Number"
@@ -109,8 +153,27 @@ const EditProfile = ({navigation}) => {
                   />
                 </Animatable.View>
               ) : null}
+            </View> */}
+            {/* old password */}
+            <Text style={styles.text_footer}>Old Password</Text>
+            <View style={styles.action}>
+              <TextInput
+                placeholder="Your Old Password"
+                secureTextEntry={data.secureTextEntry ? true : false}
+                style={styles.textInput}
+                autoCapitalize="none"
+                name="oldpasswordtext"
+                value={oldpasswordtext}
+                onChangeText={val => setoldpasswordtext(val)}
+              />
+              <TouchableOpacity onPress={updateOldSecureTextEntry}>
+                {data.old_secureTextEntry ? (
+                  <Feather name="eye-off" color={colors.color2} size={20} />
+                ) : (
+                  <Feather name="eye" color={colors.color2} size={20} />
+                )}
+              </TouchableOpacity>
             </View>
-
             {/* password */}
             <Text style={styles.text_footer}>Password</Text>
             <View style={styles.action}>
@@ -144,17 +207,18 @@ const EditProfile = ({navigation}) => {
                 onChangeText={val => setcpasswordtext(val)}
               />
               <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
-                {data.secureTextEntry ? (
+                {data.confirm_secureTextEntry ? (
                   <Feather name="eye-off" color={colors.color2} size={20} />
                 ) : (
                   <Feather name="eye" color={colors.color2} size={20} />
                 )}
               </TouchableOpacity>
             </View>
-
-            <View style={styles.button}>
-              <TouchableOpacity
-                onPress={() => Edit(phonetext, passwordtext, cpasswordtext)}>
+            <TouchableOpacity
+              onPress={() =>
+                Edit(oldpasswordtext, passwordtext, cpasswordtext)
+              }>
+              <View style={styles.button}>
                 <LinearGradient
                   colors={[colors.color3, colors.color4]}
                   //style={styles.signIn}
@@ -170,8 +234,8 @@ const EditProfile = ({navigation}) => {
                     Update
                   </Text>
                 </LinearGradient>
-              </TouchableOpacity>
-            </View>
+              </View>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </Animatable.View>
@@ -192,10 +256,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 20,
     fontFamily: 'roboto',
-    paddingTop: 30,
+    paddingTop: 10,
+    marginBottom: 20,
   },
   footer: {
-    flex: 3,
+    flex: 2,
     backgroundColor: '#fff',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
@@ -274,5 +339,63 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     backgroundColor: colors.color3,
     alignItems: 'center',
+  },
+  centered_modal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#00000070',
+  },
+  error_modal: {
+    width: 270,
+    height: 150,
+    backgroundColor: colors.color5,
+    // borderWidth: 1,
+    // borderColor: colors.color2,
+    borderRadius: 10,
+  },
+  header_modal: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: colors.color3,
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+  },
+  header_text_modal: {
+    fontFamily: 'roboto',
+    fontSize: 19,
+    color: colors.color2,
+    fontWeight: 'bold',
+  },
+  body_modal: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  body_text_modal: {
+    fontFamily: 'roboto',
+    fontSize: 17,
+    color: colors.color1,
+    marginTop: -20,
+  },
+  pressable_modal: {
+    // borderTopWidth: 1,
+    // borderColor: colors.color1,
+    backgroundColor: colors.color4,
+    height: 50,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  pressable_text_modal: {
+    fontFamily: 'roboto',
+    fontSize: 18,
+    color: colors.color5,
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    paddingTop: 10,
+    fontWeight: 'bold',
   },
 });

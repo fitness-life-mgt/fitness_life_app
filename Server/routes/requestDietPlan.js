@@ -16,7 +16,7 @@ router.post("/",(req,res)=>{
  // Simple validation
    if(!desc){
       console.log('Feilds Empty');
-       return res.status(400).json({msg:"Please enter all fields"});
+      return res.json({msg:"Please add a Description"});
    }
 
 //check for existing user

@@ -111,7 +111,7 @@ export default class App extends Component {
             </LinearGradient> */}
 
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('LogInScreen')}
+              onPress={() => this.props.navigation.navigate('SplashScreen')}
               style={[
                 styles.logout,
                 // eslint-disable-next-line react-native/no-inline-styles

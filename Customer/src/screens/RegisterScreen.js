@@ -47,23 +47,26 @@ const RegisterScreen = ({navigation}) => {
       cpassword: cpassword,
     };
 
-    axios
-      .post('http://localhost:8088/register', x)
-      .then(res => {
-        if (res.data == 'SUCCESS') {
-          Alert.alert('Registerd', 'Please Login to Continue', [
-            {text: 'Login', onPress: () => navigation.navigate('LogInScreen')},
-          ]);
-        }
-      })
-      .catch(error => {
-        setshowWarning(true);
-
-        // Alert.alert('Oops', 'Registration Failed', [
-        //   {text: 'Okay', onPress: () => console.log('alert closed')},
+    axios.post('http://localhost:8088/register', x).then(res => {
+      if (res.data == 'SUCCESS') {
+        // Alert.alert('Registerd', 'Please Login to Continue', [
+        //   {text: 'Login', onPress: () => navigation.navigate('LogInScreen')},
         // ]);
-        console.log(error);
-      });
+        setshowWarning(true);
+      } else {
+        console.log(res.data.msg);
+        Alert.alert('Registration Error!', res.data.msg.toString(), [
+          {text: 'Okay', onPress: () => console.log('alert closed')},
+        ]);
+      }
+    });
+    // .catch(error => {
+    //   // setshowWarning(true);
+    //   console.log(error.error);
+    //   Alert.alert('Oops', error.toString(), [
+    //     {text: 'Okay', onPress: () => console.log('alert closed')},
+    //   ]);
+    //console.log(error);
   };
 
   const [data, setData] = React.useState({
@@ -163,23 +166,26 @@ const RegisterScreen = ({navigation}) => {
         <Modal
           transparent
           visible={showWarning}
+          animationType="fade"
+          hardwareAccelerated
           onRequestClose={() => setshowWarning(false)}>
           <View style={styles.centered_modal}>
             <View style={styles.error_modal}>
               <View style={styles.header_modal}>
                 <Text style={styles.header_text_modal}>
-                  Registration Error!
+                  Successfully Registered!
                 </Text>
               </View>
               <View style={styles.body_modal}>
                 <Text style={styles.body_text_modal}>
-                  Hello this is a modal
+                  Please Login to Continue!
                 </Text>
               </View>
               <Pressable
                 style={styles.pressable_modal}
-                onPress={() => setshowWarning(false)}>
-                <Text style={styles.pressable_text_modal}>Okay</Text>
+                onPress={() => navigation.navigate('LogInScreen')}
+                android_ripple={{color: '#fff'}}>
+                <Text style={styles.pressable_text_modal}>Login</Text>
               </Pressable>
             </View>
           </View>
@@ -476,7 +482,7 @@ const styles = StyleSheet.create({
   },
   header_text_modal: {
     fontFamily: 'roboto',
-    fontSize: 20,
+    fontSize: 19,
     color: colors.color2,
     fontWeight: 'bold',
   },

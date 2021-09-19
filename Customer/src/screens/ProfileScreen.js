@@ -49,10 +49,9 @@ export default class App extends Component {
               {/* <Text style={styles.textDetails}>Name :</Text> */}
               {this.state.data.map(item => (
                 <View>
-                  <Text style={styles.textDetailsLarge}>
-                    {item.firstName} {item.lastName}
-                  </Text>
-                  <Text style={styles.textDetailsMedium}>{item.email}</Text>
+                  <Text style={styles.textDetailsLarge}>{item.firstName}</Text>
+                  <Text style={styles.textDetailsMedium}>{item.lastName}</Text>
+                  <Text style={styles.textDetailsSmall}>{item.email}</Text>
                   {/* <Text style={styles.textDetailsSmall}>(0771231234)</Text> */}
                 </View>
               ))}
@@ -72,7 +71,7 @@ export default class App extends Component {
                       color: colors.color5,
                     },
                   ]}>
-                  Edit Profile
+                  Change Password
                 </Text>
               </LinearGradient>
             </TouchableOpacity>
@@ -192,22 +191,22 @@ const styles = StyleSheet.create({
     height: height_logo,
   },
   body_details: {
-    top: 0,
+    top: -5,
   },
   textDetailsLarge: {
-    fontSize: 32,
+    fontSize: 30,
     fontFamily: 'roboto',
     color: colors.color5,
     textAlign: 'center',
   },
   textDetailsMedium: {
-    fontSize: 20,
+    fontSize: 24,
     fontFamily: 'roboto',
-    color: colors.color1,
+    color: colors.color5,
     textAlign: 'center',
   },
   textDetailsSmall: {
-    fontSize: 16,
+    fontSize: 20,
     fontFamily: 'roboto',
     color: colors.color1,
     textAlign: 'center',

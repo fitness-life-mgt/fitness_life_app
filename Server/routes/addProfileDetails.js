@@ -20,7 +20,7 @@ router.post("/",(req,res)=>{
 
     if( !telephone||!address||!height||!weight||!age){
         console.log("Empty Feilds!");
-        return res.status(400).json({msg:"Please enter all fields"});
+        return res.json({msg:"Please fill all the Fields"});
 
     }
 

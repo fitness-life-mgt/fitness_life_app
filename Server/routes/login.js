@@ -25,7 +25,7 @@ router.post("/",(req,res)=>{
     db.query(sqlCheckEmail,email,(err,member)=>{
         if(member.length<1){
           console.log('No User');
-            return res.status(400).json({msg:"user does not exists"});
+            return res.json({msg:"Email Does not Exists!"});
         }else{
             let currentUser = member[0];
 
@@ -33,7 +33,7 @@ router.post("/",(req,res)=>{
             bcrypt.compare(password, member[0].password).then(isMatch => {
               if (!isMatch){
                 console.log('Wrong credentials');
-                return res.status(400).json({ msg: "Invalid credentials" });
+                return res.json({ msg: "Incorrect Password!" });
               }else{
                 console.log('Success');
                 res.json("SUCCESS");

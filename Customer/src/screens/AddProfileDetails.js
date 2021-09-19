@@ -10,6 +10,9 @@ import {
   StyleSheet,
   StatusBar,
   ScrollView,
+  Modal,
+  Alert,
+  Pressable,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -29,6 +32,7 @@ const AddProfileScreen = ({navigation}) => {
   const [heighttext, setheighttext] = useState('');
   const [weighttext, setweighttext] = useState('');
   const [agetext, setagetext] = useState('');
+  const [showWarning, setshowWarning] = useState(false);
 
   const Edit = (telephone, address, height, weight, age) => {
     const x = {
@@ -39,14 +43,19 @@ const AddProfileScreen = ({navigation}) => {
       age: age,
     };
 
-    axios
-      .post('http://localhost:8088/addProfileDetails', x)
-      .then(res => {
-        if (res.data === 'SUCCESS') navigation.navigate('Tabs');
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    axios.post('http://localhost:8088/addProfileDetails', x).then(res => {
+      if (res.data == 'SUCCESS') {
+        setshowWarning(true);
+      } else {
+        console.log(res.data.msg);
+        Alert.alert('Failed!', res.data.msg.toString(), [
+          {text: 'Okay', onPress: () => console.log('alert closed')},
+        ]);
+      }
+    });
+    // .catch(error => {
+    //   console.log(error);
+    // });
   };
 
   const [data, setData] = React.useState({
@@ -59,6 +68,29 @@ const AddProfileScreen = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+      <Modal
+        transparent
+        visible={showWarning}
+        animationType="fade"
+        hardwareAccelerated
+        onRequestClose={() => setshowWarning(false)}>
+        <View style={styles.centered_modal}>
+          <View style={styles.error_modal}>
+            <View style={styles.header_modal}>
+              <Text style={styles.header_text_modal}>Success!</Text>
+            </View>
+            <View style={styles.body_modal}>
+              <Text style={styles.body_text_modal}>Profile Details Added</Text>
+            </View>
+            <Pressable
+              style={styles.pressable_modal}
+              onPress={() => navigation.navigate('Tabs')}
+              android_ripple={{color: '#fff'}}>
+              <Text style={styles.pressable_text_modal}>Okay</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
       <View style={styles.header}>
         <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
         <Text style={styles.text_header}>Add Your Details</Text>
@@ -76,6 +108,7 @@ const AddProfileScreen = ({navigation}) => {
               <Entypo name="phone" color="grey" size={20} />
               <TextInput
                 placeholder="94XXXXXXXXX"
+                keyboardType="numeric"
                 style={styles.textInput}
                 autoCapitalize="none"
                 name="phonetext"
@@ -124,6 +157,7 @@ const AddProfileScreen = ({navigation}) => {
               />
               <TextInput
                 placeholder="Your Height in cm"
+                keyboardType="numeric"
                 style={styles.textInput}
                 autoCapitalize="none"
                 name="heighttext"
@@ -150,6 +184,7 @@ const AddProfileScreen = ({navigation}) => {
               />
               <TextInput
                 placeholder="Your Weight in Kg"
+                keyboardType="numeric"
                 style={styles.textInput}
                 autoCapitalize="none"
                 name="weighttext"
@@ -314,5 +349,63 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     backgroundColor: colors.color3,
     alignItems: 'center',
+  },
+  centered_modal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#00000070',
+  },
+  error_modal: {
+    width: 270,
+    height: 150,
+    backgroundColor: colors.color5,
+    // borderWidth: 1,
+    // borderColor: colors.color2,
+    borderRadius: 10,
+  },
+  header_modal: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    // backgroundColor: colors.color3,
+    borderTopRightRadius: 10,
+    borderTopLeftRadius: 10,
+  },
+  header_text_modal: {
+    fontFamily: 'roboto',
+    fontSize: 19,
+    color: colors.color2,
+    fontWeight: 'bold',
+  },
+  body_modal: {
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  body_text_modal: {
+    fontFamily: 'roboto',
+    fontSize: 17,
+    color: colors.color1,
+    marginTop: -20,
+  },
+  pressable_modal: {
+    // borderTopWidth: 1,
+    // borderColor: colors.color1,
+    backgroundColor: colors.color4,
+    height: 50,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  pressable_text_modal: {
+    fontFamily: 'roboto',
+    fontSize: 18,
+    color: colors.color5,
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    paddingTop: 10,
+    fontWeight: 'bold',
   },
 });

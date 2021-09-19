@@ -79,13 +79,16 @@ const RegisterScreen = ({navigation}) => {
   });
 
   const textInputChangeFirstName = val => {
-    if (val.length !== 0) {
-      setData({
-        ...data,
-        first_name: val,
-        check_textInputChangeFirstName: true,
-        // isValidUser: true,
-      });
+    if (val.length != 0) {
+      setData(
+        {
+          ...data,
+          first_name: val,
+          check_textInputChangeFirstName: true,
+          // isValidUser: true,
+        },
+        setfnametext(val),
+      );
     } else {
       setData({
         ...data,
@@ -97,13 +100,16 @@ const RegisterScreen = ({navigation}) => {
   };
 
   const textInputChangeLastName = vals => {
-    if (vals.length !== 0) {
-      setData({
-        ...data,
-        first_name: vals,
-        check_textInputChangeLastName: true,
-        // isValidUser: true,
-      });
+    if (vals.length != 0) {
+      setData(
+        {
+          ...data,
+          first_name: vals,
+          check_textInputChangeLastName: true,
+          // isValidUser: true,
+        },
+        setlnametext(vals),
+      );
     } else {
       setData({
         ...data,
@@ -116,12 +122,15 @@ const RegisterScreen = ({navigation}) => {
 
   const textInputChangeEmail = val => {
     if (val.length !== 0) {
-      setData({
-        ...data,
-        first_name: val,
-        check_textInputChangeEmail: true,
-        // isValidUser: true,
-      });
+      setData(
+        {
+          ...data,
+          first_name: val,
+          check_textInputChangeEmail: true,
+          // isValidUser: true,
+        },
+        setemailtext(val),
+      );
     } else {
       setData({
         ...data,
@@ -207,7 +216,7 @@ const RegisterScreen = ({navigation}) => {
               autoCapitalize="none"
               name="fnametext"
               value={fnametext}
-              onChangeText={val => setfnametext(val)}
+              onChangeText={val => textInputChangeFirstName(val)}
             />
             {data.check_textInputChangeFirstName ? (
               <Animatable.View animation="bounceIn">
@@ -219,7 +228,7 @@ const RegisterScreen = ({navigation}) => {
           {/* To get the last name */}
           <Text style={styles.text_footer}>Last Name</Text>
           <View style={styles.action}>
-            <FontAwesome name="user-o" color="grey" size={20} />
+            <FontAwesome name="user" color="grey" size={20} />
             <TextInput
               placeholder="Your Last Name"
               style={styles.textInput}
@@ -227,7 +236,7 @@ const RegisterScreen = ({navigation}) => {
               name="lnametext"
               value={lnametext}
               onChangeText={
-                val => setlnametext(val)
+                val => textInputChangeLastName(val)
                 // vals => textInputChangeLastName(vals))
               }
               // onChangeText={val => textInputChangeLastName(val)}
@@ -248,8 +257,8 @@ const RegisterScreen = ({navigation}) => {
               autoCapitalize="none"
               name="emailtext"
               value={emailtext}
-              onChangeText={val => setemailtext(val)}
-              // onChangeText={val => textInputChangeEmail(val)}
+              // onChangeText={val => setemailtext(val)}
+              onChangeText={val => textInputChangeEmail(val)}
             />
             {data.check_textInputChangeEmail ? (
               <Animatable.View animation="bounceIn">

@@ -8,6 +8,7 @@ import {
   Platform,
   StyleSheet,
   StatusBar,
+  Alert,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -26,17 +27,20 @@ const LogInScreen = ({navigation}) => {
       email: email,
       password: password,
     };
-    axios
-      .post('http://localhost:8088/login', x)
-      .then(res => {
-        if (res.data == 'SUCCESS') {
-          navigation.navigate('Tabs');
-        }
-      })
-      .catch(error => {
-        // console.log(error);
-        console.log('Error in Login Screen');
-      });
+    axios.post('http://localhost:8088/login', x).then(res => {
+      if (res.data == 'SUCCESS') {
+        navigation.navigate('Tabs');
+      } else {
+        console.log(res.data.msg);
+        Alert.alert('Login Error!', res.data.msg.toString(), [
+          {text: 'Okay', onPress: () => console.log('alert closed')},
+        ]);
+      }
+    });
+    // .catch(error => {
+    //   // console.log(error);
+    //   console.log('Error in Login Screen');
+    // });
   };
 
   const [data, setData] = React.useState({

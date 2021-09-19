@@ -18,7 +18,7 @@ router.post("/",(req,res)=>{
  // Simple validation
    if(!appdate||!apptime||!trainer){
       console.log('Feilds Empty');
-       return res.status(400).json({msg:"Please enter all fields"});
+      return res.json({msg:"Please fill all the Fields"});
    }
 
 //check for existing user
@@ -26,7 +26,7 @@ db.query(sqlCheckEmail,email,(err,user)=>{
    console.log('Inside the sqlCheckEmail');
    if(user.length<1){
       console.log('No User');
-        return res.status(400).json({msg:"this user already"});
+        return res.json({msg:"No user from this Email"});
    }else{
        let sql=`insert into appointment(email,date,time,trainerID) values(?,?,?,'3')`;
        console.log('Success record');

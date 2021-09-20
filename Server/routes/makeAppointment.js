@@ -16,7 +16,7 @@ router.post("/",(req,res)=>{
  let sqlCheckEmail = `SELECT * FROM member WHERE email = ?`;
 
  // Simple validation
-   if(!appdate||!apptime||!trainer){
+   if(!appdate){
       console.log('Feilds Empty');
       return res.json({msg:"Please fill all the Fields"});
    }
@@ -28,7 +28,7 @@ db.query(sqlCheckEmail,email,(err,user)=>{
       console.log('No User');
         return res.json({msg:"No user from this Email"});
    }else{
-       let sql=`insert into appointment(email,date,time,trainerID) values(?,?,?,'3')`;
+       let sql=`insert into appointment(email,date,time,trainerID) values(?,?,'Evening','11')`;
        console.log('Success record');
    {  
    if(err){

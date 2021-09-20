@@ -65,23 +65,26 @@ const DietPlanScreen = ({navigation}) => {
             </LinearGradient>
           </TouchableOpacity>
 
-          {/* <TouchableOpacity
-            style={styles.package}
-            onPress={() => navigation.navigate('PastAppointmentScreen')}>
-            <LinearGradient
-              colors={[colors.color3, colors.color4]}
-              style={styles.package}>
-              <Text
-                style={[
-                  styles.textPackage,
-                  {
-                    color: colors.color5,
-                  },
-                ]}>
-                Past Appointments
-              </Text>
-            </LinearGradient>
-          </TouchableOpacity> */}
+          <TouchableOpacity
+            onPress={() => navigation.navigate('RequestedDietPlansScreen')}
+            style={[
+              styles.btn2,
+              // eslint-disable-next-line react-native/no-inline-styles
+              {
+                borderColor: colors.color3,
+                borderWidth: 1,
+              },
+            ]}>
+            <Text
+              style={[
+                styles.textbtn2,
+                {
+                  color: colors.color3,
+                },
+              ]}>
+              Requested Diet Plans
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -148,6 +151,20 @@ const styles = StyleSheet.create({
   image: {
     height: 200,
     width: windowWidth,
+  },
+  btn2: {
+    width: '100%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    marginTop: -10,
+  },
+  textbtn2: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginRight: 10,
+    marginLeft: 10,
   },
 });
 

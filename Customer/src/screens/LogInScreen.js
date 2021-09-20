@@ -9,6 +9,7 @@ import {
   StyleSheet,
   StatusBar,
   Alert,
+  Linking,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -168,6 +169,13 @@ const LogInScreen = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         </View>
+        <View style={styles.view_password}>
+          <Text
+            onPress={() => Linking.openURL('http://fitnesslife.lk')}
+            style={styles.text_password}>
+            Forgot Password?
+          </Text>
+        </View>
       </Animatable.View>
     </View>
   );
@@ -233,7 +241,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 40,
     width: '100%',
   },
   signIn: {
@@ -250,5 +258,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginRight: 125,
     marginLeft: 125,
+  },
+  view_password: {
+    paddingTop: 15,
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  text_password: {
+    textAlign: 'center',
+    fontSize: 16,
+    color: colors.color2,
   },
 });

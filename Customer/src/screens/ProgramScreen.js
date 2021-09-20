@@ -31,7 +31,7 @@ const ProgramScreen = ({navigation}) => {
         <View style={styles.button_package}>
           <TouchableOpacity
             style={styles.package}
-            onPress={() => navigation.navigate('WorkoutArmScreen')}>
+            onPress={() => navigation.navigate('WorkoutDummyScreen')}>
             <LinearGradient
               colors={[colors.color3, colors.color4]}
               style={styles.package}>

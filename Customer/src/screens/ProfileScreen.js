@@ -25,6 +25,7 @@ export default class App extends Component {
       this.setState({
         data: res.data,
       });
+      // setshowWarning(true);
     });
   }
 
@@ -52,7 +53,6 @@ export default class App extends Component {
                   <Text style={styles.textDetailsLarge}>{item.firstName}</Text>
                   <Text style={styles.textDetailsMedium}>{item.lastName}</Text>
                   <Text style={styles.textDetailsSmall}>{item.email}</Text>
-                  {/* <Text style={styles.textDetailsSmall}>(0771231234)</Text> */}
                 </View>
               ))}
             </View>

@@ -47,9 +47,6 @@ const EditProfile = ({navigation}) => {
         ]);
       }
     });
-    // .catch(error => {
-    //   console.log(error);
-    // });
   };
 
   const [data, setData] = React.useState({
@@ -59,19 +56,39 @@ const EditProfile = ({navigation}) => {
     secureTextEntry: true,
     confirm_secureTextEntry: true,
     old_secureTextEntry: true,
+    isValidPassword: true,
+    isValidConfirmPassword: true,
   });
 
   const handlePasswordChange = val => {
-    setData({
-      ...data,
-      password: val,
-    });
+    if (val.trim().length >= 8) {
+      setData({
+        ...data,
+        // password: val,
+        isValidPassword: true,
+      });
+    } else {
+      setData({
+        ...data,
+        // password: val,
+        isValidPassword: false,
+      });
+    }
   };
   const handleConfirmPasswordChange = val => {
-    setData({
-      ...data,
-      confirm_password: val,
-    });
+    if (val.trim().length >= 8) {
+      setData({
+        ...data,
+        // password: val,
+        isValidConfirmPassword: true,
+      });
+    } else {
+      setData({
+        ...data,
+        // password: val,
+        isValidConfirmPassword: false,
+      });
+    }
   };
 
   const updateOldSecureTextEntry = () => {
@@ -124,7 +141,7 @@ const EditProfile = ({navigation}) => {
       </Modal>
       <View style={styles.header}>
         <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
-        <Text style={styles.text_header}>Edit Your Profile</Text>
+        <Text style={styles.text_header}>Change Password</Text>
         <Text style={styles.textDetailsMedium}>
           Please Enter your old password and new password to Change the password
         </Text>
@@ -132,34 +149,13 @@ const EditProfile = ({navigation}) => {
 
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          {/* To get the phone number */}
           <View>
-            {/* <Text style={styles.text_footer}>Contact No.</Text>
-            <View style={styles.action}>
-              <TextInput
-                placeholder="Your Contact Number"
-                style={styles.textInput}
-                autoCapitalize="none"
-                name="phonetext"
-                value={phonetext}
-                onChangeText={val => setphonetext(val)}
-              />
-              {data.check_textInputChange ? (
-                <Animatable.View animation="bounceIn">
-                  <Feather
-                    name="check-circle"
-                    color={colors.color2}
-                    size={20}
-                  />
-                </Animatable.View>
-              ) : null}
-            </View> */}
             {/* old password */}
             <Text style={styles.text_footer}>Old Password</Text>
             <View style={styles.action}>
               <TextInput
                 placeholder="Your Old Password"
-                secureTextEntry={data.secureTextEntry ? true : false}
+                secureTextEntry={data.old_secureTextEntry ? true : false}
                 style={styles.textInput}
                 autoCapitalize="none"
                 name="oldpasswordtext"
@@ -185,6 +181,7 @@ const EditProfile = ({navigation}) => {
                 name="passwordtext"
                 value={passwordtext}
                 onChangeText={val => setpasswordtext(val)}
+                onEndEditing={e => handlePasswordChange(e.nativeEvent.text)}
               />
               <TouchableOpacity onPress={updateSecureTextEntry}>
                 {data.secureTextEntry ? (
@@ -194,17 +191,27 @@ const EditProfile = ({navigation}) => {
                 )}
               </TouchableOpacity>
             </View>
+            {data.isValidPassword ? null : (
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={styles.errorMsg}>
+                  Password must be 8 Characters long
+                </Text>
+              </Animatable.View>
+            )}
             {/* confirm password */}
             <Text style={styles.text_footer}>Confirm Password</Text>
             <View style={styles.action}>
               <TextInput
                 placeholder="Re-enter Password"
-                secureTextEntry={data.secureTextEntry ? true : false}
+                secureTextEntry={data.confirm_secureTextEntry ? true : false}
                 style={styles.textInput}
                 autoCapitalize="none"
                 name="cpasswordtext"
                 value={cpasswordtext}
                 onChangeText={val => setcpasswordtext(val)}
+                onEndEditing={e =>
+                  handleConfirmPasswordChange(e.nativeEvent.text)
+                }
               />
               <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
                 {data.confirm_secureTextEntry ? (
@@ -214,6 +221,13 @@ const EditProfile = ({navigation}) => {
                 )}
               </TouchableOpacity>
             </View>
+            {data.isValidConfirmPassword ? null : (
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={styles.errorMsg}>
+                  Password must be 8 Characters long
+                </Text>
+              </Animatable.View>
+            )}
             <TouchableOpacity
               onPress={() =>
                 Edit(oldpasswordtext, passwordtext, cpasswordtext)
@@ -304,6 +318,10 @@ const styles = StyleSheet.create({
     borderBottomColor: '#FF0000',
     paddingBottom: 5,
   },
+  errorMsg: {
+    color: '#FF0000',
+    fontSize: 14,
+  },
   textInput: {
     flex: 1,
     marginTop: Platform.OS === 'ios' ? 0 : -12,
@@ -311,10 +329,6 @@ const styles = StyleSheet.create({
     color: '#05375a',
     // height: 20,
     // width: 100,
-  },
-  errorMsg: {
-    color: '#FF0000',
-    fontSize: 14,
   },
   button: {
     alignItems: 'center',

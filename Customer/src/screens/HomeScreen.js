@@ -16,7 +16,7 @@ const HomeScreen = ({navigation}) => {
     <View style={styles.view}>
       <View style={styles.header}>
         <View>
-          <Text style={styles.headerText}>Hi John!</Text>
+          <Text style={styles.headerText}>Hi Chanaka!</Text>
         </View>
       </View>
       <View style={styles.body}>
@@ -50,14 +50,34 @@ const HomeScreen = ({navigation}) => {
             </TouchableOpacity>
           </View>
 
-          <View>
+          <View style={styles.image_container}>
+            <TouchableOpacity>
+              <Image
+                source={require('../assests/images/store.png')}
+                style={styles.image_click1}
+                resizeMode="stretch"
+              />
+              <Text style={styles.text_store}>Store</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('AboutUsScreen')}>
+              <Image
+                source={require('../assests/images/about.png')}
+                style={styles.image_click1}
+                resizeMode="stretch"
+              />
+              <Text style={styles.text_about}>About Us</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* <View>
             <Image
               source={require('../assests/images/homeImage2.png')}
               style={styles.image_home2}
               resizeMode="stretch"
             />
-          </View>
-          <Text style={styles.text_home2}>Schedules                    Self Progress</Text>
+          </View> */}
+          {/* <Text style={styles.text_home2}>Schedules                    Self Progress</Text> */}
         </ScrollView>
       </View>
     </View>
@@ -99,10 +119,17 @@ const styles = StyleSheet.create({
     width: 320,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    // marginBottom: -43,
   },
   image_click: {
     height: 200,
     width: 182,
+    // marginBottom: 10,
+  },
+  image_click1: {
+    height: 150,
+    width: 182,
+    paddingBottom: 20,
     marginBottom: 10,
   },
   image_home: {
@@ -129,7 +156,25 @@ const styles = StyleSheet.create({
     fontFamily: 'roboto',
     color: colors.color5,
     left: 48,
-    top: 35,
+    top: 36,
+    fontWeight: 'bold',
+  },
+  text_store: {
+    position: 'absolute',
+    fontSize: 16,
+    fontFamily: 'roboto',
+    color: colors.color5,
+    left: 80,
+    top: 8,
+    fontWeight: 'bold',
+  },
+  text_about: {
+    position: 'absolute',
+    fontSize: 16,
+    fontFamily: 'roboto',
+    color: colors.color5,
+    left: 48,
+    top: 8,
     fontWeight: 'bold',
   },
   text_home2: {

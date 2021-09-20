@@ -22,6 +22,7 @@ import WorkoutArmScreen from './WorkoutArmScreen';
 import WorkoutLegScreen from './WorkoutLegScreen';
 import WorkoutAbsScreen from './WorkoutAbsScreen';
 import WorkoutDummyScreen from './WorkoutDummyScreen';
+import AboutUsScreen from './AboutUsScreen';
 
 const RootStack = createStackNavigator();
 
@@ -241,6 +242,18 @@ const RootStackScreen = ({navigation}) => {
         <RootStack.Screen
           name="WorkoutDummyScreen"
           component={WorkoutDummyScreen}
+          options={{
+            title: '',
+            headerShown: false,
+
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
+        <RootStack.Screen
+          name="AboutUsScreen"
+          component={AboutUsScreen}
           options={{
             title: '',
             headerShown: false,

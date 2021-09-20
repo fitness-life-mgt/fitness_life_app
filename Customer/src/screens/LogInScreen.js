@@ -169,13 +169,13 @@ const LogInScreen = ({navigation}) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.view_password}>
+        {/* <View style={styles.view_password}>
           <Text
             onPress={() => Linking.openURL('http://fitnesslife.lk')}
             style={styles.text_password}>
             Forgot Password?
           </Text>
-        </View>
+        </View> */}
       </Animatable.View>
     </View>
   );

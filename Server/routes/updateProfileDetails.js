@@ -8,7 +8,8 @@ const jwt =require("jsonwebtoken");
 console.log("OutSide Router");
 
 router.post("/",(req,res)=>{
-    
+    const fname=req.body.fname;
+    const lname=req.body.lname;
     const telephone=req.body.telephone;
     const address=req.body.address;
     const height=req.body.height;
@@ -18,17 +19,17 @@ router.post("/",(req,res)=>{
     console.log("Inside Router!");
   // Simple validation
 
-    if( !telephone||!address||!height||!weight){
+    if(!fname||!lname||!telephone||!address||!height||!weight){
         console.log("Empty Feilds!");
         return res.json({msg:"Please fill all the Fields"});
 
     }
 
-    let sql=`UPDATE member SET telephone = ?, address = ?, height = ?, weight = ?,
+    let sql=`UPDATE member SET firstName = ?, lastName = ?, telephone = ?, address = ?, height = ?, weight = ?,
     age = '23'  WHERE email = 'cmwick@gmail.com' `;
     {  
 
-    db.query(sql,[telephone,address,height,weight,age],(err,result)=>{
+    db.query(sql,[fname,lname,telephone,address,height,weight,age],(err,result)=>{
         console.log("Success");
         console.log(err);
     });

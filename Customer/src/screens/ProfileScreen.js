@@ -25,6 +25,7 @@ export default class App extends Component {
       this.setState({
         data: res.data,
       });
+      // setshowWarning(true);
     });
   }
 
@@ -52,7 +53,6 @@ export default class App extends Component {
                   <Text style={styles.textDetailsLarge}>{item.firstName}</Text>
                   <Text style={styles.textDetailsMedium}>{item.lastName}</Text>
                   <Text style={styles.textDetailsSmall}>{item.email}</Text>
-                  {/* <Text style={styles.textDetailsSmall}>(0771231234)</Text> */}
                 </View>
               ))}
             </View>
@@ -76,7 +76,7 @@ export default class App extends Component {
               </LinearGradient>
             </TouchableOpacity>
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style={styles.package}
               onPress={() =>
                 this.props.navigation.navigate('AddProfileScreen')
@@ -94,21 +94,27 @@ export default class App extends Component {
                   Add Profile Details
                 </Text>
               </LinearGradient>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
-            {/* <LinearGradient
-              colors={[colors.color3, colors.color4]}
-              style={styles.package}>
-              <Text
-                style={[
-                  styles.textPackage,
-                  {
-                    color: colors.color5,
-                  },
-                ]}>
-                Settings
-              </Text>
-            </LinearGradient> */}
+            <TouchableOpacity
+              style={styles.package}
+              onPress={() =>
+                this.props.navigation.navigate('UpdateProfileScreen')
+              }>
+              <LinearGradient
+                colors={[colors.color3, colors.color4]}
+                style={styles.package}>
+                <Text
+                  style={[
+                    styles.textPackage,
+                    {
+                      color: colors.color5,
+                    },
+                  ]}>
+                  Update Profile Details
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate('SplashScreen')}

@@ -76,6 +76,8 @@ const RegisterScreen = ({navigation}) => {
     check_textInputChange: false,
     secureTextEntry: true,
     confirm_secureTextEntry: true,
+    isValidPassword: true,
+    isValidConfirmPassword: true,
   });
 
   const textInputChangeFirstName = val => {
@@ -142,17 +144,35 @@ const RegisterScreen = ({navigation}) => {
   };
 
   const handlePasswordChange = val => {
-    setData({
-      ...data,
-      password: val,
-    });
+    if (val.trim().length >= 8) {
+      setData({
+        ...data,
+        // password: val,
+        isValidPassword: true,
+      });
+    } else {
+      setData({
+        ...data,
+        // password: val,
+        isValidPassword: false,
+      });
+    }
   };
 
   const handleConfirmPasswordChange = val => {
-    setData({
-      ...data,
-      password: val,
-    });
+    if (val.trim().length >= 8) {
+      setData({
+        ...data,
+        // password: val,
+        isValidConfirmPassword: true,
+      });
+    } else {
+      setData({
+        ...data,
+        // password: val,
+        isValidConfirmPassword: false,
+      });
+    }
   };
 
   const updateSecureTextEntry = () => {
@@ -165,7 +185,7 @@ const RegisterScreen = ({navigation}) => {
   const updateConfirmSecureTextEntry = () => {
     setData({
       ...data,
-      secureTextEntry: !data.secureTextEntry,
+      confirm_secureTextEntry: !data.confirm_secureTextEntry,
     });
   };
 
@@ -253,6 +273,7 @@ const RegisterScreen = ({navigation}) => {
             <FontAwesome name="envelope" color="grey" size={20} />
             <TextInput
               placeholder="Your Email"
+              keyboardType="email-address"
               style={styles.textInput}
               autoCapitalize="none"
               name="emailtext"
@@ -266,23 +287,6 @@ const RegisterScreen = ({navigation}) => {
               </Animatable.View>
             ) : null}
           </View>
-          {/* To get the phone number */}
-          {/* <Text style={styles.text_footer}>Contact No.</Text>
-          <View style={styles.action}>
-            <FontAwesome name="phone" color="grey" size={20} />
-
-            <TextInput
-              placeholder="Your Contact Number"
-              style={styles.textInput}
-              autoCapitalize="none"
-              //   onChangeText={val => textInputChange(val)}
-            />
-            {data.check_textInputChange ? (
-              <Animatable.View animation="bounceIn">
-                <Feather name="check-circle" color={colors.color2} size={20} />
-              </Animatable.View>
-            ) : null}
-          </View> */}
 
           {/* password */}
           <Text style={styles.text_footer}>Password</Text>
@@ -296,6 +300,7 @@ const RegisterScreen = ({navigation}) => {
               name="passwordtext"
               value={passwordtext}
               onChangeText={val => setpasswordtext(val)}
+              onEndEditing={e => handlePasswordChange(e.nativeEvent.text)}
               // onChangeText={val => handlePasswordChange(val)}
             />
             <TouchableOpacity onPress={updateSecureTextEntry}>
@@ -306,28 +311,45 @@ const RegisterScreen = ({navigation}) => {
               )}
             </TouchableOpacity>
           </View>
+          {data.isValidPassword ? null : (
+            <Animatable.View animation="fadeInLeft" duration={500}>
+              <Text style={styles.errorMsg}>
+                Password must be 8 Characters long
+              </Text>
+            </Animatable.View>
+          )}
           {/* confirm password */}
           <Text style={styles.text_footer}>Confirm Password</Text>
           <View style={styles.action}>
             <FontAwesome name="lock" color="grey" size={20} />
             <TextInput
               placeholder="Re-enter Password"
-              secureTextEntry={data.secureTextEntry ? true : false}
+              secureTextEntry={data.confirm_secureTextEntry ? true : false}
               style={styles.textInput}
               autoCapitalize="none"
               name="cpasswordtext"
               value={cpasswordtext}
               onChangeText={val => setcpasswordtext(val)}
+              onEndEditing={e =>
+                handleConfirmPasswordChange(e.nativeEvent.text)
+              }
               // onChangeText={val => handleConfirmPasswordChange(val)}
             />
             <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
-              {data.secureTextEntry ? (
+              {data.confirm_secureTextEntry ? (
                 <Feather name="eye-off" color={colors.color2} size={20} />
               ) : (
                 <Feather name="eye" color={colors.color2} size={20} />
               )}
             </TouchableOpacity>
           </View>
+          {data.isValidConfirmPassword ? null : (
+            <Animatable.View animation="fadeInLeft" duration={500}>
+              <Text style={styles.errorMsg}>
+                Password must be 8 Characters long
+              </Text>
+            </Animatable.View>
+          )}
 
           <View style={styles.button}>
             <TouchableOpacity
@@ -412,6 +434,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
     fontFamily: 'roboto',
+    // paddingTop: 10,
+    // marginTop: 5,
   },
   text_header_small: {
     color: colors.color5,
@@ -422,13 +446,14 @@ const styles = StyleSheet.create({
   text_footer: {
     color: '#05375a',
     fontSize: 18,
+    paddingTop: 5,
   },
   action: {
     flexDirection: 'row',
-    marginTop: 10,
+    marginTop: 5,
     borderBottomWidth: 1,
     borderBottomColor: '#f2f2f2',
-    paddingBottom: 5,
+    // paddingBottom: 5,
   },
   actionError: {
     flexDirection: 'row',
@@ -451,7 +476,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 20,
     width: '100%',
   },
   signIn: {

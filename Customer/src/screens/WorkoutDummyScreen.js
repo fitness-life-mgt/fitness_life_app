@@ -34,70 +34,257 @@ const WorkoutDummyScreen = () => {
       <View style={styles.header}>
         <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
         <View>
-          <Text style={styles.headerText}>Arm Workouts</Text>
+          <Text style={styles.headerText}>Dummy Workouts</Text>
         </View>
       </View>
 
       <View style={styles.body}>
         <ScrollView showsVerticalScrollIndicator={false}>
+          {/* 1 */}
           <View style={styles.item}>
             <View style={styles.toparea}>
               <View style={styles.imagearea}>
                 {/* const imageName = {item.image} */}
                 <Image
                   style={styles.image}
-                  source={require('../assests/images/workout.jpg')}
+                  source={require('../assests/images/workouts/w1.jpg')}
                 />
               </View>
               <View style={styles.titlearea}>
-                <Text style={styles.text_header}>Title</Text>
+                <Text style={styles.text_header}>Mid-pushup hold</Text>
                 <Text style={styles.text_header_duration}>
-                  Duration: Duration seconds
+                  Duration: 180 seconds
                 </Text>
               </View>
             </View>
             <View style={styles.descarea}>
-              <Text style={styles.text_header_small}>Description</Text>
+              <Text style={styles.text_header_small}>
+                Lowering yourself halfway into a pushup and hovering provides a
+                crazy isometric burn for pretty much the entire upper body, and
+                the triceps
+              </Text>
             </View>
           </View>
+          {/* 2 */}
           <View style={styles.item}>
             <View style={styles.toparea}>
               <View style={styles.imagearea}>
                 {/* const imageName = {item.image} */}
                 <Image
                   style={styles.image}
-                  source={require('../assests/images/workout.jpg')}
+                  source={require('../assests/images/workouts/w2.jpeg')}
                 />
               </View>
               <View style={styles.titlearea}>
-                <Text style={styles.text_header}>Title</Text>
+                <Text style={styles.text_header}>Hammer Curls</Text>
                 <Text style={styles.text_header_duration}>
-                  Duration: Duration seconds
+                  Duration: 60 seconds
                 </Text>
               </View>
             </View>
             <View style={styles.descarea}>
-              <Text style={styles.text_header_small}>Description</Text>
+              <Text style={styles.text_header_small}>
+                Go as heavy as you can handle for 10 reps—and then do curls in
+                three one-minute sets, with a minute’s rest in-between
+              </Text>
             </View>
           </View>
+          {/* 3 */}
           <View style={styles.item}>
             <View style={styles.toparea}>
               <View style={styles.imagearea}>
                 {/* const imageName = {item.image} */}
                 <Image
                   style={styles.image}
-                  source={require('../assests/images/workout.jpg')}
+                  source={require('../assests/images/workouts/w3.jpeg')}
                 />
               </View>
               <View style={styles.titlearea}>
-                <Text style={styles.text_header}>Title</Text>
+                <Text style={styles.text_header}>Tricep Dips</Text>
                 <Text style={styles.text_header_duration}>
-                  Duration: Duration seconds
+                  Duration: 60 seconds
                 </Text>
               </View>
             </View>
             <View style={styles.descarea}>
-              <Text style={styles.text_header_small}>Description</Text>
+              <Text style={styles.text_header_small}>
+                Before you even consider bending your elbows, widen your chest
+                and keep it proud, shoulders back. Bend your elbows straight
+                back, again, focusing on your shoulder position.
+              </Text>
+            </View>
+          </View>
+          {/* 4 */}
+          <View style={styles.item}>
+            <View style={styles.toparea}>
+              <View style={styles.imagearea}>
+                {/* const imageName = {item.image} */}
+                <Image
+                  style={styles.image}
+                  source={require('../assests/images/workouts/w4.jpeg')}
+                />
+              </View>
+              <View style={styles.titlearea}>
+                <Text style={styles.text_header}>Rope Cable Pushdown</Text>
+                <Text style={styles.text_header_duration}>
+                  Duration: 80 seconds
+                </Text>
+              </View>
+            </View>
+            <View style={styles.descarea}>
+              <Text style={styles.text_header_small}>
+                Stand with feet planted, and grasp the rope handles, pulling
+                them down so your elbows are at right angles, locked at your
+                sides. Press slowly straight down toward your legs.
+              </Text>
+            </View>
+          </View>
+          {/* 5 */}
+          <View style={styles.item}>
+            <View style={styles.toparea}>
+              <View style={styles.imagearea}>
+                {/* const imageName = {item.image} */}
+                <Image
+                  style={styles.image}
+                  source={require('../assests/images/workouts/w5.jpeg')}
+                />
+              </View>
+              <View style={styles.titlearea}>
+                <Text style={styles.text_header}>Leg Press</Text>
+                <Text style={styles.text_header_duration}>
+                  Duration: 180 seconds
+                </Text>
+              </View>
+            </View>
+            <View style={styles.descarea}>
+              <Text style={styles.text_header_small}>
+                Bend your knees to lower the platform, stopping before your
+                glutes lift off the pad. From there, powerfully extend your
+                knees to press the weight up.
+              </Text>
+            </View>
+          </View>
+          {/* 6 */}
+          <View style={styles.item}>
+            <View style={styles.toparea}>
+              <View style={styles.imagearea}>
+                {/* const imageName = {item.image} */}
+                <Image
+                  style={styles.image}
+                  source={require('../assests/images/workouts/w6.jpg')}
+                />
+              </View>
+              <View style={styles.titlearea}>
+                <Text style={styles.text_header}>Step-Up</Text>
+                <Text style={styles.text_header_duration}>
+                  Duration: 80 seconds
+                </Text>
+              </View>
+            </View>
+            <View style={styles.descarea}>
+              <Text style={styles.text_header_small}>
+                Hold a dumbbell in each hand in front of a knee- to hip-high
+                step, bench or platform.
+              </Text>
+            </View>
+          </View>
+          {/* 7 */}
+          <View style={styles.item}>
+            <View style={styles.toparea}>
+              <View style={styles.imagearea}>
+                {/* const imageName = {item.image} */}
+                <Image
+                  style={styles.image}
+                  source={require('../assests/images/workouts/w7.jpeg')}
+                />
+              </View>
+              <View style={styles.titlearea}>
+                <Text style={styles.text_header}>Walking Lunge</Text>
+                <Text style={styles.text_header_duration}>
+                  Duration: 120 seconds
+                </Text>
+              </View>
+            </View>
+            <View style={styles.descarea}>
+              <Text style={styles.text_header_small}>
+                Holding dumbbells in each hand, step forward with one foot. Bend
+                both knees to lower your torso toward the floor.
+              </Text>
+            </View>
+          </View>
+          {/* 8 */}
+          <View style={styles.item}>
+            <View style={styles.toparea}>
+              <View style={styles.imagearea}>
+                {/* const imageName = {item.image} */}
+                <Image
+                  style={styles.image}
+                  source={require('../assests/images/workouts/w8.jpeg')}
+                />
+              </View>
+              <View style={styles.titlearea}>
+                <Text style={styles.text_header}>Dumbell Crunch</Text>
+                <Text style={styles.text_header_duration}>
+                  Duration: 100 seconds
+                </Text>
+              </View>
+            </View>
+            <View style={styles.descarea}>
+              <Text style={styles.text_header_small}>
+                Lie on your back, holding a dumbbell or weight plate across your
+                chest in both hands. Raise your torso, then lower it,
+                maintaining tension in your uppers abs throughout.
+              </Text>
+            </View>
+          </View>
+          {/* 9 */}
+          <View style={styles.item}>
+            <View style={styles.toparea}>
+              <View style={styles.imagearea}>
+                {/* const imageName = {item.image} */}
+                <Image
+                  style={styles.image}
+                  source={require('../assests/images/workouts/w9.jpeg')}
+                />
+              </View>
+              <View style={styles.titlearea}>
+                <Text style={styles.text_header}>Hanging Knee Raise</Text>
+                <Text style={styles.text_header_duration}>
+                  Duration: 150 seconds
+                </Text>
+              </View>
+            </View>
+            <View style={styles.descarea}>
+              <Text style={styles.text_header_small}>
+                Start in a dead hang and raise your knees powerfully to activate
+                more of the muscle fibres in the lower abs. Lower back to the
+                start under control to prevent swinging.
+              </Text>
+            </View>
+          </View>
+          {/* 10 */}
+          <View style={styles.item}>
+            <View style={styles.toparea}>
+              <View style={styles.imagearea}>
+                {/* const imageName = {item.image} */}
+                <Image
+                  style={styles.image}
+                  source={require('../assests/images/workouts/w10.jpeg')}
+                />
+              </View>
+              <View style={styles.titlearea}>
+                <Text style={styles.text_header}>Plank</Text>
+                <Text style={styles.text_header_duration}>
+                  Duration: 90 seconds
+                </Text>
+              </View>
+            </View>
+            <View style={styles.descarea}>
+              <Text style={styles.text_header_small}>
+                Maintain a strict plank position, with your hips up, your glutes
+                and core braced, and your head and neck relaxed. Breathing
+                slowly and deeply.
+              </Text>
             </View>
           </View>
         </ScrollView>
@@ -168,6 +355,8 @@ const styles = StyleSheet.create({
   image: {
     height: 90,
     width: (windowWidth * 2) / 6,
+    borderWidth: 1,
+    borderColor: colors.color1,
   },
 
   container: {

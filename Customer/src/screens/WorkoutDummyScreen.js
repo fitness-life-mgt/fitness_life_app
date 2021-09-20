@@ -34,17 +34,18 @@ const WorkoutDummyScreen = () => {
       <View style={styles.header}>
         <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
         <View>
-          <Text style={styles.headerText}>Dummy Workouts</Text>
+          {/* <Text style={styles.headerText}>Arm Workouts</Text> */}
+          {/* <Text style={styles.headerText}>Leg Workouts</Text> */}
+          <Text style={styles.headerText}>ABS Workouts</Text>
         </View>
       </View>
 
       <View style={styles.body}>
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* 1 */}
-          <View style={styles.item}>
+          {/* <View style={styles.item}>
             <View style={styles.toparea}>
               <View style={styles.imagearea}>
-                {/* const imageName = {item.image} */}
                 <Image
                   style={styles.image}
                   source={require('../assests/images/workouts/w1.jpg')}
@@ -64,12 +65,11 @@ const WorkoutDummyScreen = () => {
                 the triceps
               </Text>
             </View>
-          </View>
+          </View> */}
           {/* 2 */}
-          <View style={styles.item}>
+          {/* <View style={styles.item}>
             <View style={styles.toparea}>
               <View style={styles.imagearea}>
-                {/* const imageName = {item.image} */}
                 <Image
                   style={styles.image}
                   source={require('../assests/images/workouts/w2.jpeg')}
@@ -88,12 +88,11 @@ const WorkoutDummyScreen = () => {
                 three one-minute sets, with a minute’s rest in-between
               </Text>
             </View>
-          </View>
+          </View> */}
           {/* 3 */}
           <View style={styles.item}>
             <View style={styles.toparea}>
               <View style={styles.imagearea}>
-                {/* const imageName = {item.image} */}
                 <Image
                   style={styles.image}
                   source={require('../assests/images/workouts/w3.jpeg')}
@@ -115,10 +114,9 @@ const WorkoutDummyScreen = () => {
             </View>
           </View>
           {/* 4 */}
-          <View style={styles.item}>
+          {/* <View style={styles.item}>
             <View style={styles.toparea}>
               <View style={styles.imagearea}>
-                {/* const imageName = {item.image} */}
                 <Image
                   style={styles.image}
                   source={require('../assests/images/workouts/w4.jpeg')}
@@ -138,12 +136,11 @@ const WorkoutDummyScreen = () => {
                 sides. Press slowly straight down toward your legs.
               </Text>
             </View>
-          </View>
+          </View> */}
           {/* 5 */}
-          <View style={styles.item}>
+          {/* <View style={styles.item}>
             <View style={styles.toparea}>
               <View style={styles.imagearea}>
-                {/* const imageName = {item.image} */}
                 <Image
                   style={styles.image}
                   source={require('../assests/images/workouts/w5.jpeg')}
@@ -163,12 +160,11 @@ const WorkoutDummyScreen = () => {
                 knees to press the weight up.
               </Text>
             </View>
-          </View>
+          </View> */}
           {/* 6 */}
-          <View style={styles.item}>
+          {/* <View style={styles.item}>
             <View style={styles.toparea}>
               <View style={styles.imagearea}>
-                {/* const imageName = {item.image} */}
                 <Image
                   style={styles.image}
                   source={require('../assests/images/workouts/w6.jpg')}
@@ -187,12 +183,11 @@ const WorkoutDummyScreen = () => {
                 step, bench or platform.
               </Text>
             </View>
-          </View>
+          </View> */}
           {/* 7 */}
-          <View style={styles.item}>
+          {/* <View style={styles.item}>
             <View style={styles.toparea}>
               <View style={styles.imagearea}>
-                {/* const imageName = {item.image} */}
                 <Image
                   style={styles.image}
                   source={require('../assests/images/workouts/w7.jpeg')}
@@ -211,12 +206,11 @@ const WorkoutDummyScreen = () => {
                 both knees to lower your torso toward the floor.
               </Text>
             </View>
-          </View>
+          </View> */}
           {/* 8 */}
           <View style={styles.item}>
             <View style={styles.toparea}>
               <View style={styles.imagearea}>
-                {/* const imageName = {item.image} */}
                 <Image
                   style={styles.image}
                   source={require('../assests/images/workouts/w8.jpeg')}
@@ -241,7 +235,6 @@ const WorkoutDummyScreen = () => {
           <View style={styles.item}>
             <View style={styles.toparea}>
               <View style={styles.imagearea}>
-                {/* const imageName = {item.image} */}
                 <Image
                   style={styles.image}
                   source={require('../assests/images/workouts/w9.jpeg')}
@@ -266,7 +259,6 @@ const WorkoutDummyScreen = () => {
           <View style={styles.item}>
             <View style={styles.toparea}>
               <View style={styles.imagearea}>
-                {/* const imageName = {item.image} */}
                 <Image
                   style={styles.image}
                   source={require('../assests/images/workouts/w10.jpeg')}

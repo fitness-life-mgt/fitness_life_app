@@ -25,6 +25,7 @@ import WorkoutDummyScreen from './WorkoutDummyScreen';
 import AboutUsScreen from './AboutUsScreen';
 import RequestAppointmentsScreen from './RequestedAppointmentsScreen';
 import RequestedDietPlansScreen from './RequestedDietPlansScreen';
+import UpdateProfileScreen from './UpdateProfileDetails';
 
 const RootStack = createStackNavigator();
 
@@ -281,6 +282,18 @@ const RootStackScreen = ({navigation}) => {
         <RootStack.Screen
           name="AboutUsScreen"
           component={AboutUsScreen}
+          options={{
+            title: '',
+            headerShown: false,
+
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
+        <RootStack.Screen
+          name="UpdateProfileScreen"
+          component={UpdateProfileScreen}
           options={{
             title: '',
             headerShown: false,

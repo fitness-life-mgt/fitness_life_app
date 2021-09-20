@@ -27,13 +27,15 @@ import PhoneInput from 'react-native-phone-number-input';
 import DatePicker from 'react-native-date-picker';
 
 const AddProfileScreen = ({navigation}) => {
+  const [fnametext, setfnametext] = useState('');
+  const [lnametext, setlnametext] = useState('');
   const [phonetext, setphonetext] = useState('');
   //   const [passwordtext, setpasswordtext] = useState('');
   //   const [cpasswordtext, setcpasswordtext] = useState('');
   const [addresstext, setaddresstext] = useState('');
   const [heighttext, setheighttext] = useState('');
   const [weighttext, setweighttext] = useState('');
-  const [agetext, setagetext] = useState('');
+  //   const [agetext, setagetext] = useState('');
   const [showWarning, setshowWarning] = useState(false);
 
   const [date, setDate] = useState(new Date());
@@ -41,8 +43,10 @@ const AddProfileScreen = ({navigation}) => {
   const enddate = new Date(2004, 12, 31);
   const startdate = new Date(1960, 1, 1);
 
-  const Edit = (telephone, address, height, weight, age) => {
+  const Edit = (fname, lname, telephone, address, height, weight, age) => {
     const x = {
+      fname: fname,
+      lname: lname,
       telephone: telephone,
       address: address,
       height: height,
@@ -50,7 +54,7 @@ const AddProfileScreen = ({navigation}) => {
       age: age,
     };
 
-    axios.post('http://localhost:8088/addProfileDetails', x).then(res => {
+    axios.post('http://localhost:8088/updateProfileDetails', x).then(res => {
       if (res.data == 'SUCCESS') {
         setshowWarning(true);
       } else {
@@ -102,7 +106,9 @@ const AddProfileScreen = ({navigation}) => {
               <Text style={styles.header_text_modal}>Success!</Text>
             </View>
             <View style={styles.body_modal}>
-              <Text style={styles.body_text_modal}>Profile Details Added</Text>
+              <Text style={styles.body_text_modal}>
+                Profile Details Updated
+              </Text>
             </View>
             <Pressable
               style={styles.pressable_modal}
@@ -115,9 +121,9 @@ const AddProfileScreen = ({navigation}) => {
       </Modal>
       <View style={styles.header}>
         <StatusBar backgroundColor={colors.color2} barStyle="light-content" />
-        <Text style={styles.text_header}>Add Your Details</Text>
+        <Text style={styles.text_header}>Update Your Details</Text>
         <Text style={styles.textDetailsMedium}>
-          Add details to complete your profile
+          Enter the Details you wanted to Update
         </Text>
       </View>
 
@@ -125,6 +131,32 @@ const AddProfileScreen = ({navigation}) => {
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* To get the phone number */}
           <View>
+            <Text style={styles.text_footer}>First Name</Text>
+            <View style={styles.action}>
+              <Entypo name="user" color="grey" size={20} />
+              <TextInput
+                placeholder="Your First Name"
+                style={styles.textInput}
+                autoCapitalize="none"
+                name="fnametext"
+                value={fnametext}
+                onChangeText={val => setfnametext(val)}
+              />
+            </View>
+
+            <Text style={styles.text_footer}>Last Name</Text>
+            <View style={styles.action}>
+              <Entypo name="user" color="grey" size={20} />
+              <TextInput
+                placeholder="Your Last Name"
+                style={styles.textInput}
+                autoCapitalize="none"
+                name="lnametext"
+                value={lnametext}
+                onChangeText={val => setlnametext(val)}
+              />
+            </View>
+
             <Text style={styles.text_footer}>Contact No.</Text>
             <View style={styles.action}>
               <Entypo name="phone" color="grey" size={20} />
@@ -138,15 +170,6 @@ const AddProfileScreen = ({navigation}) => {
                 onChangeText={val => setphonetext(val)}
                 onEndEditing={e => handleTelephone(e.nativeEvent.text)}
               />
-              {data.check_textInputChange ? (
-                <Animatable.View animation="bounceIn">
-                  <Feather
-                    name="check-circle"
-                    color={colors.color2}
-                    size={20}
-                  />
-                </Animatable.View>
-              ) : null}
             </View>
             {data.isValidTelephone ? null : (
               <Animatable.View animation="fadeInLeft" duration={500}>
@@ -281,7 +304,14 @@ const AddProfileScreen = ({navigation}) => {
             <TouchableOpacity
               style={styles.button}
               onPress={() =>
-                Edit(phonetext, addresstext, heighttext, weighttext, agetext)
+                Edit(
+                  fnametext,
+                  lnametext,
+                  phonetext,
+                  addresstext,
+                  heighttext,
+                  weighttext,
+                )
               }>
               <LinearGradient
                 colors={[colors.color3, colors.color4]}
@@ -295,7 +325,7 @@ const AddProfileScreen = ({navigation}) => {
                       color: '#ffffff',
                     },
                   ]}>
-                  Add Details
+                  Update Details
                 </Text>
               </LinearGradient>
             </TouchableOpacity>

@@ -127,7 +127,7 @@ export default class App extends Component {
                     color: colors.color3,
                   },
                 ]}>
-                Log In
+                Log Out
               </Text>
             </TouchableOpacity>
           </View>

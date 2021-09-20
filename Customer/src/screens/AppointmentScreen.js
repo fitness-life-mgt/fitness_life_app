@@ -31,6 +31,24 @@ const AppointmentScreen = ({navigation}) => {
         <View style={styles.button_package}>
           <TouchableOpacity
             style={styles.package}
+            onPress={() => navigation.navigate('ApprovedAppointmentsScreen')}>
+            <LinearGradient
+              colors={[colors.color3, colors.color4]}
+              style={styles.package}>
+              <Text
+                style={[
+                  styles.textPackage,
+                  {
+                    color: colors.color5,
+                  },
+                ]}>
+                Ongoing Appointments
+              </Text>
+            </LinearGradient>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.package}
             onPress={() => navigation.navigate('MakeAppointment')}>
             <LinearGradient
               colors={[colors.color3, colors.color4]}
@@ -49,7 +67,7 @@ const AppointmentScreen = ({navigation}) => {
 
           <TouchableOpacity
             style={styles.package}
-            onPress={() => navigation.navigate('ApprovedAppointmentsScreen')}>
+            onPress={() => navigation.navigate('RequestAppointmentsScreen')}>
             <LinearGradient
               colors={[colors.color3, colors.color4]}
               style={styles.package}>
@@ -60,27 +78,30 @@ const AppointmentScreen = ({navigation}) => {
                     color: colors.color5,
                   },
                 ]}>
-                Approved Appointments
+                Requested Appointments
               </Text>
             </LinearGradient>
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.package}
-            onPress={() => navigation.navigate('PastAppointmentScreen')}>
-            <LinearGradient
-              colors={[colors.color3, colors.color4]}
-              style={styles.package}>
-              <Text
-                style={[
-                  styles.textPackage,
-                  {
-                    color: colors.color5,
-                  },
-                ]}>
-                Past Appointments
-              </Text>
-            </LinearGradient>
+            onPress={() => navigation.navigate('PastAppointmentScreen')}
+            style={[
+              styles.btn2,
+              // eslint-disable-next-line react-native/no-inline-styles
+              {
+                borderColor: colors.color3,
+                borderWidth: 1,
+              },
+            ]}>
+            <Text
+              style={[
+                styles.textbtn2,
+                {
+                  color: colors.color3,
+                },
+              ]}>
+              Past Appointments
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -125,7 +146,7 @@ const styles = StyleSheet.create({
   button_package: {
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    marginTop: 50,
+    marginTop: 40,
     marginLeft: 10,
     marginRight: 10,
     width: windowWidth,
@@ -148,6 +169,20 @@ const styles = StyleSheet.create({
   image: {
     height: 200,
     width: windowWidth,
+  },
+  btn2: {
+    width: '100%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    marginTop: -10,
+  },
+  textbtn2: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginRight: 10,
+    marginLeft: 10,
   },
 });
 

@@ -28,7 +28,7 @@ const MakeAppointment = ({navigation}) => {
   const [apptimetext, setapptimetext] = useState('');
   const [trainertext, settrainertext] = useState('');
   const [showWarning, setshowWarning] = useState(false);
-  const today = new Date(2021, 9, 20);
+  const today = new Date(new Date().getFullYear(), new Date().getMonth(), 21);
 
   const SignUp = (appdate, apptime, trainer) => {
     const x = {
@@ -157,6 +157,7 @@ const MakeAppointment = ({navigation}) => {
             // format="YYYY-MM-DD"
             // minimumDate={today}
             // minimumDate="2021-09-20"
+            minimumDate={today}
             modal
             open={open1}
             date={date}

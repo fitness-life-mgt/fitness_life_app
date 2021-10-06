@@ -230,7 +230,7 @@ const AddProfileScreen = ({navigation}) => {
               ) : null}
             </View>
 
-            <Text style={styles.text_footer}>Age</Text>
+            <Text style={styles.text_footer}>Date of Birth</Text>
             <View style={styles.action}>
               <Button
                 style={styles.btnDate}
